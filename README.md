@@ -1,5 +1,0 @@
-
-PUNCHFUCKCKCKC
-
-c===3
-
