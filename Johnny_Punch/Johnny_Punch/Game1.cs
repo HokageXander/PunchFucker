@@ -17,7 +17,7 @@ namespace Johnny_Punch
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         GameManager gameManager;
-        //Camera camera;
+        Camera camera;
 
 
         public Game1()
@@ -44,8 +44,9 @@ namespace Johnny_Punch
             gameManager = new GameManager();
 
             gameManager.LoadContent(Content, GraphicsDevice, spriteBatch);
-            //camera = new Camera(GraphicsDevice.Viewport);
-
+            camera = new Camera(GraphicsDevice.Viewport);
+            
+            
         }
 
         
@@ -61,16 +62,20 @@ namespace Johnny_Punch
                 this.Exit();
 
             gameManager.Update(gameTime);
-            //camera.Update(player.GetPos, player.GetRec);
+            
             base.Update(gameTime);
+            camera.Update(gameManager.playerManager.playerList[0].GetPos, gameManager.playerManager.playerList[0].GetRec);
         }
 
         
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.LightPink);
-
             spriteBatch.Begin();
+            gameManager.DrawStats(spriteBatch);
+            spriteBatch.End();
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.GetTransform);
             gameManager.Draw(spriteBatch);
             spriteBatch.End();
 

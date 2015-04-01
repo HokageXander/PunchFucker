@@ -11,7 +11,9 @@ namespace Johnny_Punch
     class GameManager
     {
         EnemyManager enemyManager;
-        PlayerManager playerManager;
+        public PlayerManager playerManager;
+
+
 
         int firstDigitSeconds, secondDigitSeconds, firstDigitMinutes, secondDigitMinutes, firstDigitHours, secondDigitHours;
         double time, digitSeconds;
@@ -51,6 +53,13 @@ namespace Johnny_Punch
             time += gameTime.ElapsedGameTime.TotalSeconds;
 
         }
+        public void DrawStats(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(TextureManager.StatusBarTex, Vector2.Zero, Color.White);
+            spriteBatch.DrawString(TextureManager.timeFont, secondDigitHours.ToString() + firstDigitHours.ToString() +
+                ":" + secondDigitMinutes.ToString() + firstDigitMinutes.ToString() +
+                ":" + secondDigitSeconds.ToString() + firstDigitSeconds.ToString(), new Vector2(523, 630), Color.Green);
+        }
 
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -58,13 +67,12 @@ namespace Johnny_Punch
             enemyManager.Draw(spriteBatch);
             playerManager.Draw(spriteBatch);
             //spriteBatch.DrawString(TextureManager.timeFont, totalPlayTime.ToString(), new Vector2(590, 630), Color.Green);
-            spriteBatch.DrawString(TextureManager.timeFont, secondDigitHours.ToString() + firstDigitHours.ToString() +
-                ":" + secondDigitMinutes.ToString() + firstDigitMinutes.ToString() +
-                ":" + secondDigitSeconds.ToString() + firstDigitSeconds.ToString(), new Vector2(523, 630), Color.Green);
+
 
 
 
         }
+
 
         public static void CheckIsDead()
         {

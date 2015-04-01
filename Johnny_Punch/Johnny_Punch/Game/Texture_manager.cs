@@ -12,6 +12,7 @@ namespace Johnny_Punch
     {
         #region Environment graphics
         public static Texture2D backgroundTex { get; private set; }
+        public static Texture2D StatusBarTex { get; private set; }
         #endregion
 
         #region Player graphics
@@ -33,6 +34,7 @@ namespace Johnny_Punch
         {
             #region Environment graphics
             backgroundTex = Content.Load<Texture2D>(@"Images\background");
+            StatusBarTex = Content.Load<Texture2D>(@"Images\StatusBar");
             #endregion
 
             
@@ -41,12 +43,6 @@ namespace Johnny_Punch
             #region Player graphics
             Player_tex = Content.Load<Texture2D>(@"Images\DragonDude");
             #endregion
-
-
-
-
-
-
 
             #region Enemy graphics
             Tiny_tim = Content.Load<Texture2D>(@"Images\tinytim");

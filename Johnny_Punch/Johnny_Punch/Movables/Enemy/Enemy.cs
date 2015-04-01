@@ -22,14 +22,14 @@ namespace Johnny_Punch
         }
         public override void Update(GameTime gameTime)
         {
-            boundingBox = new Rectangle((int)pos.X - width/2, (int)pos.Y - height/2, width, height);
+            boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width, height);
             feetBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y + (height - 4) - height / 2, width, height - (height - 4));
 
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, offset, 1f, SpriteEffects.None, 0f);
-            //spriteBatch.Draw(tex, feetBox, Color.Red);
+            spriteBatch.Draw(tex, feetBox, Color.Red);
             //spriteBatch.Draw(tex, boundingBox, Color.Red);
         }
 

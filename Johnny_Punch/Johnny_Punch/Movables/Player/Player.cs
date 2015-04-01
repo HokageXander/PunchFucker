@@ -119,21 +119,21 @@ namespace Johnny_Punch
             spriteBatch.Draw(tex, feetBox, Color.Red);
             //spriteBatch.Draw(tex, boundingBox, Color.Red);
         }
-        //public Vector2 GetPos
-        //{
-        //    get
-        //    {
-        //        return pos;
-        //    }
-        //}
+        public Vector2 GetPos
+        {
+            get
+            {
+                return pos;
+            }
+        }
 
-        //public Rectangle GetRec
-        //{
-        //    get
-        //    {
-        //        return hitBox;
-        //    }
-        //}
+        public Rectangle GetRec
+        {
+            get
+            {
+                return boundingBox;
+            }
+        }
         
     }
 }
