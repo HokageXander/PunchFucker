@@ -42,6 +42,12 @@ namespace Johnny_Punch
             Player_tex = Content.Load<Texture2D>(@"Images\DragonDude");
             #endregion
 
+
+
+
+
+
+
             #region Enemy graphics
             Tiny_tim = Content.Load<Texture2D>(@"Images\tinytim");
             standardEnemyTex = Content.Load<Texture2D>(@"images\Testenemy");
