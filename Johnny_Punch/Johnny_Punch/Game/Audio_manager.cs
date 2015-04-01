@@ -7,5 +7,6 @@ namespace Johnny_Punch
 {
     class AudioManager
     {
+
     }
 }

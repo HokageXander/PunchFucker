@@ -60,6 +60,9 @@ namespace Johnny_Punch
                 ":" + secondDigitMinutes.ToString() + firstDigitMinutes.ToString() +
                 ":" + secondDigitSeconds.ToString() + firstDigitSeconds.ToString(), new Vector2(523, 630), Color.Green);
         }
+   
+
+
 
         public void Draw(SpriteBatch spriteBatch)
         {
