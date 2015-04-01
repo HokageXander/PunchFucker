@@ -16,6 +16,7 @@ namespace Johnny_Punch
             width /= 1;
             aggroRadius = 250;
             animationBox = new Rectangle(0, 0, width, height);
+            damageToPlayer -= 1;
         }
 
         public override void Update(GameTime gameTime)

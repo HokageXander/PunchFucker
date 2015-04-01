@@ -20,7 +20,7 @@ namespace Johnny_Punch
 
         public void Update(Vector2 playerPos, Rectangle pRec)
         {
-            centre = new Vector2(playerPos.X + (pRec.Width / 2) - 400, 0);
+            centre = new Vector2(playerPos.X + (pRec.Width / 2) - 640, 0);
 
             transform = Matrix.CreateScale(new Vector3(1, 1, 0))
                 * Matrix.CreateTranslation(new Vector3(-centre.X, -centre.Y, 0));

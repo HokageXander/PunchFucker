@@ -11,7 +11,7 @@ namespace Johnny_Punch
     {
         protected int aggroRadius;
         protected Vector2 velocity;
-
+        public int damageToPlayer;
         public Enemy(Texture2D tex, Vector2 pos)
             : base(tex,pos)
         {
