@@ -9,6 +9,7 @@ namespace Johnny_Punch
 {
     abstract class Enemy : Movables
     {
+        public static bool angryFace;
         protected int aggroRadius;
         protected Vector2 velocity;
         public int damageToPlayer;
@@ -35,6 +36,7 @@ namespace Johnny_Punch
 
         public void Aggro(Player player)
         {
+            angryFace = false;
             if (Vector2.Distance(pos, player.pos) < aggroRadius && Vector2.Distance(pos, player.pos) > 20)
             {
                 Vector2 direction = new Vector2(player.pos.X, player.pos.Y) - this.pos;
@@ -42,6 +44,7 @@ namespace Johnny_Punch
                 velocity.X = 1 * direction.X;
                 velocity.Y = 3 * direction.Y;
                 pos += velocity;
+                angryFace = true;
             }
             //if (player.feetBox.Y - feetBox.Y <= 20)
             if(Vector2.Distance(pos, player.pos) < 20)

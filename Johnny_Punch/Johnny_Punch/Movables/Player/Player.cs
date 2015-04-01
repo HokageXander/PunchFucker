@@ -115,8 +115,8 @@ namespace Johnny_Punch
         public override void Draw(SpriteBatch spriteBatch)
         {
                 spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, offset, 1f, spriteEffect, 0f);
-
-            spriteBatch.Draw(tex, feetBox, Color.Red);
+            
+            //spriteBatch.Draw(tex, feetBox, Color.Red);
             //spriteBatch.Draw(tex, boundingBox, Color.Red);
         }
         public Vector2 GetPos

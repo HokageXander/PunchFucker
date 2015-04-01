@@ -10,6 +10,7 @@ namespace Johnny_Punch
 {
     class PlayerManager
     {
+        
         public List<Player> playerList = new List<Player>();
         public PlayerManager()
         {
@@ -19,6 +20,7 @@ namespace Johnny_Punch
         public void Update(GameTime gameTime)
         {
             AddPlayer();
+            
 
             foreach (Player player in playerList)
             {
@@ -40,6 +42,7 @@ namespace Johnny_Punch
                 playerList.Add(new Player(TextureManager.Player_tex, new Vector2(200, 400))); 
             }
         }
+        
 
     }
 
