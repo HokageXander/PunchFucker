@@ -35,6 +35,9 @@ namespace Johnny_Punch
             backgroundTex = Content.Load<Texture2D>(@"Images\background");
             #endregion
 
+            
+
+             
             #region Player graphics
             Player_tex = Content.Load<Texture2D>(@"Images\DragonDude");
             #endregion
