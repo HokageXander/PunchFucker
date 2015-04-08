@@ -18,7 +18,7 @@ namespace Johnny_Punch
         SpriteBatch spriteBatch;
         GameManager gameManager;
         Camera camera;
-
+        //suck myu tits
 
         public Game1()
         {
