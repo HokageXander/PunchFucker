@@ -22,10 +22,12 @@ namespace Johnny_Punch
             //this.tex = tex;
             this.pos = pos;
             this.boundingBox = boundingBox;
-            animationBox = new Rectangle(0, 0, 92, 119);
-            width /= 3;
+            animationBox = new Rectangle(0, 0, 75, 116);
+            width /= 9;
+            height /= 10;
             
             this.speed = new Vector2(0, 0);
+            offset = new Vector2(width / 2, height / 2);
         }
 
         public override void Update(GameTime gameTime)
@@ -41,7 +43,7 @@ namespace Johnny_Punch
                 speed.Y = 0;
 
             boundingBox = new Rectangle((int)pos.X - width/2, (int)pos.Y - height/2, width, height);
-            feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (height - 4) - (int)offset.Y, width, height - (height - 4));
+            feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (117 - 4) - (int)offset.Y, width, height - (height - 4));
             Moving(gameTime);
         }
 
@@ -91,7 +93,7 @@ namespace Johnny_Punch
                 moving = false;
 
             if (moving)
-                Animation(120, 3, 92, gameTime);
+                Animation(120, 3, 75, gameTime);
             #endregion
             #region Onground Bool and Jump
             if (!onGround)

@@ -39,11 +39,9 @@ namespace Johnny_Punch
             statusBarAngryTex = Content.Load<Texture2D>(@"Images\StatusBarAngry");
             #endregion
 
-            
-
-             
+ 
             #region Player graphics
-            Player_tex = Content.Load<Texture2D>(@"Images\DragonDude");
+            Player_tex = Content.Load<Texture2D>(@"Images\AlexSheet");
             #endregion
 
             #region Enemy graphics
