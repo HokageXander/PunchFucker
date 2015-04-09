@@ -41,7 +41,7 @@ namespace Johnny_Punch
                 speed.Y = 0;
 
             boundingBox = new Rectangle((int)pos.X - width/2, (int)pos.Y - height/2, width, height);
-            feetBox = new Rectangle((int)pos.X - (int)offset.X, (int)pos.Y + (height - 4) - (int)offset.Y, width, height - (height - 4));
+            feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (height - 4) - (int)offset.Y, width, height - (height - 4));
             Moving(gameTime);
         }
 
@@ -114,10 +114,10 @@ namespace Johnny_Punch
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-                spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, offset, 1f, spriteEffect, 0f);
-            
-            //spriteBatch.Draw(tex, feetBox, Color.Red);
-            //spriteBatch.Draw(tex, boundingBox, Color.Red);
+                spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, 0f);
+
+                spriteBatch.Draw(tex, feetBox, Color.Red);
+                //spriteBatch.Draw(tex, boundingBox, Color.Red);
         }
         public Vector2 GetPos
         {
