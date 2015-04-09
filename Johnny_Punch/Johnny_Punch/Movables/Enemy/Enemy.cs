@@ -37,7 +37,7 @@ namespace Johnny_Punch
         public void Aggro(Player player)
         {
             angryFace = false;
-            if (Vector2.Distance(pos, player.pos) < aggroRadius && Vector2.Distance(pos, player.pos) > 90)
+            if (Vector2.Distance(pos, player.pos) < aggroRadius && Vector2.Distance(pos, player.pos) > 90 /* && står i samma Y-led */)
             {
                 Vector2 direction = new Vector2(player.pos.X, player.pos.Y) - this.pos;
                 direction.Normalize();

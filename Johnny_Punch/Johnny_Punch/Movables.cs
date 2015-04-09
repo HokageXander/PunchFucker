@@ -42,6 +42,7 @@ namespace Johnny_Punch
                 frame++;
                 animationBox.X = (frame % animationLength) * animationWidth;
             }
+            
         }
     }
 }
