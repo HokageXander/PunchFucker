@@ -93,6 +93,8 @@
     <Compile Include="Game1.cs" />
     <Compile Include="Game\Texture_manager.cs" />
     <Compile Include="Movables\Enemy\StandardEnemy.cs" />
+    <Compile Include="Level\Road.cs" />
+    <Compile Include="Level\ManHoleCover.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

@@ -12,7 +12,7 @@ namespace Johnny_Punch
     {
         EnemyManager enemyManager;
         public PlayerManager playerManager;
-        
+        LevelManager levelManager;
 
 
         int firstDigitSeconds, secondDigitSeconds, firstDigitMinutes, secondDigitMinutes, firstDigitHours, secondDigitHours;
@@ -33,6 +33,7 @@ namespace Johnny_Punch
             TextureManager.LoadContent(Content);
             enemyManager = new EnemyManager(GraphicsDevice);
             playerManager = new PlayerManager();
+            levelManager = new LevelManager(Content);
         }
 
         public void Update(GameTime gameTime)
@@ -76,8 +77,10 @@ namespace Johnny_Punch
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(TextureManager.backgroundTex, Vector2.Zero, Color.White);
+            levelManager.Draw(spriteBatch);
             enemyManager.Draw(spriteBatch);
             playerManager.Draw(spriteBatch);
+
             //spriteBatch.DrawString(TextureManager.timeFont, totalPlayTime.ToString(), new Vector2(590, 630), Color.Green);
 
 
