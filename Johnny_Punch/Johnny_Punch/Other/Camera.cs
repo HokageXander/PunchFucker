@@ -34,8 +34,8 @@ namespace Johnny_Punch
             {
                 transform = Matrix.CreateScale(new Vector3(1, 1, 0))
                 * Matrix.CreateTranslation(new Vector3(-centre.X, -centre.Y, 0));
-            }
             prevCenter = centre;
+            }
            
             
             //}
