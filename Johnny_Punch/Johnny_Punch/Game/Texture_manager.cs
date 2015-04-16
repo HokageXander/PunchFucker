@@ -11,7 +11,7 @@ namespace Johnny_Punch
     public static class TextureManager
     {
         #region Environment graphics
-        public static Texture2D backgroundTex { get; private set; }
+        public static Texture2D citybackgroundTex { get; private set; }
         public static Texture2D statusBarTex { get; private set; }
         public static Texture2D statusBarAngryTex { get; private set; }
         public static Texture2D roadTex { get; private set; }
@@ -37,7 +37,7 @@ namespace Johnny_Punch
         public static void LoadContent(ContentManager Content)
         {
             #region Environment graphics
-            backgroundTex = Content.Load<Texture2D>(@"Images\background");
+            citybackgroundTex = Content.Load<Texture2D>(@"Images\citybackground");
             statusBarTex = Content.Load<Texture2D>(@"Images\StatusBar");
             statusBarAngryTex = Content.Load<Texture2D>(@"Images\StatusBarAngry");
             roadTex = Content.Load<Texture2D>(@"Images\road");

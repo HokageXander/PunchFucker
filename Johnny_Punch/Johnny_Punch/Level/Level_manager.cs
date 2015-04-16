@@ -17,11 +17,12 @@ namespace Johnny_Punch
         //StreamReader streamReader;
         
         List<string> strings = new List<string>();
-        List<Road> roadList = new List<Road>();
-        List<ManHoleCover> manHoleCoverList = new List<ManHoleCover>();
+        //List<Road> roadList = new List<Road>();
+        //List<ManHoleCover> manHoleCoverList = new List<ManHoleCover>();
 
-        Road road;
-        ManHoleCover manHoleCover;
+        //Road road;
+        //ManHoleCover manHoleCover;
+        List<Environment> enviromentList = new List<Environment>();
 
         public LevelManager(ContentManager Content)
         {
@@ -44,29 +45,26 @@ namespace Johnny_Punch
                 {
                     if (strings[i][j] == 'r')
                     {
-                        road = new Road(TextureManager.roadTex, new Vector2(j * 82, 10+i * 82));
-                        roadList.Add(road);
+                        enviromentList.Add(new Road(TextureManager.roadTex, new Vector2(j * 82, 10 + i * 82)));
                     }   
                     if(strings[i][j] == 'm')
                     {
-                        manHoleCover = new ManHoleCover(TextureManager.manHoleCoverTex, new Vector2(j * 82, 10+i * 82));
-                        manHoleCoverList.Add(manHoleCover);
+                        enviromentList.Add(new ManHoleCover(TextureManager.manHoleCoverTex, new Vector2(j * 82, 10+i * 82)));                
                     }
-
+                    if(strings[i][j] == 'c')
+                    {
+                        enviromentList.Add(new CityBackground(TextureManager.citybackgroundTex, new Vector2(j * 82, i * 82)));
+                    }
                 }
             }
             strings.Clear();
         }     
         public void Draw(SpriteBatch spriteBatch)
         {
-            foreach(ManHoleCover manHoleCover in manHoleCoverList)
+            foreach(Environment enviroment in enviromentList)
             {
-                manHoleCover.Draw(spriteBatch);
-            }
-            foreach(Road road in roadList)
-            {
-                road.Draw(spriteBatch);
-            }
+                enviroment.Draw(spriteBatch);
+            }           
         }
     }
 }

@@ -64,7 +64,7 @@ namespace Johnny_Punch
             gameManager.Update(gameTime);
             
             base.Update(gameTime);
-            camera.Update(gameManager.playerManager.playerList[0].GetPos, gameManager.playerManager.playerList[0].GetRec);
+            camera.Update(gameManager.playerManager.playerList[0].GetPos, gameManager.playerManager.playerList[0].GetRec, Window);
         }
 
         

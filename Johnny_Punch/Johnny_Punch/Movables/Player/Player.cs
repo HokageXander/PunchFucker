@@ -192,11 +192,11 @@ namespace Johnny_Punch
             }
 
             #endregion
-            //Console.WriteLine(frameTime);
+
         }
 
         public override void Draw(SpriteBatch spriteBatch)
-        {
+     {
             if (spriteEffect == SpriteEffects.None)
             {
                 spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 15, posJump.Y + (height / 2 ) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
