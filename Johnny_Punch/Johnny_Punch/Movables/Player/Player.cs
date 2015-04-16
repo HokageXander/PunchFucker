@@ -107,7 +107,7 @@ namespace Johnny_Punch
                     posJump.Y = pos.Y;
                     animationBox.Width = 75;
                     animationBox.Y = 0;
-                    Animation(120, 3, 75, gameTime);
+                    Animation(120, 4, 75, gameTime);
                 }
                 else if (!moving && onGround && !fight)
                 {
