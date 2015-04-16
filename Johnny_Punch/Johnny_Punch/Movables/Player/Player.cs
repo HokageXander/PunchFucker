@@ -22,9 +22,6 @@ namespace Johnny_Punch
         public Player(Texture2D tex, Vector2 pos)
             : base(tex, pos)
         {
-            //this.tex = tex;
-            this.pos = pos;
-            this.boundingBox = boundingBox;
             posJump = pos;
             animationBox = new Rectangle(0, 0, 75, 116);
             width /= 9;
@@ -69,7 +66,7 @@ namespace Johnny_Punch
                 }
                 #endregion
                 #region Walk Left
-                if (keyBoardState.IsKeyDown(Keys.A))
+                if (keyBoardState.IsKeyDown(Keys.A) && pos.X >= Camera.prevCentre.X + 45)
                 {
                     speed.X = -3;
                     moving = true;

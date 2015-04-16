@@ -9,11 +9,11 @@ namespace Johnny_Punch
 {
     class Camera
     {
-        Vector2 prevCenter;
+        public static Vector2 prevCentre;
         public Matrix transform;
         Viewport view;
-        Vector2 centre;
-        
+        public Vector2 centre;
+
         public Camera(Viewport newView)
         {
             view = newView;
@@ -22,26 +22,16 @@ namespace Johnny_Punch
         public void Update(Vector2 playerPos, Rectangle pRec, GameWindow gameWindow)
         {
 
-            //float dick = gameWindow.ClientBounds.Width ;
-            //    Console.WriteLine(dick);
-            //if(playerPos.X >=800)
-            //{
-                //if(playerPos.X >= prevCenter.X)
-            
-            centre = new Vector2(playerPos.X + (pRec.Width / 2) -800, 0);
+            centre = new Vector2(playerPos.X + (pRec.Width / 2) - 800, 0);
 
-            if (prevCenter.X < centre.X)
+            if (prevCentre.X < centre.X)
             {
                 transform = Matrix.CreateScale(new Vector3(1, 1, 0))
                 * Matrix.CreateTranslation(new Vector3(-centre.X, -centre.Y, 0));
+                prevCentre = centre;
             }
-            prevCenter = centre;
-           
-            
-            //}
-            
         }
-
+        
         public Matrix GetTransform
         {
             get

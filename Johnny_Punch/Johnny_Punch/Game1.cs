@@ -65,6 +65,7 @@ namespace Johnny_Punch
             
             base.Update(gameTime);
             camera.Update(gameManager.playerManager.playerList[0].GetPos, gameManager.playerManager.playerList[0].GetRec, Window);
+            Window.Title = camera.GetCameraPos.ToString() + gameManager.playerManager.playerList[0].pos.X.ToString();
         }
 
         
@@ -72,6 +73,7 @@ namespace Johnny_Punch
         {
             GraphicsDevice.Clear(Color.LightPink);
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.GetTransform);
+            
             gameManager.Draw(spriteBatch);
             spriteBatch.End();
 
