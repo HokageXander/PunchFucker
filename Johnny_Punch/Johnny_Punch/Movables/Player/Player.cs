@@ -164,12 +164,14 @@ namespace Johnny_Punch
             {
                 animationBox.Width = 90;
                 animationBox.Y = 514;
-                Animation(120, 3, 87, gameTime);
+                FightAnimation(120, 3, 87, gameTime);
             }
-            if (punch && fightTime >= 380)
+            if (punch && fightFrame >= 3)
             {
                 fight = false;
                 punch = false;
+                fightFrame = 0;
+                fightFrameTime = 120;
             }
 
             #endregion

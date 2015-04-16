@@ -15,8 +15,8 @@ namespace Johnny_Punch
     {
         public Rectangle animationBox, feetBox;
         protected SpriteEffects spriteEffect;
-        protected int frame;
-        public double frameTime, frameInterval;
+        protected int walkFrame, fightFrame;
+        public double frameTime, frameInterval, fightFrameTime, fightFrameInterval;
         protected bool moving, onGround = true;
         public Vector2 posJump;
 
@@ -31,7 +31,6 @@ namespace Johnny_Punch
 
         public void Animation(int animationSpeed, int animationLength, int animationWidth, GameTime gameTime)
         {
-            //frameTime = animationSpeed;
             frameInterval = animationSpeed;
 
             frameTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -39,10 +38,22 @@ namespace Johnny_Punch
             if (frameTime <= 0)
             {
                 frameTime = frameInterval;
-                frame++;
-                animationBox.X = (frame % animationLength) * animationWidth;
+                walkFrame++;
+                animationBox.X = (walkFrame % animationLength) * animationWidth;
             }
-            
+        }
+        public void FightAnimation(int animationSpeed, int animationLength, int animationWidth, GameTime gameTime)
+        {
+            fightFrameInterval = animationSpeed;
+
+            fightFrameTime -= gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            if (fightFrameTime <= 0)
+            {
+                fightFrameTime = fightFrameInterval;
+                fightFrame++;
+                animationBox.X = (fightFrame % animationLength) * animationWidth;
+            }
         }
     }
 }

@@ -74,7 +74,7 @@
   <ItemGroup>
     <Compile Include="Item\Item.cs" />
     <Compile Include="Item\Item_manager.cs" />
-    <Compile Include="Movables.cs" />
+    <Compile Include="Movables\Movables.cs" />
     <Compile Include="Movables\Enemy\Little_tim.cs" />
     <Compile Include="Other\Background.cs" />
     <Compile Include="Game\Audio_manager.cs" />
