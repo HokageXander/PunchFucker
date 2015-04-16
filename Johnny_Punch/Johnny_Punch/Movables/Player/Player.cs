@@ -15,7 +15,6 @@ namespace Johnny_Punch
         public KeyboardState keyBoardState, oldKeyBoardState;
         public bool fight, punch;
         public double fightTime, fightingCooldown = 500;
-        float shadowScale;
         int yLimitUp = 335, yLimitDown = 583;
 
 
@@ -25,11 +24,10 @@ namespace Johnny_Punch
             //this.tex = tex;
             this.pos = pos;
             this.boundingBox = boundingBox;
-            posJump = pos;
             animationBox = new Rectangle(0, 0, 75, 116);
             width /= 9;
             height /= 10;
-            shadowScale = 1;
+
             this.speed = new Vector2(0, 0);
             offset = new Vector2(width / 2, height / 2);
         }
@@ -40,8 +38,6 @@ namespace Johnny_Punch
             keyBoardState = Keyboard.GetState();
 
             pos += speed;
-            posJump.X = pos.X;
-            shadowScale = 1f - ((posJump.Y - pos.Y) * -0.01f);
             speed.X = 0;
             if (!onGround)
                 speed.Y += 0.14f;
@@ -104,10 +100,9 @@ namespace Johnny_Punch
                 }
                 if (moving && onGround)
                 {
-                    posJump.Y = pos.Y;
                     animationBox.Width = 75;
                     animationBox.Y = 0;
-                    Animation(120, 3, 75, gameTime);
+                    Animation(100, 4, 75, gameTime);
                 }
                 else if (!moving && onGround && !fight)
                 {
@@ -125,16 +120,6 @@ namespace Johnny_Punch
                     animationBox.Y = 116;
                     animationBox.X = 0;
                     //Animation(120, 1, 75, gameTime);
-                    if (keyBoardState.IsKeyDown(Keys.W) && feetBox.Y >= yLimitUp)
-                    {
-                        pos.Y += -1.5f;
-                        posJump.Y += -1.5f;
-                    }
-                    if (keyBoardState.IsKeyDown(Keys.S) && feetBox.Y <= yLimitDown && posJump.Y <= yLimitDown - 50)
-                    {
-                        pos.Y += 1.5f;
-                        posJump.Y += 1.5f;
-                    }
                     if (pos.Y >= posJump.Y)
                     {
                         pos.Y = posJump.Y;
@@ -168,10 +153,8 @@ namespace Johnny_Punch
             }
 
             #region StandardHit
-            if (fightingCooldown >= 300 && keyBoardState.IsKeyDown(Keys.K) && !fight && onGround)
+            if (fightingCooldown >= 500 && keyBoardState.IsKeyDown(Keys.K) && !fight && onGround)
             {
-                frameTime = 120;
-                walkFrame = -1;
                 moving = false;
                 fight = true;
                 punch = true;
@@ -179,31 +162,22 @@ namespace Johnny_Punch
             }
             if (punch)
             {
-                animationBox.Width = 87;
+                animationBox.Width = 90;
                 animationBox.Y = 514;
-                FightAnimation(80, 3, 87, gameTime);
+                Animation(120, 3, 87, gameTime);
             }
-            if (punch && fightFrame >= 3)
+            if (punch && fightTime >= 380)
             {
                 fight = false;
                 punch = false;
-                fightFrame = 0;
-                fightFrameTime = 80;
             }
 
             #endregion
-
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
-     {
-            if (spriteEffect == SpriteEffects.None)
-            {
-                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 15, posJump.Y + (height / 2 ) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
-            }
-            else if (spriteEffect == SpriteEffects.FlipHorizontally)
-                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
-
+        {
             spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, 0f);
 
             spriteBatch.Draw(tex, feetBox, Color.Red);
@@ -216,6 +190,14 @@ namespace Johnny_Punch
                 return pos;
             }
         }
+
+        //public Vector2 GetSpeed
+        //{
+        //    get
+        //    {
+        //        return speed;
+        //    }
+        //}
 
         public Rectangle GetRec
         {
