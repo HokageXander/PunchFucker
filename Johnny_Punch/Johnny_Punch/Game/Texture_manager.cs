@@ -20,6 +20,7 @@ namespace Johnny_Punch
 
         #region Player graphics
         public static Texture2D Player_tex { get; private set; }
+        public static Texture2D playerShadow { get; private set; }
 
         #endregion
 
@@ -46,6 +47,7 @@ namespace Johnny_Punch
  
             #region Player graphics
             Player_tex = Content.Load<Texture2D>(@"Images\AlexSheet");
+            playerShadow = Content.Load<Texture2D>(@"Images\shadow");
             #endregion
 
             #region Enemy graphics

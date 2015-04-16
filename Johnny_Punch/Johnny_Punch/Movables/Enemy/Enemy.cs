@@ -29,6 +29,7 @@ namespace Johnny_Punch
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(TextureManager.playerShadow, new Vector2(pos.X, pos.Y + (height / 2)), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), 1, SpriteEffects.None, 0);
             spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, offset, 1f, SpriteEffects.None, 0f);
             spriteBatch.Draw(tex, feetBox, Color.Red);
             //spriteBatch.Draw(tex, boundingBox, Color.Red);

@@ -71,13 +71,14 @@ namespace Johnny_Punch
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.LightPink);
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.GetTransform);
+            gameManager.Draw(spriteBatch);
+            spriteBatch.End();
+
             spriteBatch.Begin();
             gameManager.DrawStats(spriteBatch);
             spriteBatch.End();
 
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.GetTransform);
-            gameManager.Draw(spriteBatch);
-            spriteBatch.End();
 
             base.Draw(gameTime);
         }
