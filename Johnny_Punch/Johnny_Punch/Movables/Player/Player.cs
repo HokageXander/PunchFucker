@@ -175,7 +175,7 @@ namespace Johnny_Punch
             }
 
             #endregion
-            Console.WriteLine(frameTime);
+            
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -192,6 +192,14 @@ namespace Johnny_Punch
                 return pos;
             }
         }
+
+        //public Vector2 GetSpeed
+        //{
+        //    get
+        //    {
+        //        return speed;
+        //    }
+        //}
 
         public Rectangle GetRec
         {

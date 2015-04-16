@@ -8,16 +8,14 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-
 namespace Johnny_Punch
 {
-    public class Road : Environment
+    class CityBackground :Environment
     {
-        
-        public Road(Texture2D tex, Vector2 pos)
-            :base(pos,tex)
+        public CityBackground(Texture2D tex, Vector2 pos )
+            :base(pos, tex)
         {
-            
+
         }
     }
 }

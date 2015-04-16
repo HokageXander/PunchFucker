@@ -72,6 +72,8 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Level\CityBackground.cs" />
+    <Compile Include="Level\Environment.cs" />
     <Compile Include="Item\Item.cs" />
     <Compile Include="Item\Item_manager.cs" />
     <Compile Include="Movables\Movables.cs" />

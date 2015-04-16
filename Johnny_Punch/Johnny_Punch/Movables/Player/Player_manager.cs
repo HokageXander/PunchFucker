@@ -39,7 +39,7 @@ namespace Johnny_Punch
         {
             if (playerList.Count <= 0)
             {
-                playerList.Add(new Player(TextureManager.Player_tex, new Vector2(200, 400))); 
+                playerList.Add(new Player(TextureManager.Player_tex, new Vector2(800, 400))); 
             }
         }
         

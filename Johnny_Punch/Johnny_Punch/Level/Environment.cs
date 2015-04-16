@@ -11,13 +11,20 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Johnny_Punch
 {
-    public class Road : Environment
+     public class Environment
     {
-        
-        public Road(Texture2D tex, Vector2 pos)
-            :base(pos,tex)
+         private Vector2 pos;
+         private Texture2D tex;
+
+        public Environment(Vector2 pos, Texture2D tex)
+         {
+             this.pos = pos;
+             this.tex = tex;
+         }
+
+         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            
+            spriteBatch.Draw(tex, pos, Color.White);
         }
     }
 }

@@ -11,20 +11,12 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Johnny_Punch
 {
-    class ManHoleCover
+    class ManHoleCover : Environment
     {
-        public Texture2D tex;
-        public Vector2 pos;
-
         public ManHoleCover(Texture2D tex, Vector2 pos)
-        {
-            this.tex = tex;
-            this.pos = pos;
-        }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(tex, pos , Color.White);
-        }
+            :base(pos,tex)
+        {          
+        
+        } 
     }
 }

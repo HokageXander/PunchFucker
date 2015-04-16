@@ -76,7 +76,7 @@ namespace Johnny_Punch
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureManager.backgroundTex, Vector2.Zero, Color.White);
+            //spriteBatch.Draw(TextureManager.backgroundTex, Vector2.Zero, Color.White);
             levelManager.Draw(spriteBatch);
             enemyManager.Draw(spriteBatch);
             playerManager.Draw(spriteBatch);
