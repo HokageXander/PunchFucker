@@ -44,12 +44,12 @@ namespace Johnny_Punch
                 {
                     if (strings[i][j] == 'r')
                     {
-                        road = new Road(TextureManager.roadTex, new Vector2(j * 82, i * 82));
+                        road = new Road(TextureManager.roadTex, new Vector2(j * 82, 10+i * 82));
                         roadList.Add(road);
                     }   
                     if(strings[i][j] == 'm')
                     {
-                        manHoleCover = new ManHoleCover(TextureManager.manHoleCoverTex, new Vector2(j * 82, i * 82));
+                        manHoleCover = new ManHoleCover(TextureManager.manHoleCoverTex, new Vector2(j * 82, 10+i * 82));
                         manHoleCoverList.Add(manHoleCover);
                     }
 
