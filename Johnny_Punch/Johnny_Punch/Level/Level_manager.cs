@@ -26,7 +26,7 @@ namespace Johnny_Punch
 
         public LevelManager(ContentManager Content)
         {
-            StreamReader streamReader = new StreamReader(@"lvl1.txt");
+                StreamReader streamReader = new StreamReader(@"lvl1.txt");
             MapReader(streamReader);
             
         }

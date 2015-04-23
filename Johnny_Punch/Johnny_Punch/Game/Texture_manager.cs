@@ -15,6 +15,7 @@ namespace Johnny_Punch
         public static Texture2D statusBarTex { get; private set; }
         public static Texture2D statusBarAngryTex { get; private set; }
         public static Texture2D roadTex { get; private set; }
+        public static Texture2D startMenuTex { get; private set; }
         public static Texture2D manHoleCoverTex { get; private set; }
         #endregion
 
@@ -41,6 +42,7 @@ namespace Johnny_Punch
             statusBarTex = Content.Load<Texture2D>(@"Images\StatusBar");
             statusBarAngryTex = Content.Load<Texture2D>(@"Images\StatusBarAngry");
             roadTex = Content.Load<Texture2D>(@"Images\road");
+            startMenuTex = Content.Load<Texture2D>(@"Images\startmenu");
             manHoleCoverTex = Content.Load<Texture2D>(@"Images\manholecover");
             #endregion
 
