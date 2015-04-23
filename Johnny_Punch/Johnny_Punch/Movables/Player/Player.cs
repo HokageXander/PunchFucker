@@ -27,6 +27,7 @@ namespace Johnny_Punch
             width /= 9;
             height /= 10;
             shadowScale = 1;
+            life = 10;
             this.speed = new Vector2(0, 0);
             offset = new Vector2(width / 2, height / 2);
         }
@@ -46,7 +47,7 @@ namespace Johnny_Punch
                 speed.Y = 0;
 
             boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width, height);
-            feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (117 - 4) - (int)offset.Y, width, height - (height - 4));
+            feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));
             Moving(gameTime);
             Fight(gameTime);
         }
@@ -176,9 +177,15 @@ namespace Johnny_Punch
             }
             if (punch)
             {
-                animationBox.Width = 87;
+                animationBox.Width = 77;
                 animationBox.Y = 514;
-                FightAnimation(80, 3, 87, gameTime);
+                FightAnimation(90, 3, 77, gameTime);
+                if (spriteEffect == SpriteEffects.FlipHorizontally)
+                {
+                    punchBox = new Rectangle((int)pos.X - 40 - (fightFrame * 10), (int)pos.Y - 28, 50, 20);
+                }
+                else
+                    punchBox = new Rectangle((int)pos.X - 40 + (fightFrame * 15), (int)pos.Y - 28, 50, 20);
             }
             if (punch && fightFrame >= 3)
             {
@@ -186,6 +193,7 @@ namespace Johnny_Punch
                 punch = false;
                 fightFrame = 0;
                 fightFrameTime = 80;
+                punchBox = new Rectangle((int)pos.X - 40, (int)pos.Y - 28, 0, 0);
             }
 
             #endregion
@@ -193,10 +201,10 @@ namespace Johnny_Punch
         }
 
         public override void Draw(SpriteBatch spriteBatch)
-     {
+        {
             if (spriteEffect == SpriteEffects.None)
             {
-                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 15, posJump.Y + (height / 2 ) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
+                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 15, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
             }
             else if (spriteEffect == SpriteEffects.FlipHorizontally)
                 spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 7, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
@@ -204,6 +212,7 @@ namespace Johnny_Punch
             spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, 0f);
 
             spriteBatch.Draw(tex, feetBox, Color.Red);
+            //spriteBatch.Draw(tex, punchBox, Color.Blue);
             //spriteBatch.Draw(tex, boundingBox, Color.Red);
         }
         public Vector2 GetPos

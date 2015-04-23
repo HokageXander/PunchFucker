@@ -13,11 +13,12 @@ namespace Johnny_Punch
 {
     abstract class Movables : GameObject
     {
-        public Rectangle animationBox, feetBox;
-        protected SpriteEffects spriteEffect;
+        public Rectangle animationBox, feetBox, punchBox;
+        public SpriteEffects spriteEffect;
         protected int walkFrame, fightFrame;
+        public int life;
         public double frameTime, frameInterval, fightFrameTime, fightFrameInterval;
-        protected bool moving, onGround = true;
+        public bool moving, onGround = true; /*,blocking;*/
         public Vector2 posJump;
 
         public Movables(Texture2D tex, Vector2 pos) : base(tex, pos)

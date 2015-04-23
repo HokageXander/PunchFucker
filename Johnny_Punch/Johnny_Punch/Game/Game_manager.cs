@@ -50,17 +50,11 @@ namespace Johnny_Punch
 
                 case GameState.Play:
                     enemyManager.Update(gameTime);
+                    enemyManager.AggroPlayer(playerManager);
                     playerManager.Update(gameTime);
+                    playerManager.LandingPunches(enemyManager);
                     TotalPlayTime(gameTime);
 
-
-                    for (int i = 0; i < enemyManager.enemyList.Count; i++)
-                    {
-                        for (int j = 0; j < playerManager.playerList.Count; j++)
-                        {
-                            enemyManager.enemyList[i].Aggro(playerManager.playerList[j]);
-                        }
-                    }
 
                     time += gameTime.ElapsedGameTime.TotalSeconds;
                     break;

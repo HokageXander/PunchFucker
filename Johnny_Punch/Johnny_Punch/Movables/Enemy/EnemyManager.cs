@@ -21,11 +21,6 @@ namespace Johnny_Punch
 
         public void Update(GameTime gameTime)
         {
-
-                
-            
-            
-
             foreach (Enemy enemy in enemyList)
             {
                 enemy.Update(gameTime);
@@ -37,15 +32,13 @@ namespace Johnny_Punch
             foreach (Enemy enemy in enemyList)
             {
                 enemy.Draw(spriteBatch);
-
-            }
-            
+            }   
         }
 
         public void EnemyType()
         {
             //enemyList.Add(new Little_tim(TextureManager.Tiny_tim, new Vector2(500, 400)));
-            enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(800, 400)));
+            enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(900, 400)));
         }
 
         public void SpawnEnemy(GameTime gameTime)
@@ -53,5 +46,15 @@ namespace Johnny_Punch
 
         }
         
+        public void AggroPlayer(PlayerManager playerManager)
+        {
+            for (int i = 0; i < enemyList.Count; i++)
+            {
+                for (int j = 0; j < playerManager.playerList.Count; j++)
+                {
+                    enemyList[i].Aggro(playerManager.playerList[j]);
+                }
+            }
+        }
     }
 }
