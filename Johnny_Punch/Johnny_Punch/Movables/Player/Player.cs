@@ -11,10 +11,9 @@ namespace Johnny_Punch
     class Player : Movables
     {
         //public int lifePoints;
-        public Vector2 speed;
+        public Vector2 speed, playerLeftPos, playerRightPos;
+        public Rectangle playerLeftBox, playerRightBox;
         public KeyboardState keyBoardState, oldKeyBoardState;
-        public bool fight, punch;
-        public double fightTime, fightingCooldown = 500;
         float shadowScale;
         int yLimitUp = 335, yLimitDown = 583;
 
@@ -30,6 +29,7 @@ namespace Johnny_Punch
             life = 10;
             this.speed = new Vector2(0, 0);
             offset = new Vector2(width / 2, height / 2);
+
         }
 
         public override void Update(GameTime gameTime)
@@ -48,6 +48,10 @@ namespace Johnny_Punch
 
             boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width, height);
             feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));
+            playerLeftPos = new Vector2(feetBox.X - width, feetBox.Y);
+            playerRightPos = new Vector2(feetBox.X + width, feetBox.Y);
+            playerRightBox = new Rectangle((int)pos.X + 15, (int)pos.Y +  35, 30, 25);
+            playerLeftBox = new Rectangle((int)pos.X - 52, (int)pos.Y + 35, 30, 25);
             Moving(gameTime);
             Fight(gameTime);
         }
@@ -212,6 +216,8 @@ namespace Johnny_Punch
             spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, 0f);
 
             spriteBatch.Draw(tex, feetBox, Color.Red);
+            //spriteBatch.Draw(tex, playerRightBox, Color.Blue);
+            //spriteBatch.Draw(tex, playerLeftBox, Color.Red);
             //spriteBatch.Draw(tex, punchBox, Color.Blue);
             //spriteBatch.Draw(tex, boundingBox, Color.Red);
         }

@@ -18,7 +18,8 @@ namespace Johnny_Punch
         protected int walkFrame, fightFrame;
         public int life;
         public double frameTime, frameInterval, fightFrameTime, fightFrameInterval;
-        public bool moving, onGround = true; /*,blocking;*/
+        public double fightTime, fightingCooldown = 500;
+        public bool moving, onGround = true, fight, punch, stunned; /*,blocking;*/
         public Vector2 posJump;
 
         public Movables(Texture2D tex, Vector2 pos) : base(tex, pos)

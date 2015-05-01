@@ -50,7 +50,7 @@ namespace Johnny_Punch
 
                 case GameState.Play:
                     enemyManager.Update(gameTime);
-                    enemyManager.AggroPlayer(playerManager);
+                    enemyManager.AggroPlayer(playerManager, gameTime);
                     playerManager.Update(gameTime);
                     playerManager.LandingPunches(enemyManager);
                     TotalPlayTime(gameTime);

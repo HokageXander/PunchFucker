@@ -54,7 +54,7 @@ namespace Johnny_Punch
 
             #region Enemy graphics
             Tiny_tim = Content.Load<Texture2D>(@"Images\tinytim");
-            standardEnemyTex = Content.Load<Texture2D>(@"images\Testenemy");
+            standardEnemyTex = Content.Load<Texture2D>(@"images\standardenemy");
             #endregion
 
             #region Fonts

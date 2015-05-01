@@ -63,6 +63,7 @@ namespace Johnny_Punch
                         if (playerList[i].spriteEffect == SpriteEffects.FlipHorizontally)
                         {
                             enemyManager.enemyList[j].pos.X -= 2;
+                            enemyManager.enemyList[j].life -= 2;
                         }
                         else
                         enemyManager.enemyList[j].pos.X += 2;
