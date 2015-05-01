@@ -47,11 +47,23 @@ namespace Johnny_Punch
                 speed.Y = 0;
 
             boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width, height);
-            feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));
+            if (onGround) //Om vi är på marken så är Y = pos.Y
+            {
+                feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));
+                playerLeftPos = new Vector2(feetBox.X - width, feetBox.Y);
+                playerRightPos = new Vector2(feetBox.X + width, feetBox.Y);
+                playerRightBox = new Rectangle((int)pos.X + 15, (int)pos.Y + 35, 30, 25);
+                playerLeftBox = new Rectangle((int)pos.X - 52, (int)pos.Y + 35, 30, 25);
+            }
+            else // Om vi är i luften är Y = jumpPos.Y
+            {
+                feetBox = new Rectangle((int)pos.X - (int)49, (int)posJump.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));
+                playerRightBox = new Rectangle((int)pos.X + 15, (int)posJump.Y + 35, 30, 25);
+                playerLeftBox = new Rectangle((int)pos.X - 52, (int)posJump.Y + 35, 30, 25);
+            }
             playerLeftPos = new Vector2(feetBox.X - width, feetBox.Y);
             playerRightPos = new Vector2(feetBox.X + width, feetBox.Y);
-            playerRightBox = new Rectangle((int)pos.X + 15, (int)pos.Y +  35, 30, 25);
-            playerLeftBox = new Rectangle((int)pos.X - 52, (int)pos.Y + 35, 30, 25);
+
             Moving(gameTime);
             Fight(gameTime);
         }
