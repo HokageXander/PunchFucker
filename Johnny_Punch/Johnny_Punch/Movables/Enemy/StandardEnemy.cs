@@ -18,7 +18,8 @@ namespace Johnny_Punch
             height /= 9;
             aggroRadius = 250;
             damageToPlayer -= 1;
-            life = 3;
+            life = 5;
+            enemySpeed = 1.5f;
             offset = new Vector2(width / 2, height / 2);
         }
 

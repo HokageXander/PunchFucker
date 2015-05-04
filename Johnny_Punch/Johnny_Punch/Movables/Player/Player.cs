@@ -66,6 +66,11 @@ namespace Johnny_Punch
 
             Moving(gameTime);
             Fight(gameTime);
+
+            if ((fightFrame == 0 && !moving)|| walkFrame == 0)
+            {
+                animationBox.X = 0;
+            }
         }
 
         public void Moving(GameTime gameTime)
@@ -156,8 +161,6 @@ namespace Johnny_Punch
                         speed.Y = 0;
                     }
                 }
-                //if (onGround)
-                //    animationBox.Y = 0;
                 if (keyBoardState.IsKeyDown(Keys.Space) && oldKeyBoardState.IsKeyDown(Keys.Space) && onGround)
                 {
                     posJump.Y = pos.Y;
@@ -207,6 +210,7 @@ namespace Johnny_Punch
             {
                 fight = false;
                 punch = false;
+                hasHit = false;
                 fightFrame = 0;
                 fightFrameTime = 80;
                 punchBox = new Rectangle((int)pos.X - 40, (int)pos.Y - 28, 0, 0);
@@ -230,7 +234,7 @@ namespace Johnny_Punch
             spriteBatch.Draw(tex, feetBox, Color.Red);
             //spriteBatch.Draw(tex, playerRightBox, Color.Blue);
             //spriteBatch.Draw(tex, playerLeftBox, Color.Red);
-            //spriteBatch.Draw(tex, punchBox, Color.Blue);
+            spriteBatch.Draw(tex, punchBox, Color.Blue);
             //spriteBatch.Draw(tex, boundingBox, Color.Red);
         }
         public Vector2 GetPos

@@ -54,19 +54,22 @@ namespace Johnny_Punch
                     {
                         Ydistance *= -1;
                     }
-                    Console.WriteLine(Ydistance);
 
-                    if (playerList[i].punchBox.Intersects(enemyManager.enemyList[j].boundingBox) /* && !(enemyManager.enemyList[j].blocking)*/
-                       && Ydistance < 25)
+                    if (playerList[i].punchBox.Intersects(enemyManager.enemyList[j].boundingBox)
+                       && Ydistance < 25 && !playerList[i].hasHit) // om vi intersectar och vi står i samma y-led och vi inte har träffat än
                     {
-                        enemyManager.enemyList[j].life -= 1;
+                        playerList[i].hasHit = true;
+                        enemyManager.enemyList[j].stunned = true;
                         if (playerList[i].spriteEffect == SpriteEffects.FlipHorizontally)
                         {
                             enemyManager.enemyList[j].pos.X -= 2;
-                            enemyManager.enemyList[j].life -= 2;
+                            enemyManager.enemyList[j].life -= 1;
+                            break;
                         }
                         else
                         enemyManager.enemyList[j].pos.X += 2;
+                        enemyManager.enemyList[j].life -= 1;
+                        break;
                     }
                 }
             }
