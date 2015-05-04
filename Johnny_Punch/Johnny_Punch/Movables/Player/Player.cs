@@ -67,7 +67,7 @@ namespace Johnny_Punch
             Moving(gameTime);
             Fight(gameTime);
 
-            if ((fightFrame == 0 && !moving)|| walkFrame == 0)
+            if ((fightFrame == 0 && !moving) || walkFrame == 0) //Tar bort den gamla animationen som höll på när man byter till en annan animation
             {
                 animationBox.X = 0;
             }
@@ -254,6 +254,5 @@ namespace Johnny_Punch
                 return boundingBox;
             }
         }
-
     }
 }

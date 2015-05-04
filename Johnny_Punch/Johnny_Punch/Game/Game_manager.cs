@@ -10,9 +10,11 @@ namespace Johnny_Punch
 {
     class GameManager
     {
-        EnemyManager enemyManager;
+        public Menu menu;
         public PlayerManager playerManager;
+        EnemyManager enemyManager;
         LevelManager levelManager;
+
 
 
         int firstDigitSeconds, secondDigitSeconds, firstDigitMinutes, secondDigitMinutes, firstDigitHours, secondDigitHours;
@@ -25,27 +27,30 @@ namespace Johnny_Punch
 
         public enum GameState
         {
-            Start, Play, Pause, End
+            Menu, Play, Pause, End
         }
         public GameState gameState;
 
         public void LoadContent(ContentManager Content, GraphicsDevice GraphicsDevice, SpriteBatch spriteBatch)
         {
             TextureManager.LoadContent(Content);
+            menu = new Menu(Content);
             enemyManager = new EnemyManager(GraphicsDevice);
             playerManager = new PlayerManager();
             levelManager = new LevelManager(Content);
-            gameState = GameState.Play;
-
-
-
+            gameState = GameState.Play;            
         }
 
         public void Update(GameTime gameTime)
         {
             switch (gameState)
             {
-                case GameState.Start:
+                case GameState.Menu:
+                    menu.Update(gameTime);
+                    if (menu.play == true)
+                    {
+                        gameState = GameState.Play;
+                    }
                     break;
 
                 case GameState.Play:
@@ -93,8 +98,8 @@ namespace Johnny_Punch
         {
             switch (gameState)
             {
-                case GameState.Start:
-
+                case GameState.Menu:
+                    menu.Draw(spriteBatch);
                     break;
 
                 case GameState.Play:
@@ -102,7 +107,6 @@ namespace Johnny_Punch
                     levelManager.Draw(spriteBatch);
                     enemyManager.Draw(spriteBatch);
                     playerManager.Draw(spriteBatch);
-
                     break;
 
                 case GameState.Pause:
@@ -112,15 +116,6 @@ namespace Johnny_Punch
 
                     break;
             }
-
-            //spriteBatch.Draw(TextureManager.backgroundTex, Vector2.Zero, Color.White);
-
-
-            //spriteBatch.DrawString(TextureManager.timeFont, totalPlayTime.ToString(), new Vector2(590, 630), Color.Green);
-
-
-
-
         }
 
 

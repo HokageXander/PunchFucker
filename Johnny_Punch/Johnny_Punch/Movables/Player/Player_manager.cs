@@ -12,7 +12,7 @@ namespace Johnny_Punch
     {
 
         public List<Player> playerList = new List<Player>();
-
+        public static int players;
         public PlayerManager()
         {
 
@@ -39,7 +39,7 @@ namespace Johnny_Punch
         {
             if (playerList.Count <= 0)
             {
-                playerList.Add(new Player(TextureManager.Player_tex, new Vector2(800, 400)));
+                playerList.Add(new Player(TextureManager.Player1tex, new Vector2(800, 400)));
             }
         }
 

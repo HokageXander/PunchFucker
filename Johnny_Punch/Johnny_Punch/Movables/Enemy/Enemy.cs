@@ -26,6 +26,7 @@ namespace Johnny_Punch
             if (!dead)
                 AnimationTypes(gameTime);
             Death(gameTime);
+
             if ((fightFrame == 0 && !moving) || walkFrame == 0)
             {
                 animationBox.X = 0;
@@ -106,7 +107,7 @@ namespace Johnny_Punch
                 punch = true;
                 if (fightTime > 500)
                 {
-                    animationBox.Y = 380;
+                    animationBox.Y = 380;                    
                     FightAnimation(150, 3, 92, gameTime);
                 }
             }

@@ -58,7 +58,7 @@ namespace Johnny_Punch
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape) || gameManager.menu.quit == true)
                 this.Exit();
 
             gameManager.Update(gameTime);
@@ -66,24 +66,34 @@ namespace Johnny_Punch
             base.Update(gameTime);
             if (gameManager.gameState == GameManager.GameState.Play)
             {
-                   camera.Update(gameManager.playerManager.playerList[0].GetPos, gameManager.playerManager.playerList[0].GetRec, Window);
-            Window.Title = camera.GetCameraPos.ToString() + gameManager.playerManager.playerList[0].pos.X.ToString();
+                camera.Update(gameManager.playerManager.playerList[0].GetPos, gameManager.playerManager.playerList[0].GetRec, Window);
+                Window.Title = camera.GetCameraPos.ToString() + gameManager.playerManager.playerList[0].pos.X.ToString();
             }
-         
+
         }
 
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.LightPink);
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.GetTransform);
-            gameManager.Draw(spriteBatch);
-            spriteBatch.End();
+            if (gameManager.gameState == GameManager.GameState.Play)
+            {
+                GraphicsDevice.Clear(Color.LightPink);
 
-            spriteBatch.Begin();
-            gameManager.DrawStats(spriteBatch);
-            spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.GetTransform);
+                gameManager.Draw(spriteBatch);
+                spriteBatch.End();
 
+                spriteBatch.Begin();
+                gameManager.DrawStats(spriteBatch);
+                spriteBatch.End();
+            }
+            else // för att få bort kameran ur funktion när man är i menyn
+            {
+                GraphicsDevice.Clear(Color.LightPink);
+                spriteBatch.Begin();
+                gameManager.Draw(spriteBatch);
+                spriteBatch.End();
+            }
 
             base.Draw(gameTime);
         }
