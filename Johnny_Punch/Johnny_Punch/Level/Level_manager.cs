@@ -13,20 +13,13 @@ using System.IO;
 namespace Johnny_Punch
 {
     class LevelManager
-    {
-        //StreamReader streamReader;
-        
+    {        
         List<string> strings = new List<string>();
-        //List<Road> roadList = new List<Road>();
-        //List<ManHoleCover> manHoleCoverList = new List<ManHoleCover>();
-
-        //Road road;
-        //ManHoleCover manHoleCover;
         List<Environment> enviromentList = new List<Environment>();
 
         public LevelManager(ContentManager Content)
         {
-            StreamReader streamReader = new StreamReader(@"lvl1.txt");
+                StreamReader streamReader = new StreamReader(@"lvl1.txt");
             MapReader(streamReader);
             
         }

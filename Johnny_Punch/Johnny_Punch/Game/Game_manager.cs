@@ -23,10 +23,11 @@ namespace Johnny_Punch
 
 
 
-        enum GameState
+        public enum GameState
         {
             Start, Play, Pause, End
         }
+        public GameState gameState;
 
         public void LoadContent(ContentManager Content, GraphicsDevice GraphicsDevice, SpriteBatch spriteBatch)
         {
@@ -34,33 +35,47 @@ namespace Johnny_Punch
             enemyManager = new EnemyManager(GraphicsDevice);
             playerManager = new PlayerManager();
             levelManager = new LevelManager(Content);
+            gameState = GameState.Play;
+
+
+
         }
 
         public void Update(GameTime gameTime)
         {
-            enemyManager.Update(gameTime);
-            playerManager.Update(gameTime);
-            TotalPlayTime(gameTime);
-            
-
-            for (int i = 0; i < enemyManager.enemyList.Count; i++)
+            switch (gameState)
             {
-                for (int j = 0; j < playerManager.playerList.Count; j++)
-                {
-                    enemyManager.enemyList[i].Aggro(playerManager.playerList[j]);
-                }
-            }
-            //totalPlayTime = (int)time;
+                case GameState.Start:
+                    break;
 
-            time += gameTime.ElapsedGameTime.TotalSeconds;
+                case GameState.Play:
+                    enemyManager.Update(gameTime);
+                    enemyManager.AggroPlayer(playerManager, gameTime);
+                    playerManager.Update(gameTime);
+                    playerManager.LandingPunches(enemyManager);
+                    TotalPlayTime(gameTime);
+
+
+                    time += gameTime.ElapsedGameTime.TotalSeconds;
+                    break;
+
+                case GameState.Pause:
+                    break;
+
+                case GameState.End:
+                    break;
+            }
+
+
+
 
         }
         public void DrawStats(SpriteBatch spriteBatch)
         {
-            
-            if(!Enemy.angryFace)
+
+            if (!Enemy.angryFace)
             {
-            spriteBatch.Draw(TextureManager.statusBarTex, Vector2.Zero, Color.White);
+                spriteBatch.Draw(TextureManager.statusBarTex, Vector2.Zero, Color.White);
             }
             else
             {
@@ -70,16 +85,36 @@ namespace Johnny_Punch
                 ":" + secondDigitMinutes.ToString() + firstDigitMinutes.ToString() +
                 ":" + secondDigitSeconds.ToString() + firstDigitSeconds.ToString(), new Vector2(523, 630), Color.Green);
         }
-   
+
 
 
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            switch (gameState)
+            {
+                case GameState.Start:
+
+                    break;
+
+                case GameState.Play:
+
+                    levelManager.Draw(spriteBatch);
+                    enemyManager.Draw(spriteBatch);
+                    playerManager.Draw(spriteBatch);
+
+                    break;
+
+                case GameState.Pause:
+                    break;
+
+                case GameState.End:
+
+                    break;
+            }
+
             //spriteBatch.Draw(TextureManager.backgroundTex, Vector2.Zero, Color.White);
-            levelManager.Draw(spriteBatch);
-            enemyManager.Draw(spriteBatch);
-            playerManager.Draw(spriteBatch);
+
 
             //spriteBatch.DrawString(TextureManager.timeFont, totalPlayTime.ToString(), new Vector2(590, 630), Color.Green);
 
