@@ -176,9 +176,9 @@ namespace Johnny_Punch
             }
             if (punch)
             {
-                animationBox.Width = 87;
+                animationBox.Width = 78;
                 animationBox.Y = 514;
-                FightAnimation(80, 3, 87, gameTime);
+                FightAnimation(120, 3, 78, gameTime);
             }
             if (punch && fightFrame >= 3)
             {

@@ -10,7 +10,7 @@ namespace Johnny_Punch
 {
     class StandardEnemy : Enemy
     {
-
+        
         public StandardEnemy(Texture2D tex, Vector2 pos) : base(tex, pos)
         {
             width /= 1;
