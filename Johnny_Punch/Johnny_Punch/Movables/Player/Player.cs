@@ -185,7 +185,7 @@ namespace Johnny_Punch
             }
 
             #region StandardHit
-            if (fightingCooldown >= 300 && keyBoardState.IsKeyDown(Keys.K) && !fight && onGround)
+            if (fightingCooldown >= 300 && keyBoardState.IsKeyDown(Keys.T) && !fight && onGround)
             {
                 frameTime = 120;
                 walkFrame = -1;
@@ -236,7 +236,7 @@ namespace Johnny_Punch
             spriteBatch.Draw(tex, feetBox, Color.Red);
             //spriteBatch.Draw(tex, playerRightBox, Color.Blue);
             //spriteBatch.Draw(tex, playerLeftBox, Color.Red);
-            spriteBatch.Draw(tex, punchBox, Color.Blue);
+            //spriteBatch.Draw(tex, punchBox, Color.Blue);
             //spriteBatch.Draw(tex, boundingBox, Color.Red);
         }
         public Vector2 GetPos

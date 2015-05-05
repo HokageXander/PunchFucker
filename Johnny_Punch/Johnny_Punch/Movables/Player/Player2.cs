@@ -78,46 +78,46 @@ namespace Johnny_Punch
             if (!fight)
             {
                 #region Walk Right
-                if (keyBoardState.IsKeyDown(Keys.NumPad6))
+                if (keyBoardState.IsKeyDown(Keys.L))
                 {
                     speed.X = 3;
                     moving = true;
                     spriteEffect = SpriteEffects.None;
-                    if (keyBoardState.IsKeyDown(Keys.NumPad8) || keyBoardState.IsKeyDown(Keys.NumPad5))
+                    if (keyBoardState.IsKeyDown(Keys.I) || keyBoardState.IsKeyDown(Keys.K))
                         speed.X = 2f;
                 }
                 #endregion
                 #region Walk Left
-                if (keyBoardState.IsKeyDown(Keys.NumPad4) && pos.X >= Camera.prevCentre.X + 45)
+                if (keyBoardState.IsKeyDown(Keys.J) && pos.X >= Camera.prevCentre.X + 45)
                 {
                     speed.X = -3;
                     moving = true;
                     spriteEffect = SpriteEffects.FlipHorizontally;
-                    if (keyBoardState.IsKeyDown(Keys.NumPad8) || keyBoardState.IsKeyDown(Keys.NumPad5))
+                    if (keyBoardState.IsKeyDown(Keys.I) || keyBoardState.IsKeyDown(Keys.K))
                         speed.X = -2f;
                 }
                 #endregion
                 #region Walk Up
-                if (keyBoardState.IsKeyDown(Keys.NumPad8) && feetBox.Y >= yLimitUp && onGround)
+                if (keyBoardState.IsKeyDown(Keys.I) && feetBox.Y >= yLimitUp && onGround)
                 {
                     speed.Y = -3;
                     moving = true;
-                    if (keyBoardState.IsKeyDown(Keys.NumPad4) || keyBoardState.IsKeyDown(Keys.NumPad6))
+                    if (keyBoardState.IsKeyDown(Keys.J) || keyBoardState.IsKeyDown(Keys.L))
                         speed.Y = -2f;
                 }
                 #endregion
                 #region Walk Down
-                if (keyBoardState.IsKeyDown(Keys.NumPad5) && feetBox.Y <= yLimitDown && onGround)
+                if (keyBoardState.IsKeyDown(Keys.K) && feetBox.Y <= yLimitDown && onGround)
                 {
                     speed.Y = 3;
                     moving = true;
-                    if (keyBoardState.IsKeyDown(Keys.NumPad4) || keyBoardState.IsKeyDown(Keys.NumPad6))
+                    if (keyBoardState.IsKeyDown(Keys.J) || keyBoardState.IsKeyDown(Keys.L))
                         speed.Y = 2f;
                 }
                 #endregion
                 #region Moving Bool
-                if (!(keyBoardState.IsKeyDown(Keys.NumPad4)) && !(keyBoardState.IsKeyDown(Keys.NumPad6)) &&
-                    !(keyBoardState.IsKeyDown(Keys.NumPad8)) && !(keyBoardState.IsKeyDown(Keys.NumPad5)))
+                if (!(keyBoardState.IsKeyDown(Keys.J)) && !(keyBoardState.IsKeyDown(Keys.L)) &&
+                    !(keyBoardState.IsKeyDown(Keys.I)) && !(keyBoardState.IsKeyDown(Keys.K)))
                 {
                     moving = false;
                 }
@@ -144,12 +144,12 @@ namespace Johnny_Punch
                     animationBox.Y = 116;
                     animationBox.X = 0;
                     //Animation(120, 1, 75, gameTime);
-                    if (keyBoardState.IsKeyDown(Keys.W) && feetBox.Y >= yLimitUp)
+                    if (keyBoardState.IsKeyDown(Keys.I) && feetBox.Y >= yLimitUp)
                     {
                         pos.Y += -1.5f;
                         posJump.Y += -1.5f;
                     }
-                    if (keyBoardState.IsKeyDown(Keys.S) && feetBox.Y <= yLimitDown && posJump.Y <= yLimitDown - 50)
+                    if (keyBoardState.IsKeyDown(Keys.K) && feetBox.Y <= yLimitDown && posJump.Y <= yLimitDown - 50)
                     {
                         pos.Y += 1.5f;
                         posJump.Y += 1.5f;
@@ -161,7 +161,7 @@ namespace Johnny_Punch
                         speed.Y = 0;
                     }
                 }
-                if (keyBoardState.IsKeyDown(Keys.NumPad0) && oldKeyBoardState.IsKeyDown(Keys.NumPad0) && onGround)
+                if (keyBoardState.IsKeyDown(Keys.O) && oldKeyBoardState.IsKeyDown(Keys.O) && onGround)
                 {
                     posJump.Y = pos.Y;
                     speed.Y = -3.2f;
@@ -185,7 +185,7 @@ namespace Johnny_Punch
             }
 
             #region StandardHit
-            if (fightingCooldown >= 300 && keyBoardState.IsKeyDown(Keys.NumPad3) && !fight && onGround)
+            if (fightingCooldown >= 300 && keyBoardState.IsKeyDown(Keys.P) && !fight && onGround)
             {
                 frameTime = 120;
                 walkFrame = -1;
@@ -197,16 +197,15 @@ namespace Johnny_Punch
             if (punch)
             {
 
-                animationBox.Width = 77;
+                animationBox.Width = 83;
                 animationBox.Y = 514;
-                FightAnimation(90, 3, 77, gameTime);
+                FightAnimation(90, 3, 83, gameTime);
                 if (spriteEffect == SpriteEffects.FlipHorizontally)
                 {
                     punchBox = new Rectangle((int)pos.X - 40 - (fightFrame * 10), (int)pos.Y - 28, 50, 20);
                 }
                 else
                     punchBox = new Rectangle((int)pos.X - 40 + (fightFrame * 15), (int)pos.Y - 28, 50, 20);
-
             }
             if (punch && fightFrame >= 3)
             {
@@ -236,7 +235,7 @@ namespace Johnny_Punch
             spriteBatch.Draw(tex, feetBox, Color.Red);
             //spriteBatch.Draw(tex, playerRightBox, Color.Blue);
             //spriteBatch.Draw(tex, playerLeftBox, Color.Red);
-            spriteBatch.Draw(tex, punchBox, Color.Blue);
+            //spriteBatch.Draw(tex, punchBox, Color.Blue);
             //spriteBatch.Draw(tex, boundingBox, Color.Red);
         }
         public Vector2 GetPos
