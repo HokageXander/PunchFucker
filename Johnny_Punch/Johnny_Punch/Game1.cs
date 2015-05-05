@@ -96,7 +96,7 @@ namespace Johnny_Punch
                 if (!ready)
                 {
                     spriteBatch.Draw(TextureManager.loadingScreen, Vector2.Zero, Color.White);
-                    spriteBatch.Draw(TextureManager.loadingCircle, new Vector2(640, 450), null, Color.White, loadingRotation, new Vector2(36, 38), 1,SpriteEffects.None, 1);
+                    spriteBatch.Draw(TextureManager.loadingCircle, new Vector2(640, 450), null, Color.White, loadingRotation, new Vector2(50, 50), 1,SpriteEffects.None, 1);
                 }
                 spriteBatch.End();
             }
