@@ -18,6 +18,7 @@ namespace Johnny_Punch
         SpriteBatch spriteBatch;
         GameManager gameManager;
         Camera camera;
+        bool ready;
         //suck myu tits
 
         public Game1()
@@ -60,11 +61,13 @@ namespace Johnny_Punch
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) || gameManager.menu.quit == true)
                 this.Exit();
+            if (gameManager.firstDigitSeconds >= 0.002f)
+                ready = true;
 
             gameManager.Update(gameTime);
 
             base.Update(gameTime);
-            if (gameManager.gameState == GameManager.GameState.Play)
+            if (gameManager.gameState == GameManager.GameState.Play && ready)
             {
                 camera.Update(gameManager.playerManager.playerList[0].GetPos, gameManager.playerManager.playerList[0].GetRec, Window);
                 Window.Title = camera.GetCameraPos.ToString() + gameManager.playerManager.playerList[0].pos.X.ToString();
@@ -78,16 +81,17 @@ namespace Johnny_Punch
             if (gameManager.gameState == GameManager.GameState.Play)
             {
                 GraphicsDevice.Clear(Color.LightPink);
-
                 spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.GetTransform);
                 gameManager.Draw(spriteBatch);
                 spriteBatch.End();
 
                 spriteBatch.Begin();
+                if (gameManager.firstDigitSeconds <= 0.002f && !ready)
+                    spriteBatch.Draw(TextureManager.loadingScreen, Vector2.Zero, Color.White);
                 gameManager.DrawStats(spriteBatch);
                 spriteBatch.End();
             }
-            else // för att få bort kameran ur funktion när man är i menyn
+            else // för att få kameran ur funktion när man är i menyn
             {
                 GraphicsDevice.Clear(Color.LightPink);
                 spriteBatch.Begin();

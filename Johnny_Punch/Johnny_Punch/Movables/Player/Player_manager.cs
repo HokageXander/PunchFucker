@@ -12,6 +12,7 @@ namespace Johnny_Punch
     {
 
         public List<Player> playerList = new List<Player>();
+        public List<Player2> playerList2 = new List<Player2>();
         public static int players;
         public PlayerManager()
         {
@@ -26,6 +27,10 @@ namespace Johnny_Punch
             {
                 player.Update(gameTime);
             }
+            foreach (Player2 player in playerList2)
+            {
+                player.Update(gameTime);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -34,12 +39,21 @@ namespace Johnny_Punch
             {
                 player.Draw(spriteBatch);
             }
+            foreach (Player2 player in playerList2)
+            {
+                player.Draw(spriteBatch);
+            }
         }
         public void AddPlayer()
         {
-            if (playerList.Count <= 0)
+            if (playerList.Count <= 0 && players == 1)
             {
                 playerList.Add(new Player(TextureManager.Player1tex, new Vector2(800, 400)));
+            }
+            if (playerList.Count <= 0 && players == 2)
+            {
+                playerList.Add(new Player(TextureManager.Player1tex, new Vector2(800, 400)));
+                playerList2.Add(new Player2(TextureManager.Player2tex, new Vector2(900, 400)));
             }
         }
 

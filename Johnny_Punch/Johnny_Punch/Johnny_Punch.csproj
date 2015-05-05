@@ -91,6 +91,7 @@
     <Compile Include="Effects\Particle_engine.cs" />
     <Compile Include="Movables\Player\Player.cs" />
     <Compile Include="Movables\Player\Player_manager.cs" />
+    <Compile Include="Player2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
