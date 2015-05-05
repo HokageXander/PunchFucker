@@ -62,7 +62,7 @@ namespace Johnny_Punch
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) || gameManager.menu.quit == true)
                 this.Exit();
             if (gameManager.firstDigitSeconds >= 0.002f)
-                ready = true;
+                ready = true; // för att spelet ska hinna ladda in före kameran går igång. Kameran annars ledsen :(
 
             gameManager.Update(gameTime);
 

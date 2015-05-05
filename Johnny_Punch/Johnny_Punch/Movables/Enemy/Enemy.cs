@@ -127,6 +127,7 @@ namespace Johnny_Punch
             {
                 dead = true;
                 animationBox.Y = 638;
+                animationBox.X = 0;
                 animationBox.Width = 125;
                 deathTimer1 += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (deathTimer1 >= 1500)

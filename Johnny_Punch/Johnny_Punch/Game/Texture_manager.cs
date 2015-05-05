@@ -78,7 +78,7 @@ namespace Johnny_Punch
  
             #region Player graphics
             Player1tex = Content.Load<Texture2D>(@"Images\AlexSheet");
-            Player2tex = Content.Load<Texture2D>(@"Images\AlexSheet2");
+            Player2tex = Content.Load<Texture2D>(@"Images\AlexSheetplayer2");
             playerShadow = Content.Load<Texture2D>(@"Images\shadow");
             #endregion
 
