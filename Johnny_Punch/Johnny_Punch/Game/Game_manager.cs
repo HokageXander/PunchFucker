@@ -18,7 +18,7 @@ namespace Johnny_Punch
 
 
         public int firstDigitSeconds, secondDigitSeconds, firstDigitMinutes, secondDigitMinutes, firstDigitHours, secondDigitHours;
-        double time, digitSeconds;
+        public double time, digitSeconds;
 
 
 

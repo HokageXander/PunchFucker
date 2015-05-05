@@ -13,6 +13,7 @@ namespace Johnny_Punch
 
         #region Menu
         public static Texture2D loadingScreen { get; private set; }
+        public static Texture2D loadingCircle { get; private set; }
         public static Texture2D menuBackground { get; private set; }
         public static Texture2D menuNewGame { get; private set; }
         public static Texture2D menuOptions { get; private set; }
@@ -56,6 +57,7 @@ namespace Johnny_Punch
         {
             #region Menu
             loadingScreen = Content.Load<Texture2D>(@"images\loadingScreen");
+            loadingCircle = Content.Load<Texture2D>(@"images\loadingCircle");
             menuBackground = Content.Load<Texture2D>(@"Images\MenuImages\menuBackground");
             menuNewGame = Content.Load<Texture2D>(@"Images\MenuImages\MenuNewGame");
             menuOptions = Content.Load<Texture2D>(@"Images\MenuImages\MenuOptions");

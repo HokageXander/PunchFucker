@@ -19,6 +19,7 @@ namespace Johnny_Punch
         GameManager gameManager;
         Camera camera;
         bool ready;
+        float loadingRotation = 1;
         //suck myu tits
 
         public Game1()
@@ -61,9 +62,14 @@ namespace Johnny_Punch
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) || gameManager.menu.quit == true)
                 this.Exit();
-            if (gameManager.firstDigitSeconds >= 0.002f)
-                ready = true; // för att spelet ska hinna ladda in före kameran går igång. Kameran annars ledsen :(
+            if (!ready)
+                loadingRotation *= 1.008f; //gör att cirkeln roterar vid loadingScreen
 
+            if (gameManager.firstDigitSeconds >= 2f && !ready)
+            {
+                ready = true; // för att spelet ska hinna ladda in före kameran går igång. Kameran annars ledsen :(
+                gameManager.digitSeconds = 0;
+            }
             gameManager.Update(gameTime);
 
             base.Update(gameTime);
@@ -87,8 +93,11 @@ namespace Johnny_Punch
 
                 spriteBatch.Begin();
                 gameManager.DrawStats(spriteBatch);
-                if (gameManager.firstDigitSeconds <= 0.002f && !ready)
+                if (!ready)
+                {
                     spriteBatch.Draw(TextureManager.loadingScreen, Vector2.Zero, Color.White);
+                    spriteBatch.Draw(TextureManager.loadingCircle, new Vector2(640, 450), null, Color.White, loadingRotation, new Vector2(36, 38), 1,SpriteEffects.None, 1);
+                }
                 spriteBatch.End();
             }
             else // för att få kameran ur funktion när man är i menyn
