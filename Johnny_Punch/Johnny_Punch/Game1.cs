@@ -86,9 +86,9 @@ namespace Johnny_Punch
                 spriteBatch.End();
 
                 spriteBatch.Begin();
+                gameManager.DrawStats(spriteBatch);
                 if (gameManager.firstDigitSeconds <= 0.002f && !ready)
                     spriteBatch.Draw(TextureManager.loadingScreen, Vector2.Zero, Color.White);
-                gameManager.DrawStats(spriteBatch);
                 spriteBatch.End();
             }
             else // för att få kameran ur funktion när man är i menyn
