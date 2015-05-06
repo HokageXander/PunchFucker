@@ -35,22 +35,43 @@ namespace Johnny_Punch
             oldKeyBoardState = keyBoardState;
             keyBoardState = Keyboard.GetState();
 
+            #region Key Up
             if (keyBoardState.IsKeyDown(Keys.Up) && oldKeyBoardState.IsKeyUp(Keys.Up)) // väljer vilken "knapp" man vill till i menyn
             {
                 menuNumber--;
-                if (menuNumber == 0) // om man trycker upp vid toppen går man till botten
+                if (menuNumber == 0 && menuState == MenuState.MainMenu) // om man trycker upp vid toppen går man till botten
                 {
                     menuNumber = 3;
                 }
-            }
-            if (keyBoardState.IsKeyDown(Keys.Down) && oldKeyBoardState.IsKeyUp(Keys.Down))
-            {
-                menuNumber++;
-                if (menuNumber == 4)
+                if (menuNumber == 0 && menuState == MenuState.NewGame)
+                {
+                    menuNumber = 2;
+                }
+                if (menuNumber == 0 && menuState == MenuState.Options)
                 {
                     menuNumber = 1;
                 }
             }
+            #endregion
+
+            #region Key Down
+            if (keyBoardState.IsKeyDown(Keys.Down) && oldKeyBoardState.IsKeyUp(Keys.Down))
+            {
+                menuNumber++;
+                if (menuNumber == 4 && menuState == MenuState.MainMenu)
+                {
+                    menuNumber = 1;
+                }
+                if (menuNumber == 3 && menuState == MenuState.NewGame)
+                {
+                    menuNumber = 1;
+                }
+                if (menuNumber == 2 && menuState == MenuState.Options)
+                {
+                    menuNumber = 1;
+                }
+            }
+            #endregion
 
             #region menuStates
             switch (menuState)

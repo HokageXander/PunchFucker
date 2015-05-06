@@ -13,7 +13,7 @@ namespace Johnny_Punch
 
         public List<Player> playerList = new List<Player>();
         public List<Player2> playerList2 = new List<Player2>();
-        public static int players;
+        public static int players = 1;
         public PlayerManager()
         {
 
