@@ -65,13 +65,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\StatusBar.png">
-      <Name>StatusBar</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Images\AlexSheet.png">
       <Name>AlexSheet</Name>
       <Importer>TextureImporter</Importer>
@@ -191,6 +184,13 @@
   <ItemGroup>
     <Compile Include="Images\Lifebar.png">
       <Name>Lifebar</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\StatusBar.png">
+      <Name>StatusBar</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
