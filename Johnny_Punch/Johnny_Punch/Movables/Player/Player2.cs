@@ -26,7 +26,8 @@ namespace Johnny_Punch
             width /= 9;
             height /= 10;
             shadowScale = 1;
-            life = 10;
+            this.life = 10;
+            maxLife = life;
             this.speed = new Vector2(0, 0);
             offset = new Vector2(width / 2, height / 2);
 
@@ -36,7 +37,7 @@ namespace Johnny_Punch
         {
             oldKeyBoardState = keyBoardState;
             keyBoardState = Keyboard.GetState();
-
+            percentLife = life / maxLife;
             pos += speed;
             posJump.X = pos.X;
             shadowScale = 1f - ((posJump.Y - pos.Y) * -0.01f);
@@ -166,6 +167,7 @@ namespace Johnny_Punch
                     posJump.Y = pos.Y;
                     speed.Y = -3.2f;
                     onGround = false;
+                    life -= 1;
                 }
                 #endregion
             }

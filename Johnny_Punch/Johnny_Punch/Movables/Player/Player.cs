@@ -16,17 +16,19 @@ namespace Johnny_Punch
         public KeyboardState keyBoardState, oldKeyBoardState;
         float shadowScale;
         int yLimitUp = 335, yLimitDown = 583;
-
+        
 
         public Player(Texture2D tex, Vector2 pos)
             : base(tex, pos)
         {
+            
             posJump = pos;
             animationBox = new Rectangle(0, 0, 75, 116);
             width /= 9;
             height /= 10;
             shadowScale = 1;
-            life = 10;
+            this.life = 10;
+            maxLife = life;
             this.speed = new Vector2(0, 0);
             offset = new Vector2(width / 2, height / 2);
 
@@ -36,6 +38,11 @@ namespace Johnny_Punch
         {
             oldKeyBoardState = keyBoardState;
             keyBoardState = Keyboard.GetState();
+
+
+            //Console.Write(life);
+
+            percentLife = life / maxLife;
 
             pos += speed;
             posJump.X = pos.X;
@@ -166,6 +173,7 @@ namespace Johnny_Punch
                     posJump.Y = pos.Y;
                     speed.Y = -3.2f;
                     onGround = false;
+                    life -= 1;
                 }
                 #endregion
             }
@@ -193,6 +201,7 @@ namespace Johnny_Punch
                 fight = true;
                 punch = true;
                 fightingCooldown = 0;
+                
             }
             if (punch)
             {
@@ -231,9 +240,11 @@ namespace Johnny_Punch
             else if (spriteEffect == SpriteEffects.FlipHorizontally)
                 spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 7, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
 
+            
+
             spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, 0f);
 
-            spriteBatch.Draw(tex, feetBox, Color.Red);
+            //spriteBatch.Draw(tex, feetBox, Color.Red);
             //spriteBatch.Draw(tex, playerRightBox, Color.Blue);
             //spriteBatch.Draw(tex, playerLeftBox, Color.Red);
             //spriteBatch.Draw(tex, punchBox, Color.Blue);
@@ -254,5 +265,6 @@ namespace Johnny_Punch
                 return boundingBox;
             }
         }
+        
     }
 }
