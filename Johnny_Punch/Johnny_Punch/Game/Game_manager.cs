@@ -38,7 +38,7 @@ namespace Johnny_Punch
             enemyManager = new EnemyManager(GraphicsDevice);
             playerManager = new PlayerManager();
             levelManager = new LevelManager(Content);
-            gameState = GameState.Play;            
+            gameState = GameState.Menu;            
         }
 
         public void Update(GameTime gameTime)
