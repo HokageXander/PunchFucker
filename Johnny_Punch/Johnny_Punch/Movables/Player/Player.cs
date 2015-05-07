@@ -50,10 +50,10 @@ namespace Johnny_Punch
             if (onGround) //Om vi är på marken så är Y = pos.Y
             {
                 feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));
-                playerLeftPos = new Vector2(feetBox.X - width, feetBox.Y);
-                playerRightPos = new Vector2(feetBox.X + width, feetBox.Y);
-                playerRightBox = new Rectangle((int)pos.X + 15, (int)pos.Y + 35, 30, 25);
-                playerLeftBox = new Rectangle((int)pos.X - 52, (int)pos.Y + 35, 30, 25);
+                playerLeftPos = new Vector2(feetBox.X + 10, feetBox.Y);
+                playerRightPos = new Vector2(feetBox.X + width - 10, feetBox.Y);
+                playerRightBox = new Rectangle((int)pos.X + 15, (int)pos.Y + 35, 25, 25);
+                playerLeftBox = new Rectangle((int)pos.X - 52, (int)pos.Y + 35, 25, 25);
             }
             else // Om vi är i luften är Y = jumpPos.Y
             {
@@ -61,13 +61,11 @@ namespace Johnny_Punch
                 playerRightBox = new Rectangle((int)pos.X + 15, (int)posJump.Y + 35, 30, 25);
                 playerLeftBox = new Rectangle((int)pos.X - 52, (int)posJump.Y + 35, 30, 25);
             }
-            playerLeftPos = new Vector2(feetBox.X - width, feetBox.Y);
-            playerRightPos = new Vector2(feetBox.X + width, feetBox.Y);
 
             Moving(gameTime);
             Fight(gameTime);
 
-            if ((fightFrame == 0 && !moving) || walkFrame == 0) //Tar bort den gamla animationen som höll på när man byter till en annan animation
+            if ((fightFrame == 0 && !moving) || walkFrame == 0 && !fight) //Tar bort den gamla animationen som höll på när man byter till en annan animation
             {
                 animationBox.X = 0;
             }
@@ -176,11 +174,11 @@ namespace Johnny_Punch
         {
             if (fight)
             {
-                fightTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                fightCooldown += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
             else
             {
-                fightTime = 0;
+                fightCooldown = 0;
                 fightingCooldown += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
 
@@ -188,7 +186,7 @@ namespace Johnny_Punch
             if (fightingCooldown >= 300 && keyBoardState.IsKeyDown(Keys.T) && !fight && onGround)
             {
                 frameTime = 120;
-                walkFrame = -1;
+                walkFrame = 0;
                 moving = false;
                 fight = true;
                 punch = true;
@@ -233,7 +231,7 @@ namespace Johnny_Punch
 
             spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, 0f);
 
-            spriteBatch.Draw(tex, feetBox, Color.Red);
+            //spriteBatch.Draw(tex, feetBox, Color.Red);
             //spriteBatch.Draw(tex, playerRightBox, Color.Blue);
             //spriteBatch.Draw(tex, playerLeftBox, Color.Red);
             //spriteBatch.Draw(tex, punchBox, Color.Blue);

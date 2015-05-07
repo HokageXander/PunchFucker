@@ -15,10 +15,10 @@ namespace Johnny_Punch
     {
         public Rectangle animationBox, feetBox, punchBox;
         public SpriteEffects spriteEffect;
-        protected int walkFrame, fightFrame;
+        public int walkFrame, fightFrame;
         public int life, deathBlinkCount;
         public double frameTime, frameInterval, fightFrameTime, fightFrameInterval;
-        public double fightTime, fightingCooldown = 500, stunnedTimer;
+        public double fightCooldown, fightingCooldown = 500, stunnedTimer;
         public double deathTimer1, deathTimer2; //Två tider, en när han dör och en som gör att han blinkar vit
         public bool moving, onGround = true, fight, punch, stunned, dead, whiteNdead, hasHit; /*,blocking;*/
         public Vector2 posJump;
@@ -56,7 +56,7 @@ namespace Johnny_Punch
                 fightFrameTime = fightFrameInterval;
                 fightFrame++;
                 animationBox.X = (fightFrame % animationLength) * animationWidth;
-            }
+            }            
         }
     }
 }

@@ -176,11 +176,11 @@ namespace Johnny_Punch
         {
             if (fight)
             {
-                fightTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                fightCooldown += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
             else
             {
-                fightTime = 0;
+                fightCooldown = 0;
                 fightingCooldown += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
 

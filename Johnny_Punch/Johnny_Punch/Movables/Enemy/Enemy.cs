@@ -18,7 +18,6 @@ namespace Johnny_Punch
             : base(tex, pos)
         {
 
-
         }
         public override void Update(GameTime gameTime)
         {
@@ -27,7 +26,7 @@ namespace Johnny_Punch
                 AnimationTypes(gameTime);
             Death(gameTime);
 
-            if ((fightFrame == 0 && !moving) || walkFrame == 0)
+            if ((fightFrame == 0 && !moving) || walkFrame == 0 && !punch)
             {
                 animationBox.X = 0;
             }
@@ -39,7 +38,7 @@ namespace Johnny_Punch
                 spriteBatch.Draw(tex, pos, animationBox, new Color(255, 255, 255, 0), 0f, offset, 1f, spriteEffect, 0f);
             else // om han inte är död är han färggrann
                 spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, offset, 1f, spriteEffect, 0f);
-            spriteBatch.Draw(tex, feetBox, Color.Red);
+            //spriteBatch.Draw(tex, feetBox, Color.Red);
             //spriteBatch.Draw(tex, boundingBox, Color.Red);
         }
 
@@ -68,6 +67,8 @@ namespace Johnny_Punch
         {
             angryFace = false;
             animationBox.Y = 0;
+            //if(!punch)
+            //    fightFrame = 1; //resettar fightanimationen om man springer ur range
             Vector2 feetPos = new Vector2(feetBox.X, feetBox.Y);
             Vector2 playerfeetPos = new Vector2(player.feetBox.X, player.feetBox.Y);
             if (Vector2.Distance(feetPos, playerfeetPos) < aggroRadius && !(feetBox.Intersects(player.playerRightBox) || feetBox.Intersects(player.playerLeftBox)))
@@ -75,7 +76,7 @@ namespace Johnny_Punch
                 moving = true;
                 if (feetPos.X < playerfeetPos.X)
                 {
-                    direction = player.playerLeftPos - feetPos;
+                    direction = player.playerLeftPos - new Vector2(width - 5, 0) - feetPos; // "new Vector2(width - 5, 0)" -> så att den tar högra sidan av feetbox.X
                 }
                 else
                     direction = player.playerRightPos - feetPos;
@@ -103,26 +104,27 @@ namespace Johnny_Punch
         {
             if (feetBox.Intersects(player.playerLeftBox) || feetBox.Intersects(player.playerRightBox))
             {
-                fightTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                fightCooldown += gameTime.ElapsedGameTime.TotalMilliseconds;
                 punch = true;
-                if (fightTime > 500)
+                if (fightCooldown > 500) // när cooldown för slaget är över
                 {
-                    animationBox.Y = 380;                    
-                    FightAnimation(150, 3, 92, gameTime);
+                    animationBox.Y = 380;
+                    FightAnimation(140, 3, 92, gameTime);       
                 }
             }
 
             if (punch && fightFrame >= 3)
             {
+                fightFrameTime = frameInterval;
                 punch = false;
                 fightFrame = 0;
-                fightTime = -200;
+                fightCooldown = -500;
             }
+            
         }
 
         public void Death(GameTime gameTime)
         {
-            Console.WriteLine(life);
             if (life <= 0)
             {
                 dead = true;

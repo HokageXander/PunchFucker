@@ -38,7 +38,7 @@ namespace Johnny_Punch
             enemyManager = new EnemyManager(GraphicsDevice);
             playerManager = new PlayerManager();
             levelManager = new LevelManager(Content);
-            gameState = GameState.Menu;            
+            gameState = GameState.Play;            
         }
 
         public void Update(GameTime gameTime)
@@ -72,7 +72,7 @@ namespace Johnny_Punch
             }
 
 
-
+            //Console.WriteLine(enemyManager.enemyList[0].fightFrame);
 
         }
         public void DrawStats(SpriteBatch spriteBatch)
