@@ -16,7 +16,7 @@ namespace Johnny_Punch
             animationBox = new Rectangle(0, 0, 75, 116);
             width /= 9;
             height /= 9;
-            aggroRadius = 250;
+            aggroRadius = 350;
             damageToPlayer -= 1;
             life = 5;
             enemySpeed = 1.5f;

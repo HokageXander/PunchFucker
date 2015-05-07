@@ -20,7 +20,6 @@ namespace Johnny_Punch
         Camera camera;
         bool ready;
         float loadingRotation = 1;
-        //suck myu tits
 
         public Game1()
         {
@@ -30,16 +29,12 @@ namespace Johnny_Punch
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
-
-
+        
         protected override void Initialize()
         {
-
-
             base.Initialize();
         }
-
-
+        
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -47,17 +42,13 @@ namespace Johnny_Punch
 
             gameManager.LoadContent(Content, GraphicsDevice, spriteBatch);
             camera = new Camera(GraphicsDevice.Viewport);
-
-
         }
-
-
+        
         protected override void UnloadContent()
         {
 
         }
-
-
+        
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) || gameManager.menu.quit == true)
@@ -78,10 +69,8 @@ namespace Johnny_Punch
                 camera.Update(gameManager.playerManager.playerList[0].GetPos, gameManager.playerManager.playerList[0].GetRec, Window);
                 Window.Title = camera.GetCameraPos.ToString() + gameManager.playerManager.playerList[0].pos.X.ToString();
             }
-
         }
-
-
+        
         protected override void Draw(GameTime gameTime)
         {
             if (gameManager.gameState == GameManager.GameState.Play)

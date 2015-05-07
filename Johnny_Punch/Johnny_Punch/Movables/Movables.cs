@@ -16,7 +16,8 @@ namespace Johnny_Punch
         public Rectangle animationBox, feetBox, punchBox;
         public SpriteEffects spriteEffect;
         protected int walkFrame, fightFrame;
-        public int life, deathBlinkCount;
+        public float life, maxLife, percentLife;
+        public int deathBlinkCount;
         public double frameTime, frameInterval, fightFrameTime, fightFrameInterval;
         public double fightTime, fightingCooldown = 500, stunnedTimer;
         public double deathTimer1, deathTimer2; //Två tider, en när han dör och en som gör att han blinkar vit

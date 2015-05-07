@@ -26,10 +26,13 @@ namespace Johnny_Punch
 
         #endregion
 
+        #region StatusBar graphics
+        public static Texture2D lifeBarTex { get; private set; }
+        #endregion
+
         #region Environment graphics
         public static Texture2D citybackgroundTex { get; private set; }
         public static Texture2D statusBarTex { get; private set; }
-        public static Texture2D statusBarAngryTex { get; private set; }
         public static Texture2D roadTex { get; private set; }
         public static Texture2D startMenuTex { get; private set; }
         public static Texture2D manHoleCoverTex { get; private set; }
@@ -69,15 +72,18 @@ namespace Johnny_Punch
             menuSoundOff = Content.Load<Texture2D>(@"Images\MenuImages\MenuSoundOff");
             #endregion
 
+            #region StatusBar graphics
+            lifeBarTex = Content.Load<Texture2D>(@"Images\Lifebar");
+            #endregion
+
             #region Environment graphics
             citybackgroundTex = Content.Load<Texture2D>(@"Images\citybackground");
             statusBarTex = Content.Load<Texture2D>(@"Images\StatusBar");
-            statusBarAngryTex = Content.Load<Texture2D>(@"Images\StatusBarAngry");
             roadTex = Content.Load<Texture2D>(@"Images\road");
             startMenuTex = Content.Load<Texture2D>(@"Images\startmenu");
             manHoleCoverTex = Content.Load<Texture2D>(@"Images\manholecover");
             #endregion
- 
+
             #region Player graphics
             Player1tex = Content.Load<Texture2D>(@"Images\AlexSheet");
             Player2tex = Content.Load<Texture2D>(@"Images\AlexSheetplayer2");
