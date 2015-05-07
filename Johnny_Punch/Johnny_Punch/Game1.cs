@@ -53,7 +53,7 @@ namespace Johnny_Punch
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) || gameManager.menu.quit == true)
                 this.Exit();
-            if (!ready)
+            if (!ready && gameManager.gameState == GameManager.GameState.Play)
                 loadingRotation *= 1.008f; //gör att cirkeln roterar vid loadingScreen
 
             if (gameManager.firstDigitSeconds >= 2f && !ready)

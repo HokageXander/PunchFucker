@@ -77,27 +77,28 @@ namespace Johnny_Punch
         }
         public void DrawStats(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureManager.statusBarTex, Vector2.Zero, Color.White);
+
 
             for (int i = 0; i < playerManager.playerList.Count; i++)
             {
                 if (playerManager.playerList[0].percentLife < 1.0f)
                 {
-                    spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120, 610, 235, 35), Color.Red);
+                    spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120 /*- 50 * (PlayerManager.players - 1)*/, 570, 155, 35), Color.Red);
                 }
-                spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120, 610, (int)(235 * playerManager.playerList[0].percentLife), 35), Color.Green);
+                spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120, 570, (int)(155 * playerManager.playerList[0].percentLife), 35), Color.Green);
 
                 if (PlayerManager.players == 2)
                 {
                     if (playerManager.playerList2[0].percentLife < 1.0f)
                     {
-                        spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120, 670, 235, 35), Color.Red);
+                        spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(254, 620, 155, 35), Color.Red);
                     }
-                    spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120, 670, (int)(235 * playerManager.playerList2[0].percentLife), 35), Color.Green);
+                    int healthPos = (int)(playerManager.playerList2[0].maxLife - playerManager.playerList2[0].life);
+                    spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(254 + (int)(15.5f * healthPos), 620, (int)(155 * playerManager.playerList2[0].percentLife), 35), Color.Green);
 
                 }
             }
-
+            spriteBatch.Draw(TextureManager.statusBarTex, Vector2.Zero, Color.White);
 
 
             spriteBatch.DrawString(TextureManager.timeFont, secondDigitHours.ToString() + firstDigitHours.ToString() +
