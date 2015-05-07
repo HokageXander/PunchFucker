@@ -9,7 +9,6 @@ namespace Johnny_Punch
 {
     abstract class Enemy : Movables
     {
-        public static bool angryFace;
         protected int aggroRadius;
         protected Vector2 velocity, direction;
         public int damageToPlayer;
@@ -21,9 +20,12 @@ namespace Johnny_Punch
         }
         public override void Update(GameTime gameTime)
         {
-            boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width, height);
             if (!dead)
+            {
+                boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width, height);
                 AnimationTypes(gameTime);
+            }
+
             Death(gameTime);
 
             if ((fightFrame == 0 && !moving) || walkFrame == 0 && !punch)
@@ -65,7 +67,7 @@ namespace Johnny_Punch
         }
         public void Aggro(Player player)
         {
-            angryFace = false;
+            
             animationBox.Y = 0;
             //if(!punch)
             //    fightFrame = 1; //resettar fightanimationen om man springer ur range
@@ -85,7 +87,7 @@ namespace Johnny_Punch
                 velocity.X = enemySpeed * direction.X;
                 velocity.Y = enemySpeed * direction.Y;
                 pos += velocity;
-                angryFace = true;
+                
                 if (direction.X < 0)
                     spriteEffect = SpriteEffects.FlipHorizontally;
                 else
@@ -132,6 +134,8 @@ namespace Johnny_Punch
                 animationBox.X = 0;
                 animationBox.Width = 125;
                 deathTimer1 += gameTime.ElapsedGameTime.TotalMilliseconds;
+                boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, 0, 0);
+
                 if (deathTimer1 >= 1500)
                 {
                     deathTimer2 += gameTime.ElapsedGameTime.TotalMilliseconds;

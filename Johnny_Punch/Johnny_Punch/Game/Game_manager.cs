@@ -38,7 +38,7 @@ namespace Johnny_Punch
             enemyManager = new EnemyManager(GraphicsDevice);
             playerManager = new PlayerManager();
             levelManager = new LevelManager(Content);
-            gameState = GameState.Play;            
+            gameState = GameState.Menu;
         }
 
         public void Update(GameTime gameTime)
@@ -77,22 +77,33 @@ namespace Johnny_Punch
         }
         public void DrawStats(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(TextureManager.statusBarTex, Vector2.Zero, Color.White);
 
-            if (!Enemy.angryFace)
+            for (int i = 0; i < playerManager.playerList.Count; i++)
             {
-                spriteBatch.Draw(TextureManager.statusBarTex, Vector2.Zero, Color.White);
+                if (playerManager.playerList[0].percentLife < 1.0f)
+                {
+                    spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120, 610, 235, 35), Color.Red);
+                }
+                spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120, 610, (int)(235 * playerManager.playerList[0].percentLife), 35), Color.Green);
+
+                if (PlayerManager.players == 2)
+                {
+                    if (playerManager.playerList2[0].percentLife < 1.0f)
+                    {
+                        spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120, 670, 235, 35), Color.Red);
+                    }
+                    spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120, 670, (int)(235 * playerManager.playerList2[0].percentLife), 35), Color.Green);
+
+                }
             }
-            else
-            {
-                spriteBatch.Draw(TextureManager.statusBarAngryTex, Vector2.Zero, Color.White);
-            }
+
+
+
             spriteBatch.DrawString(TextureManager.timeFont, secondDigitHours.ToString() + firstDigitHours.ToString() +
-                ":" + secondDigitMinutes.ToString() + firstDigitMinutes.ToString() +
-                ":" + secondDigitSeconds.ToString() + firstDigitSeconds.ToString(), new Vector2(523, 630), Color.Green);
+            ":" + secondDigitMinutes.ToString() + firstDigitMinutes.ToString() +
+            ":" + secondDigitSeconds.ToString() + firstDigitSeconds.ToString(), new Vector2(523, 630), Color.Green);
         }
-
-
-
 
         public void Draw(SpriteBatch spriteBatch)
         {
