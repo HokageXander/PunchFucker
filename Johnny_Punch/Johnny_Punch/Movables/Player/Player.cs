@@ -16,12 +16,12 @@ namespace Johnny_Punch
         public KeyboardState keyBoardState, oldKeyBoardState;
         float shadowScale;
         int yLimitUp = 335, yLimitDown = 583;
-        
+
 
         public Player(Texture2D tex, Vector2 pos)
             : base(tex, pos)
         {
-            
+
             posJump = pos;
             animationBox = new Rectangle(0, 0, 75, 116);
             width /= 9;
@@ -39,7 +39,7 @@ namespace Johnny_Punch
             oldKeyBoardState = keyBoardState;
             keyBoardState = Keyboard.GetState();
 
-
+            Death(gameTime);
             //Console.Write(life);
 
             percentLife = life / maxLife;
@@ -52,29 +52,31 @@ namespace Johnny_Punch
                 speed.Y += 0.14f;
             else
                 speed.Y = 0;
-
-            boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width, height);
-            if (onGround) //Om vi är på marken så är Y = pos.Y
+            if (!dead)
             {
-                feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));
-                playerLeftPos = new Vector2(feetBox.X + 10, feetBox.Y);
-                playerRightPos = new Vector2(feetBox.X + width - 10, feetBox.Y);
-                playerRightBox = new Rectangle((int)pos.X + 15, (int)pos.Y + 35, 25, 25);
-                playerLeftBox = new Rectangle((int)pos.X - 52, (int)pos.Y + 35, 25, 25);
-            }
-            else // Om vi är i luften är Y = jumpPos.Y
-            {
-                feetBox = new Rectangle((int)pos.X - (int)49, (int)posJump.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));
-                playerRightBox = new Rectangle((int)pos.X + 15, (int)posJump.Y + 35, 30, 25);
-                playerLeftBox = new Rectangle((int)pos.X - 52, (int)posJump.Y + 35, 30, 25);
-            }
+                boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width, height);
+                if (onGround) //Om vi är på marken så är Y = pos.Y
+                {
+                    feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));
+                    playerLeftPos = new Vector2(feetBox.X + 10, feetBox.Y);
+                    playerRightPos = new Vector2(feetBox.X + width - 10, feetBox.Y);
+                    playerRightBox = new Rectangle((int)pos.X + 15, (int)pos.Y + 35, 25, 25);
+                    playerLeftBox = new Rectangle((int)pos.X - 52, (int)pos.Y + 35, 25, 25);
+                }
+                else // Om vi är i luften är Y = jumpPos.Y
+                {
+                    feetBox = new Rectangle((int)pos.X - (int)49, (int)posJump.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));
+                    playerRightBox = new Rectangle((int)pos.X + 15, (int)posJump.Y + 35, 30, 25);
+                    playerLeftBox = new Rectangle((int)pos.X - 52, (int)posJump.Y + 35, 30, 25);
+                }
 
-            Moving(gameTime);
-            Fight(gameTime);
+                Moving(gameTime);
+                Fight(gameTime);
 
-            if ((fightFrame == 0 && !moving) || walkFrame == 0 && !fight) //Tar bort den gamla animationen som höll på när man byter till en annan animation
-            {
-                animationBox.X = 0;
+                if ((fightFrame == 0 && !moving) || walkFrame == 0 && !fight) //Tar bort den gamla animationen som höll på när man byter till en annan animation
+                {
+                    animationBox.X = 0;
+                }
             }
         }
 
@@ -182,11 +184,11 @@ namespace Johnny_Punch
         {
             if (fight)
             {
-                fightCooldown += gameTime.ElapsedGameTime.TotalMilliseconds;
+                fightTime += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
             else
             {
-                fightCooldown = 0;
+                fightTime = 0;
                 fightingCooldown += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
 
@@ -199,7 +201,7 @@ namespace Johnny_Punch
                 fight = true;
                 punch = true;
                 fightingCooldown = 0;
-                
+
             }
             if (punch)
             {
@@ -229,6 +231,20 @@ namespace Johnny_Punch
 
         }
 
+        public void Death(GameTime gameTime)
+        {
+            if (life <= 0)
+            {
+                dead = true;
+                animationBox.Y = 1020;
+                animationBox.X = 0;
+                animationBox.Width = 125;
+                deathTimer1 += gameTime.ElapsedGameTime.TotalMilliseconds;
+                boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, 0, 0);
+            }
+        }
+
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             if (spriteEffect == SpriteEffects.None)
@@ -238,7 +254,7 @@ namespace Johnny_Punch
             else if (spriteEffect == SpriteEffects.FlipHorizontally)
                 spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 7, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
 
-            
+
 
             spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, 0f);
 
@@ -263,6 +279,6 @@ namespace Johnny_Punch
                 return boundingBox;
             }
         }
-        
+
     }
 }

@@ -15,14 +15,8 @@ namespace Johnny_Punch
         EnemyManager enemyManager;
         LevelManager levelManager;
 
-
-
         public int firstDigitSeconds, secondDigitSeconds, firstDigitMinutes, secondDigitMinutes, firstDigitHours, secondDigitHours;
         public double time, digitSeconds;
-
-
-
-
 
 
         public enum GameState
@@ -59,7 +53,7 @@ namespace Johnny_Punch
                     playerManager.Update(gameTime);
                     playerManager.LandingPunches(enemyManager);
                     TotalPlayTime(gameTime);
-
+                    
 
                     time += gameTime.ElapsedGameTime.TotalSeconds;
                     break;
@@ -70,16 +64,13 @@ namespace Johnny_Punch
                 case GameState.End:
                     break;
             }
-
-
-            //Console.WriteLine(enemyManager.enemyList[0].fightFrame);
-
         }
+
         public void DrawStats(SpriteBatch spriteBatch)
         {
 
 
-            for (int i = 0; i < playerManager.playerList.Count; i++)
+            for (int i = 0; i < playerManager.playerList.Count; i++)// Lifebars till spelarna
             {
                 if (playerManager.playerList[0].percentLife < 1.0f)
                 {
@@ -131,13 +122,14 @@ namespace Johnny_Punch
         }
 
 
-        public static void CheckIsDead()
+        public static void CheckIsDead( )
         {
 
         }
 
         public void TotalPlayTime(GameTime gameTime)
         {
+            #region DigitTimer
             digitSeconds += gameTime.ElapsedGameTime.TotalSeconds;
 
             firstDigitSeconds = (int)digitSeconds;
@@ -168,6 +160,7 @@ namespace Johnny_Punch
                 secondDigitHours++;
                 firstDigitHours = 0;
             }
+            #endregion 
         }
     }
 }
