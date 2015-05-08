@@ -22,7 +22,7 @@ namespace Johnny_Punch
         public void Update(GameTime gameTime)
         {
             AddPlayer();
-            
+
             foreach (Player player in playerList)
             {
                 player.Update(gameTime);
@@ -44,7 +44,7 @@ namespace Johnny_Punch
                 player.Draw(spriteBatch);
             }
         }
-       
+
         public void AddPlayer()
         {
             if (playerList.Count <= 0 && players == 1)
@@ -82,8 +82,10 @@ namespace Johnny_Punch
                             break;
                         }
                         else
-                        enemyManager.enemyList[j].pos.X += 2;
-                        enemyManager.enemyList[j].life -= 1;
+                        {
+                            enemyManager.enemyList[j].pos.X += 2;
+                            enemyManager.enemyList[j].life -= 1;
+                        }
                         break;
                     }
                 }

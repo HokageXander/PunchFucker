@@ -74,5 +74,36 @@ namespace Johnny_Punch
                 }
             }
         }
+
+        public void FightPlayer(PlayerManager playerManager)
+        {
+            for (int i = 0; i < playerManager.playerList.Count; i++)
+            {
+                for (int j = 0; j < enemyList.Count; j++)
+                {
+                    float Ydistance = (enemyList[j].feetBox.Y - 4) - (playerManager.playerList[i].feetBox.Y - 4);
+                    if (Ydistance < 0)
+                    {
+                        Ydistance *= -1;
+                    }
+
+                    if (enemyList[j].punchBox.Intersects(playerManager.playerList[i].boundingBox)
+                       && Ydistance < 25 && !enemyList[j].hasHit && enemyList[j].fightFrame >= 2) // om vi intersectar och vi står i samma y-led och vi inte har träffat än och vi är vid slutet av animationen
+                    {
+                        enemyList[j].hasHit = true;
+                        if (enemyList[j].spriteEffect == SpriteEffects.FlipHorizontally)
+                        {
+                            //playerManager.playerList[i].pos.X -= 2;
+                            playerManager.playerList[i].life -= 1;
+                            break;
+                        }
+                        else
+                            //playerManager.playerList[i].pos.X += 2;
+                        playerManager.playerList[i].life -= 1;
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

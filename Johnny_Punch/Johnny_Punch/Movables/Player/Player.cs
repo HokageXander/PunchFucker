@@ -48,19 +48,21 @@ namespace Johnny_Punch
             posJump.X = pos.X;
             shadowScale = 1f - ((posJump.Y - pos.Y) * -0.01f);
             speed.X = 0;
-            if (!onGround)
+            if (!onGround || dead)
                 speed.Y += 0.14f;
             else
                 speed.Y = 0;
+
             if (!dead)
             {
                 boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width, height);
+                playerLeftPos = new Vector2(feetBox.X - 55, feetBox.Y); //positionen som fienden ska gå till vänster om spelaren
+                playerRightPos = new Vector2(feetBox.X + width - 20, feetBox.Y);
+
                 if (onGround) //Om vi är på marken så är Y = pos.Y
                 {
-                    feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));
-                    playerLeftPos = new Vector2(feetBox.X + 10, feetBox.Y);
-                    playerRightPos = new Vector2(feetBox.X + width - 10, feetBox.Y);
-                    playerRightBox = new Rectangle((int)pos.X + 15, (int)pos.Y + 35, 25, 25);
+                    feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));                    
+                    playerRightBox = new Rectangle((int)pos.X + 15, (int)pos.Y + 35, 25, 25); //rektangeln till höger om spelaren. Om fienden krockar i börjar han slåss
                     playerLeftBox = new Rectangle((int)pos.X - 52, (int)pos.Y + 35, 25, 25);
                 }
                 else // Om vi är i luften är Y = jumpPos.Y
@@ -168,12 +170,11 @@ namespace Johnny_Punch
                         speed.Y = 0;
                     }
                 }
-                if (keyBoardState.IsKeyDown(Keys.Space) && oldKeyBoardState.IsKeyDown(Keys.Space) && onGround)
+                if (keyBoardState.IsKeyDown(Keys.Space) && oldKeyBoardState.IsKeyDown(Keys.Space) && onGround) // här hoppar man
                 {
-                    posJump.Y = pos.Y;
+                    posJump.Y = pos.Y; //när man hoppar svaras punkten man hoppade från i y-led. Man landar på den punkten i y-led sen
                     speed.Y = -3.2f;
                     onGround = false;
-                    life -= 1;
                 }
                 #endregion
             }
@@ -205,7 +206,6 @@ namespace Johnny_Punch
             }
             if (punch)
             {
-
                 animationBox.Width = 77;
                 animationBox.Y = 514;
                 FightAnimation(90, 3, 77, gameTime);
@@ -247,13 +247,17 @@ namespace Johnny_Punch
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (spriteEffect == SpriteEffects.None)
+            if (spriteEffect == SpriteEffects.None && !dead)
             {
                 spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 15, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
             }
-            else if (spriteEffect == SpriteEffects.FlipHorizontally)
+            else if (spriteEffect == SpriteEffects.FlipHorizontally && !dead)
                 spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 7, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
-
+            else if (dead)
+            {
+                posJump.Y = pos.Y;
+                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 7, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
+            }
 
 
             spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, 0f);

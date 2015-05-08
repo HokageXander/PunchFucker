@@ -52,6 +52,7 @@ namespace Johnny_Punch
                     enemyManager.AggroPlayer(playerManager, gameTime);
                     playerManager.Update(gameTime);
                     playerManager.LandingPunches(enemyManager);
+                    enemyManager.FightPlayer(playerManager);
                     TotalPlayTime(gameTime);
                     
 

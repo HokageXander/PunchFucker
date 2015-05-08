@@ -15,7 +15,7 @@ namespace Johnny_Punch
     {
         public Rectangle animationBox, feetBox, punchBox;
         public SpriteEffects spriteEffect;
-        protected int walkFrame, fightFrame;
+        public int walkFrame, fightFrame;
         public float life, maxLife, percentLife;
         public int deathBlinkCount;
         public double frameTime, frameInterval, fightFrameTime, fightFrameInterval;

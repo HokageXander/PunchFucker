@@ -67,7 +67,7 @@ namespace Johnny_Punch
             if (gameManager.gameState == GameManager.GameState.Play && ready)
             {
                 camera.Update(gameManager.playerManager.playerList[0].GetPos, gameManager.playerManager.playerList[0].GetRec, Window);
-                Window.Title = camera.GetCameraPos.ToString() + gameManager.playerManager.playerList[0].pos.X.ToString();
+            Window.Title = gameManager.playerManager.playerList[0].playerLeftPos.ToString() + " : " + gameManager.playerManager.playerList[0].playerRightPos.ToString();
             }
         }
         
