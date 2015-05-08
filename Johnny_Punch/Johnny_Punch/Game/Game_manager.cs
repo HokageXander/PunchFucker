@@ -90,7 +90,7 @@ namespace Johnny_Punch
 
                 }
             }
-            spriteBatch.Draw(TextureManager.statusBarTex, Vector2.Zero, Color.White);
+            spriteBatch.Draw(TextureManager.statusBarTex, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
 
             spriteBatch.DrawString(TextureManager.timeFont, secondDigitHours.ToString() + firstDigitHours.ToString() +
@@ -127,6 +127,20 @@ namespace Johnny_Punch
         {
 
         }
+
+        //public void FloatLayerDepthAlignment()
+        //{
+        //    for (int i = 0; i < playerManager.playerList.Count; i++)
+        //    {
+        //        for (int j = 0; j < enemyManager.enemyList.Count; j++)
+        //        {
+        //            if (playerManager.playerList[i].pos.Y > enemyManager.enemyList[j].pos.Y)
+        //            {
+                        
+        //            }
+        //        }
+        //    }
+        //}
 
         public void TotalPlayTime(GameTime gameTime)
         {

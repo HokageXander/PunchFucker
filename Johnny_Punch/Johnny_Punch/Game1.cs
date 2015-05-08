@@ -76,7 +76,7 @@ namespace Johnny_Punch
             if (gameManager.gameState == GameManager.GameState.Play)
             {
                 GraphicsDevice.Clear(Color.LightPink);
-                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, null, null, null, null, camera.GetTransform);
+                spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, camera.GetTransform);
                 gameManager.Draw(spriteBatch);
                 spriteBatch.End();
 

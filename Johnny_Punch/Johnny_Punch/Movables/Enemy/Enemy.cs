@@ -31,6 +31,7 @@ namespace Johnny_Punch
                 punchBox = new Rectangle((int)pos.X - 44, (int)pos.Y - 65, 0, 0); //tar bort punchboxen om han dör
 
             Death(gameTime);
+            FloatLayerCalculator();
 
             if ((fightFrame == 0 && !moving) || walkFrame == 0)
             {
@@ -39,11 +40,11 @@ namespace Johnny_Punch
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureManager.playerShadow, new Vector2(pos.X, pos.Y + (height / 2)), null, new Color(0, 0, 0, 120), 0f, new Vector2(width / 2, height - height / 1.3f), 1, SpriteEffects.None, 0);
+            spriteBatch.Draw(TextureManager.playerShadow, new Vector2(pos.X, pos.Y + (height / 2)), null, new Color(0, 0, 0, 120), 0f, new Vector2(width / 2, height - height / 1.3f), 1, SpriteEffects.None, 0.1f);
             if (whiteNdead) // om han är död blir han vit
-                spriteBatch.Draw(tex, pos, animationBox, new Color(255, 255, 255, 0), 0f, offset, 1f, spriteEffect, 0f);
+                spriteBatch.Draw(tex, pos, animationBox, new Color(255, 255, 255, 0), 0f, offset, 1f, spriteEffect, floatLayerNr);
             else // om han inte är död är han färggrann
-                spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, offset, 1f, spriteEffect, 0f);
+                spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, offset, 1f, spriteEffect, floatLayerNr);
             spriteBatch.Draw(tex, feetBox, Color.Red);
             spriteBatch.Draw(tex, punchBox, Color.PaleGoldenrod);
             //spriteBatch.Draw(tex, boundingBox, Color.Red);
@@ -74,6 +75,7 @@ namespace Johnny_Punch
                 }
             }
         }
+
         public void Aggro(Player player)
         {
 
@@ -192,5 +194,9 @@ namespace Johnny_Punch
             }
         }
 
+        public void FloatLayerCalculator()
+        {
+            floatLayerNr = 0 + pos.Y * 0.0010f; //numret blir mellan 0.335 och 0.583, vilket placerar en i rätt ordning
+        }
     }
 }

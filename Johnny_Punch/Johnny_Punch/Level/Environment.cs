@@ -24,7 +24,7 @@ namespace Johnny_Punch
 
          public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(tex, pos, Color.White);
+            spriteBatch.Draw(tex, pos, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
         }
     }
 }

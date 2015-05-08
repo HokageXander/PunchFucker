@@ -40,6 +40,7 @@ namespace Johnny_Punch
             keyBoardState = Keyboard.GetState();
 
             Death(gameTime);
+            FloatLayerCalculator();
             //Console.Write(life);
 
             percentLife = life / maxLife;
@@ -79,6 +80,44 @@ namespace Johnny_Punch
                 {
                     animationBox.X = 0;
                 }
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            #region Shadows
+            if (spriteEffect == SpriteEffects.None && !dead)
+            {
+                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 15, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0.1f);
+            }
+            else if (spriteEffect == SpriteEffects.FlipHorizontally && !dead)
+                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 7, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0.1f);
+            else if (dead)
+            {
+                posJump.Y = pos.Y;
+                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 7, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0.1f);
+            }
+            #endregion
+
+            spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, floatLayerNr);
+
+            //spriteBatch.Draw(tex, feetBox, Color.Red);
+            //spriteBatch.Draw(tex, playerRightBox, Color.Blue);
+            //spriteBatch.Draw(tex, playerLeftBox, Color.Red);
+            //spriteBatch.Draw(tex, punchBox, Color.Blue);
+            //spriteBatch.Draw(tex, boundingBox, Color.Red);
+        }
+
+        public void Death(GameTime gameTime)
+        {
+            if (life <= 0)
+            {
+                dead = true;
+                animationBox.Y = 1020;
+                animationBox.X = 0;
+                animationBox.Width = 125;
+                deathTimer1 += gameTime.ElapsedGameTime.TotalMilliseconds;
+                boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, 0, 0);
             }
         }
 
@@ -231,43 +270,18 @@ namespace Johnny_Punch
 
         }
 
-        public void Death(GameTime gameTime)
+        public void FloatLayerCalculator()
         {
-            if (life <= 0)
+            if (!onGround)
             {
-                dead = true;
-                animationBox.Y = 1020;
-                animationBox.X = 0;
-                animationBox.Width = 125;
-                deathTimer1 += gameTime.ElapsedGameTime.TotalMilliseconds;
-                boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, 0, 0);
+                floatLayerNr = 0 + posJump.Y * 0.0010f; //numret blir mellan 0.335 och 0.583, vilket placerar en i rätt ordning
             }
+            else
+            floatLayerNr = 0 + pos.Y * 0.0010f;
         }
 
 
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            if (spriteEffect == SpriteEffects.None && !dead)
-            {
-                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 15, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
-            }
-            else if (spriteEffect == SpriteEffects.FlipHorizontally && !dead)
-                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 7, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
-            else if (dead)
-            {
-                posJump.Y = pos.Y;
-                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 7, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
-            }
 
-
-            spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, 0f);
-
-            //spriteBatch.Draw(tex, feetBox, Color.Red);
-            //spriteBatch.Draw(tex, playerRightBox, Color.Blue);
-            //spriteBatch.Draw(tex, playerLeftBox, Color.Red);
-            //spriteBatch.Draw(tex, punchBox, Color.Blue);
-            //spriteBatch.Draw(tex, boundingBox, Color.Red);
-        }
         public Vector2 GetPos
         {
             get
