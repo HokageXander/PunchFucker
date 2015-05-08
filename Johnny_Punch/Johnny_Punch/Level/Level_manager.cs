@@ -42,7 +42,7 @@ namespace Johnny_Punch
                     }   
                     if(strings[i][j] == 'm')
                     {
-                        enviromentList.Add(new ManHoleCover(TextureManager.manHoleCoverTex, new Vector2(j * 82, 10+i * 82)));                
+                        enviromentList.Add(new SmallPlant(TextureManager.smallPlantTex, new Vector2(j * 82, 10+i * 82)));                
                     }
                     if(strings[i][j] == 'c')
                     {
