@@ -62,7 +62,7 @@ namespace Johnny_Punch
 
                 if (onGround) //Om vi är på marken så är Y = pos.Y
                 {
-                    feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));                    
+                    feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));
                     playerRightBox = new Rectangle((int)pos.X + 15, (int)pos.Y + 35, 25, 25); //rektangeln till höger om spelaren. Om fienden krockar i börjar han slåss
                     playerLeftBox = new Rectangle((int)pos.X - 52, (int)pos.Y + 35, 25, 25);
                 }
@@ -75,6 +75,8 @@ namespace Johnny_Punch
 
                 Moving(gameTime);
                 Fight(gameTime);
+                Block(gameTime);
+
 
                 if ((fightFrame == 0 && !moving) || walkFrame == 0 && !fight) //Tar bort den gamla animationen som höll på när man byter till en annan animation
                 {
@@ -101,11 +103,12 @@ namespace Johnny_Punch
 
             spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, floatLayerNr);
 
-            //spriteBatch.Draw(tex, feetBox, Color.Red);
-            //spriteBatch.Draw(tex, playerRightBox, Color.Blue);
-            //spriteBatch.Draw(tex, playerLeftBox, Color.Red);
-            //spriteBatch.Draw(tex, punchBox, Color.Blue);
-            //spriteBatch.Draw(tex, boundingBox, Color.Red);
+            //spriteBatch.Draw(tex, feetBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            //spriteBatch.Draw(tex, playerRightBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            //spriteBatch.Draw(tex, playerLeftBox, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+            //spriteBatch.Draw(tex, punchBox, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 1);
+            //spriteBatch.Draw(tex, boundingBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(tex, blockBox, null, Color.Aquamarine, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
 
         public void Death(GameTime gameTime)
@@ -231,9 +234,8 @@ namespace Johnny_Punch
                 fightTime = 0;
                 fightingCooldown += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
-
             #region StandardHit
-            if (fightingCooldown >= 300 && keyBoardState.IsKeyDown(Keys.T) && !fight && onGround)
+            if (fightingCooldown >= 300 && keyBoardState.IsKeyDown(Keys.T) && !fight && onGround && !block)
             {
                 frameTime = 120;
                 walkFrame = 0;
@@ -270,6 +272,35 @@ namespace Johnny_Punch
 
         }
 
+        public void Block(GameTime gameTime)
+        {
+            if (fightingCooldown >= 300 && keyBoardState.IsKeyDown(Keys.G) && !fight && !block)
+            {
+                block = true;
+                animationBox.Width = 75;
+                animationBox.X = 0;
+                animationBox.Y = 0;
+                fightingCooldown = 0;
+            }
+
+            if (block)
+            {
+                blockTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (spriteEffect == SpriteEffects.FlipHorizontally)
+                {
+                    blockBox = new Rectangle((int)pos.X - 50, (int)pos.Y - 50, 35, height);
+                }
+                else
+                    blockBox = new Rectangle((int)pos.X, (int)pos.Y - 50, 35, height);
+            }
+            if (block && blockTimer >= 700)
+            {
+                block = false;
+                blockTimer = 0;
+                blockBox = new Rectangle((int)pos.X, (int)pos.Y - 40, 0, 0);
+            }
+        }
+
         public void FloatLayerCalculator()
         {
             if (!onGround)
@@ -277,7 +308,7 @@ namespace Johnny_Punch
                 floatLayerNr = 0 + posJump.Y * 0.0010f; //numret blir mellan 0.335 och 0.583, vilket placerar en i rätt ordning
             }
             else
-            floatLayerNr = 0 + pos.Y * 0.0010f;
+                floatLayerNr = 0 + pos.Y * 0.0010f;
         }
 
 

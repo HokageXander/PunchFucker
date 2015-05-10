@@ -13,15 +13,15 @@ namespace Johnny_Punch
 {
     abstract class Movables : GameObject
     {
-        public Rectangle animationBox, feetBox, punchBox;
+        public Rectangle animationBox, feetBox, punchBox, blockBox;
         public SpriteEffects spriteEffect;
         public int walkFrame, fightFrame;
         public float life, maxLife, percentLife, floatLayerNr;
         public int deathBlinkCount;
         public double frameTime, frameInterval, fightFrameTime, fightFrameInterval;
-        public double fightTime, fightingCooldown = 500, stunnedTimer;
+        public double fightTime, fightingCooldown = 500, stunnedTimer, blockTimer;
         public double deathTimer1, deathTimer2; //Två tider, en när han dör och en som gör att han blinkar vit
-        public bool moving, onGround = true, fight, punch, stunned, dead, whiteNdead, hasHit; /*,blocking;*/
+        public bool moving, onGround = true, fight, punch, block, stunned, dead, whiteNdead, hasHit; /*,blocking;*/
         public Vector2 posJump;
 
         public Movables(Texture2D tex, Vector2 pos) : base(tex, pos)

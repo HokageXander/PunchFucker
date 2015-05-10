@@ -53,6 +53,7 @@ namespace Johnny_Punch
                     playerManager.Update(gameTime);
                     playerManager.LandingPunches(enemyManager);
                     enemyManager.FightPlayer(playerManager);
+                    enemyManager.IsBlocked(playerManager, gameTime);
                     TotalPlayTime(gameTime);
                     
 
