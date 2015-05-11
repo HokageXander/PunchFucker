@@ -71,22 +71,38 @@ namespace Johnny_Punch
                     }
 
                     if (playerList[i].punchBox.Intersects(enemyManager.enemyList[j].boundingBox)
-                       && Ydistance < 25 && !playerList[i].hasHit) // om vi intersectar och vi står i samma y-led och vi inte har träffat än
+                       && Ydistance < 25 && !playerList[i].hasHit && playerList[i].fightFrame >= 1) // om vi intersectar och vi står i samma y-led och vi inte har träffat än
                     {
                         playerList[i].hasHit = true;
                         enemyManager.enemyList[j].stunned = true;
                         if (playerList[i].spriteEffect == SpriteEffects.FlipHorizontally)
                         {
-                            enemyManager.enemyList[j].pos.X -= 2;
+                            //enemyManager.enemyList[j].pos.X -= 2;
                             enemyManager.enemyList[j].life -= 1;
                             break;
                         }
                         else
                         {
-                            enemyManager.enemyList[j].pos.X += 2;
+                            //enemyManager.enemyList[j].pos.X += 2;
                             enemyManager.enemyList[j].life -= 1;
                         }
                         break;
+                    }
+                }
+            }
+        }
+
+        public void CollectItems(LevelManager item)
+        {
+            for (int i = 0; i < playerList.Count; i++)
+            {
+                for (int j = 0; j < item.itemList.Count; j++)
+                {
+                    if (playerList[i].boundingBox.Intersects(item.itemList[j].boundingBox))
+                    {
+                        item.itemList.RemoveAt(j);
+                        if (playerList[i].life <= 9)
+                            playerList[i].life++;
                     }
                 }
             }

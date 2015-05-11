@@ -105,6 +105,10 @@ namespace Johnny_Punch
             else
                 moving = false;
 
+            if (Vector2.Distance(feetPos, playerfeetPos) < aggroRadius && !(feetBox.Intersects(player.playerRightBox) || feetBox.Intersects(player.playerLeftBox))
+                && fightFrame >= 1) //om fienden är mitt i ett slag och hamnar ur range från spelaren så resettas animationen till animation.X = 0;
+                animationBox.X = 0;
+
             if (feetBox.Intersects(player.playerRightBox))
                 spriteEffect = SpriteEffects.FlipHorizontally;
             else if (feetBox.Intersects(player.playerLeftBox))
@@ -196,7 +200,7 @@ namespace Johnny_Punch
 
         public void FloatLayerCalculator()
         {
-            floatLayerNr = 0 + pos.Y * 0.0010f; //numret blir mellan 0.335 och 0.583, vilket placerar en i rätt ordning
+            floatLayerNr = 0 + pos.Y * 0.0010f; //numret blir mellan 0.335 och 0.583, vilket placerar en i rätt ordning(ritas först 0, ritas sist 1(?))
         }
     }
 }

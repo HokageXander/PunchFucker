@@ -56,7 +56,7 @@ namespace Johnny_Punch
 
             if (!dead)
             {
-                boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width, height);
+                boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width - 20, height);
                 playerLeftPos = new Vector2(feetBox.X - 55, feetBox.Y); //positionen som fienden ska gå till vänster om spelaren
                 playerRightPos = new Vector2(feetBox.X + width - 20, feetBox.Y);
 
@@ -106,7 +106,7 @@ namespace Johnny_Punch
             //spriteBatch.Draw(tex, feetBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(tex, playerRightBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(tex, playerLeftBox, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
-            //spriteBatch.Draw(tex, punchBox, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(tex, punchBox, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(tex, boundingBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             spriteBatch.Draw(tex, blockBox, null, Color.Aquamarine, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
@@ -305,13 +305,11 @@ namespace Johnny_Punch
         {
             if (!onGround)
             {
-                floatLayerNr = 0 + posJump.Y * 0.0010f; //numret blir mellan 0.335 och 0.583, vilket placerar en i rätt ordning
+                floatLayerNr = 0 + posJump.Y * 0.0010f; //numret blir mellan 0.335 och 0.583, vilket placerar en i rätt ordning(ritas först 0, ritas sist 1(?))
             }
             else
                 floatLayerNr = 0 + pos.Y * 0.0010f;
         }
-
-
 
         public Vector2 GetPos
         {

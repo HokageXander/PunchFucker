@@ -48,12 +48,17 @@ namespace Johnny_Punch
                     break;
 
                 case GameState.Play:
-                    enemyManager.Update(gameTime);
-                    enemyManager.AggroPlayer(playerManager, gameTime);
+                    levelManager.Update(gameTime);
+
                     playerManager.Update(gameTime);
                     playerManager.LandingPunches(enemyManager);
+                    playerManager.CollectItems(levelManager);
+
+                    enemyManager.Update(gameTime);
+                    enemyManager.AggroPlayer(playerManager, gameTime);
                     enemyManager.FightPlayer(playerManager);
                     enemyManager.IsBlocked(playerManager, gameTime);
+
                     TotalPlayTime(gameTime);
                     
 
@@ -128,20 +133,6 @@ namespace Johnny_Punch
         {
 
         }
-
-        //public void FloatLayerDepthAlignment()
-        //{
-        //    for (int i = 0; i < playerManager.playerList.Count; i++)
-        //    {
-        //        for (int j = 0; j < enemyManager.enemyList.Count; j++)
-        //        {
-        //            if (playerManager.playerList[i].pos.Y > enemyManager.enemyList[j].pos.Y)
-        //            {
-                        
-        //            }
-        //        }
-        //    }
-        //}
 
         public void TotalPlayTime(GameTime gameTime)
         {
