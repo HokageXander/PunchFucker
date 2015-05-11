@@ -11,20 +11,22 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Johnny_Punch
 {
-     public class Environment
+    class Watermelon : Item
     {
-         private Vector2 pos;
-         private Texture2D tex;
 
-        public Environment(Vector2 pos, Texture2D tex)
-         {
-             this.pos = pos;
-             this.tex = tex;
-         }
-
-         public virtual void Draw(SpriteBatch spriteBatch)
+        public Watermelon(Texture2D tex, Vector2 pos) : base(tex, pos)
         {
-            spriteBatch.Draw(tex, pos, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            base.Draw(spriteBatch);
         }
     }
 }

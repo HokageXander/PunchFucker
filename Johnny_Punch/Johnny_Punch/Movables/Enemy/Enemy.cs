@@ -9,7 +9,7 @@ namespace Johnny_Punch
 {
     abstract class Enemy : Movables
     {
-       
+
         protected int aggroRadius;
         protected Vector2 velocity, direction;
         public int damageToPlayer;
@@ -27,8 +27,11 @@ namespace Johnny_Punch
                 boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width, height);
                 AnimationTypes(gameTime);
             }
+            else
+                punchBox = new Rectangle((int)pos.X - 44, (int)pos.Y - 65, 0, 0); //tar bort punchboxen om han dör
 
             Death(gameTime);
+            FloatLayerCalculator();
 
             if ((fightFrame == 0 && !moving) || walkFrame == 0)
             {
@@ -37,12 +40,13 @@ namespace Johnny_Punch
         }
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureManager.playerShadow, new Vector2(pos.X, pos.Y + (height / 2)), null, new Color(0, 0, 0, 120), 0f, new Vector2(width / 2, height - height / 1.3f), 1, SpriteEffects.None, 0);
+            spriteBatch.Draw(TextureManager.playerShadow, new Vector2(pos.X, pos.Y + (height / 2)), null, new Color(0, 0, 0, 120), 0f, new Vector2(width / 2, height - height / 1.3f), 1, SpriteEffects.None, 0.1f);
             if (whiteNdead) // om han är död blir han vit
-                spriteBatch.Draw(tex, pos, animationBox, new Color(255, 255, 255, 0), 0f, offset, 1f, spriteEffect, 0f);
+                spriteBatch.Draw(tex, pos, animationBox, new Color(255, 255, 255, 0), 0f, offset, 1f, spriteEffect, floatLayerNr);
             else // om han inte är död är han färggrann
-                spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, offset, 1f, spriteEffect, 0f);
+                spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, offset, 1f, spriteEffect, floatLayerNr);
             spriteBatch.Draw(tex, feetBox, Color.Red);
+            spriteBatch.Draw(tex, punchBox, Color.PaleGoldenrod);
             //spriteBatch.Draw(tex, boundingBox, Color.Red);
         }
 
@@ -53,12 +57,16 @@ namespace Johnny_Punch
             {
                 Animation(150, 3, 75, gameTime);
             }
-            else
+            else if (!moving && !punch)
                 Animation(150, 1, 75, gameTime);
 
             if (stunned)
             {
                 animationBox.Y = 247;
+                animationBox.X = 0;
+                fightingCooldown = 0; //3 rader ner = resettar fiendens slag
+                fightFrame = 0;
+                punchBox = new Rectangle((int)pos.X - 44, (int)pos.Y - 65, 0, 0);
                 stunnedTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (stunnedTimer >= 250)
                 {
@@ -67,9 +75,10 @@ namespace Johnny_Punch
                 }
             }
         }
+
         public void Aggro(Player player)
         {
-            
+
             animationBox.Y = 0;
             Vector2 feetPos = new Vector2(feetBox.X, feetBox.Y);
             Vector2 playerfeetPos = new Vector2(player.feetBox.X, player.feetBox.Y);
@@ -87,7 +96,7 @@ namespace Johnny_Punch
                 velocity.X = enemySpeed * direction.X;
                 velocity.Y = enemySpeed * direction.Y;
                 pos += velocity;
-                
+
                 if (direction.X < 0)
                     spriteEffect = SpriteEffects.FlipHorizontally;
                 else
@@ -95,6 +104,10 @@ namespace Johnny_Punch
             }
             else
                 moving = false;
+
+            if (Vector2.Distance(feetPos, playerfeetPos) < aggroRadius && !(feetBox.Intersects(player.playerRightBox) || feetBox.Intersects(player.playerLeftBox))
+                && fightFrame >= 1) //om fienden är mitt i ett slag och hamnar ur range från spelaren så resettas animationen till animation.X = 0;
+                animationBox.X = 0;
 
             if (feetBox.Intersects(player.playerRightBox))
                 spriteEffect = SpriteEffects.FlipHorizontally;
@@ -104,28 +117,59 @@ namespace Johnny_Punch
 
         public void Fight(GameTime gameTime, Player player)
         {
-            if (feetBox.Intersects(player.playerLeftBox) || feetBox.Intersects(player.playerRightBox))
+            if (feetBox.Intersects(player.playerLeftBox) || feetBox.Intersects(player.playerRightBox) && !stunned)
             {
-                fightTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+                fightingCooldown += gameTime.ElapsedGameTime.TotalMilliseconds;
                 punch = true;
-                if (fightTime > 500)
+                if (fightingCooldown > 500)
                 {
                     animationBox.Y = 380;
                     FightAnimation(150, 3, 92, gameTime);
+                    #region slagets Hitbox
+                    if (spriteEffect == SpriteEffects.FlipHorizontally) // om han är vänd åt ena hållet så rör sig slagets hitbox beroende på vilken frame den är på
+                    {
+                        if (fightFrame >= 1)
+                        {
+                            punchBox = new Rectangle((int)pos.X + 15, (int)pos.Y - 60, 30, 20);
+                        }
+                        if (fightFrame >= 2)
+                        {
+                            punchBox = new Rectangle((int)pos.X - 44, (int)pos.Y - 18, 27, 20);
+                        }
+                    }
+                    else
+                    {
+                        if (fightFrame >= 1)
+                        {
+                            punchBox = new Rectangle((int)pos.X - 44, (int)pos.Y - 65, 30, 20);
+                        }
+                        if (fightFrame >= 2)
+                        {
+                            punchBox = new Rectangle((int)pos.X + 5, (int)pos.Y - 15, 27, 20);
+                        }
+                    }
+                    #endregion
                 }
             }
+            else if (!(feetBox.Intersects(player.playerLeftBox) || feetBox.Intersects(player.playerRightBox)))
+            {
+                fightingCooldown = 0; //3 rader ner = resettar fiendens slag
+                fightFrame = 0;
+                punchBox = new Rectangle((int)pos.X - 44, (int)pos.Y - 65, 0, 0);
+            }
 
-            if (punch && fightFrame >= 3)
+            if (punch && fightFrame >= 3 && fightFrameTime <= 70)
             {
                 punch = false;
+                hasHit = false;
                 fightFrame = 0;
-                fightTime = -200;
+                fightingCooldown = -200;
+                punchBox = new Rectangle((int)pos.X - 44, (int)pos.Y - 65, 0, 0); //resettar slaget hitbox ovanför gubben igen
             }
         }
 
         public void Death(GameTime gameTime)
         {
-            Console.WriteLine(life);
             if (life <= 0)
             {
                 dead = true;
@@ -153,6 +197,10 @@ namespace Johnny_Punch
                 }
             }
         }
-        
+
+        public void FloatLayerCalculator()
+        {
+            floatLayerNr = 0 + pos.Y * 0.0010f; //numret blir mellan 0.335 och 0.583, vilket placerar en i rätt ordning(ritas först 0, ritas sist 1(?))
+        }
     }
 }

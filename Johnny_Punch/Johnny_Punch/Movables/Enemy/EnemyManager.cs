@@ -74,5 +74,56 @@ namespace Johnny_Punch
                 }
             }
         }
+
+        public void FightPlayer(PlayerManager playerManager)
+        {
+            for (int i = 0; i < playerManager.playerList.Count; i++)
+            {
+                for (int j = 0; j < enemyList.Count; j++)
+                {
+                    float Ydistance = (enemyList[j].feetBox.Y - 4) - (playerManager.playerList[i].feetBox.Y - 4);
+                    if (Ydistance < 0)
+                    {
+                        Ydistance *= -1;
+                    }
+
+                    if (enemyList[j].punchBox.Intersects(playerManager.playerList[i].boundingBox)
+                       && Ydistance < 25 && !enemyList[j].hasHit && enemyList[j].fightFrame >= 2
+                        && !(enemyList[j].punchBox.Intersects(playerManager.playerList[i].blockBox))) // om vi intersectar och vi står i samma y-led och vi inte har träffat än och vi är vid slutet av animationen
+                    {
+                        enemyList[j].hasHit = true;
+                        if (enemyList[j].spriteEffect == SpriteEffects.FlipHorizontally)
+                        {
+                            //playerManager.playerList[i].pos.X -= 2;
+                            playerManager.playerList[i].life -= 1;
+                            break;
+                        }
+                        else
+                            //playerManager.playerList[i].pos.X += 2;
+                        playerManager.playerList[i].life -= 1;
+                        break;
+                    }
+                }
+            }
+        }
+
+        public void IsBlocked(PlayerManager playerManager, GameTime gameTime)
+        {
+            for (int i = 0; i < playerManager.playerList.Count; i++)
+            {
+                for (int j = 0; j < enemyList.Count; j++)
+                {
+                    if (enemyList[j].punchBox.Intersects(playerManager.playerList[i].blockBox))
+                    {
+                        enemyList[j].Animation(150, 1, 75, gameTime);
+                        enemyList[j].punch = false;
+                        enemyList[j].hasHit = false;
+                        enemyList[j].fightFrame = 0;
+                        enemyList[j].fightingCooldown = -200;
+                        enemyList[j].punchBox = new Rectangle((int)enemyList[j].pos.X - 44, (int)enemyList[j].pos.Y - 65, 0, 0); //resettar slaget hitbox ovanför gubben igen
+                    }
+                }
+            }
+        } //stoppar gubbens slag om han slår på blocken
     }
 }
