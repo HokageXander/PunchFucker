@@ -23,7 +23,7 @@ namespace Johnny_Punch
         public ParticleExplosion(Texture2D tex, Vector2 pos, Color color)
             :base(tex,pos)
         {
-            timer = 300;
+            timer = 260;
             particleList = new List<Texture2D>();
             particleList.Add(tex);
 

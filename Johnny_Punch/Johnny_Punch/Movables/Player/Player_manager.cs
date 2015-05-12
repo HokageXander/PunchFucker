@@ -117,7 +117,6 @@ namespace Johnny_Punch
                             playerList[i].life++;
 
                         //particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].feetBox.X, playerList[0].feetBox.Y), Color.Yellow);
-       
                     }
                 }
             }

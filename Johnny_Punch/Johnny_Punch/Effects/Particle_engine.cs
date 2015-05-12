@@ -14,7 +14,7 @@ namespace Johnny_Punch
         private List<Particle> particles;
         public static List<Texture2D> textures;
         public Color color;
-        public bool IfItem;
+        
 
         public ParticleEngine(List<Texture2D> textures, Vector2 location, Color color) // hämtar en textur och position
         {
@@ -41,7 +41,7 @@ namespace Johnny_Punch
         private Particle GenerateNewParticle()
         {
             Texture2D texture = textures[random.Next(textures.Count)]; // skapar ny random textur
-            Vector2 position = EmitterLocation;
+            //Vector2 position = EmitterLocation;
             Vector2 velocity = new Vector2(
             (float)(random.NextDouble() * 4 - 2),
             (float)(random.NextDouble() * 4 - 2));
@@ -49,20 +49,20 @@ namespace Johnny_Punch
             //velocity.Normalize();
             velocity *= (float)(random.NextDouble());
             float angle = 0;
-            float angularVelocity = 0.1f ; // random direktion
+            float angularVelocity = 0.1f * (float)(random.NextDouble() * 4 - 2); // random direktion
 
 
           //  Color color = new Color(
           //(float)(150), 0, 0);
             float size = (float)random.NextDouble();
-            int ttl = 20 + random.Next(5000);
+            int ttl = 20;
 
             return new Particle(texture, position, velocity, angle, angularVelocity, color, size, ttl); // returnerar
         }
 
         public void nrOfParticle()
         {
-            int total = 1000;
+            int total = 200;
 
             for (int i = 0; i < total; i++)
             {
