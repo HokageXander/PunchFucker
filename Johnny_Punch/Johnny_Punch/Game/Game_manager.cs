@@ -58,7 +58,7 @@ namespace Johnny_Punch
                     enemyManager.AggroPlayer(playerManager, gameTime);
                     enemyManager.FightPlayer(playerManager);
                     enemyManager.IsBlocked(playerManager, gameTime);
-
+                    CheckIsDead();
                     TotalPlayTime(gameTime);
                     
 
@@ -81,9 +81,9 @@ namespace Johnny_Punch
             {
                 if (playerManager.playerList[0].percentLife < 1.0f)
                 {
-                    spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120 /*- 50 * (PlayerManager.players - 1)*/, 570, 155, 35), Color.Red);
+                    spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120 /*- 50 * (PlayerManager.players - 1)*/, 608, 155, 35), Color.Red);
                 }
-                spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120, 570, (int)(155 * playerManager.playerList[0].percentLife), 35), Color.Green);
+                spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120, 608, (int)(155 * playerManager.playerList[0].percentLife), 35), Color.Green);
 
                 if (PlayerManager.players == 2)
                 {
@@ -96,7 +96,16 @@ namespace Johnny_Punch
 
                 }
             }
-            spriteBatch.Draw(TextureManager.statusBarTex, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+            if (PlayerManager.players == 1)
+            {
+            spriteBatch.Draw(TextureManager.statusBarPlayerOneTex, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+
+            }
+            if (PlayerManager.players == 2)
+            {
+            spriteBatch.Draw(TextureManager.statusBarPlayerTwoTex, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+
+            }
 
 
             spriteBatch.DrawString(TextureManager.timeFont, secondDigitHours.ToString() + firstDigitHours.ToString() +
@@ -117,6 +126,12 @@ namespace Johnny_Punch
                     levelManager.Draw(spriteBatch);
                     enemyManager.Draw(spriteBatch);
                     playerManager.Draw(spriteBatch);
+
+                    foreach (ParticleExplosion e in ParticleExplosion.explosionList)
+                    {
+                        e.Draw(spriteBatch);
+                    }
+
                     break;
 
                 case GameState.Pause:
@@ -131,7 +146,12 @@ namespace Johnny_Punch
 
         public static void CheckIsDead( )
         {
-
+            foreach (ParticleExplosion e in ParticleExplosion.explosionList)
+            {
+                if(e.IsDead )
+                ParticleExplosion.explosionList.Remove(e);
+                break;
+            }
         }
 
         public void TotalPlayTime(GameTime gameTime)

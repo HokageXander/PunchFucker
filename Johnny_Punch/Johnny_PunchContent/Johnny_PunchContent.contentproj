@@ -215,10 +215,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
-    <Compile Include="Images\sabre.png">
-      <Name>sabre</Name>
-=======
+
+
     <Compile Include="Images\beachbackground2.png">
       <Name>beachbackground2</Name>
       <Importer>TextureImporter</Importer>
@@ -226,7 +224,21 @@
     </Compile>
     <Compile Include="Images\beachbackground3.png">
       <Name>beachbackground3</Name>
->>>>>>> origin/master
+
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\StatusBar1player.png">
+      <Name>StatusBar1player</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\Blood.png">
+      <Name>Blood</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

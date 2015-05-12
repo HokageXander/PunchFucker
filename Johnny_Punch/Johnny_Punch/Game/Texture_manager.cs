@@ -27,13 +27,18 @@ namespace Johnny_Punch
         #endregion
 
         #region StatusBar graphics
+        public static Texture2D lifeBarPlayerOneTex { get; private set; }
         public static Texture2D lifeBarTex { get; private set; }
+
         #endregion
 
         #region Environment graphics
         public static Texture2D beachbackgroundTex { get; private set; }
-        public static Texture2D statusBarTex { get; private set; }
+        public static Texture2D statusBarPlayerOneTex { get; private set; }
+        public static Texture2D statusBarPlayerTwoTex { get; private set; }
         public static Texture2D beachback2groundTex { get; private set; }
+
+        
         public static Texture2D beachback3groundTex { get; private set; }
         public static Texture2D roadTex { get; private set; }
         public static Texture2D startMenuTex { get; private set; }
@@ -65,6 +70,9 @@ namespace Johnny_Punch
         public static SpriteFont timeFont { get; private set; }
         #endregion
 
+        #region ParticleEffects
+        public static Texture2D bloodTex { get; private set; }
+        #endregion
 
         public static void LoadContent(ContentManager Content)
         {
@@ -84,6 +92,7 @@ namespace Johnny_Punch
 
             #region StatusBar graphics
             lifeBarTex = Content.Load<Texture2D>(@"Images\Lifebar");
+
             #endregion
 
             #region Environment graphics
@@ -91,7 +100,8 @@ namespace Johnny_Punch
             beachback2groundTex = Content.Load<Texture2D>(@"Images\beachbackground2");
             beachback3groundTex = Content.Load<Texture2D>(@"Images\beachbackground3");
 
-            statusBarTex = Content.Load<Texture2D>(@"Images\StatusBar");
+            statusBarPlayerOneTex = Content.Load<Texture2D>(@"Images\StatusBar1player");
+            statusBarPlayerTwoTex = Content.Load<Texture2D>(@"Images\StatusBar");
             roadTex = Content.Load<Texture2D>(@"Images\road");
             startMenuTex = Content.Load<Texture2D>(@"Images\startmenu");
             manHoleCoverTex = Content.Load<Texture2D>(@"Images\manholecover");
@@ -113,11 +123,15 @@ namespace Johnny_Punch
             #region Items
             watermelon = Content.Load<Texture2D>(@"images\melon");
             pinacolada = Content.Load<Texture2D>(@"images\drink");
-            sabreTex = Content.Load<Texture2D>(@"images\sabre");
+            //sabreTex = Content.Load<Texture2D>(@"images\sabre");
             #endregion
 
             #region Fonts
             timeFont = Content.Load<SpriteFont>(@"Fonts\timeFont");
+            #endregion
+
+            #region ParticleEffects
+            bloodTex = Content.Load<Texture2D>(@"images\Blood");
             #endregion
         }
     }

@@ -17,7 +17,6 @@ namespace Johnny_Punch
         float shadowScale;
         int yLimitUp = 335, yLimitDown = 583;
 
-
         public Player(Texture2D tex, Vector2 pos)
             : base(tex, pos)
         {
@@ -301,6 +300,7 @@ namespace Johnny_Punch
 
             if (block)
             {
+
                 blockTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (spriteEffect == SpriteEffects.FlipHorizontally)
                 {
@@ -308,6 +308,8 @@ namespace Johnny_Punch
                 }
                 else
                     blockBox = new Rectangle((int)pos.X, (int)pos.Y - 50, 35, height);
+
+
             }
             if (block && blockTimer >= 700)
             {

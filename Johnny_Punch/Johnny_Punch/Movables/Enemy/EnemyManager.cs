@@ -98,6 +98,7 @@ namespace Johnny_Punch
                             //playerManager.playerList[i].pos.X -= 2;
                             playerManager.playerList[i].life -= 1;
                             break;
+
                         }
                         else
                             //playerManager.playerList[i].pos.X += 2;
