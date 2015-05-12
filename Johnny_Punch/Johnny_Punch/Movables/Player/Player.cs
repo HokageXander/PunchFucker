@@ -320,7 +320,6 @@ namespace Johnny_Punch
         public void FloatLayerCalculator()
         {
 
-
             if (spriteEffect == SpriteEffects.None)
 
             {

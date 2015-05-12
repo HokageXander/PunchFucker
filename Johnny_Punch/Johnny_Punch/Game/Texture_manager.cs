@@ -31,8 +31,10 @@ namespace Johnny_Punch
         #endregion
 
         #region Environment graphics
-        public static Texture2D citybackgroundTex { get; private set; }
+        public static Texture2D beachbackgroundTex { get; private set; }
         public static Texture2D statusBarTex { get; private set; }
+        public static Texture2D beachback2groundTex { get; private set; }
+        public static Texture2D beachback3groundTex { get; private set; }
         public static Texture2D roadTex { get; private set; }
         public static Texture2D startMenuTex { get; private set; }
         public static Texture2D manHoleCoverTex { get; private set; }
@@ -85,7 +87,10 @@ namespace Johnny_Punch
             #endregion
 
             #region Environment graphics
-            citybackgroundTex = Content.Load<Texture2D>(@"Images\citybackground");
+            beachbackgroundTex = Content.Load<Texture2D>(@"Images\citybackground");
+            beachback2groundTex = Content.Load<Texture2D>(@"Images\beachbackground2");
+            beachback3groundTex = Content.Load<Texture2D>(@"Images\beachbackground3");
+
             statusBarTex = Content.Load<Texture2D>(@"Images\StatusBar");
             roadTex = Content.Load<Texture2D>(@"Images\road");
             startMenuTex = Content.Load<Texture2D>(@"Images\startmenu");

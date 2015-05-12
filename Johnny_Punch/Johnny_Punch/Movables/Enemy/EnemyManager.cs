@@ -11,8 +11,7 @@ namespace Johnny_Punch
     {
 
         public List<Enemy> enemyList = new List<Enemy>();
-
-
+        
         public EnemyManager(GraphicsDevice graphicsDevice)
         {
             EnemyType();
@@ -38,16 +37,18 @@ namespace Johnny_Punch
 
         public void EnemyType()
         {
-            //enemyList.Add(new Little_tim(TextureManager.Tiny_tim, new Vector2(500, 400)));
+           
             enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(500, 400)));
             enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(450, 500)));
             enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(400, 300)));
             enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(1500, 400)));
+            
+            
         }
 
         public void SpawnEnemy(GameTime gameTime)
         {
-
+            
         }
 
         public void RemoveEnemy()
