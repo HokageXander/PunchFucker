@@ -68,7 +68,6 @@ namespace Johnny_Punch
             }
             streamReaderEnvironment.Close();
 
-
             for (int i = 0; i < strings.Count; i++)
             {
                 for (int j = 0; j < strings[i].Length; j++)
@@ -85,7 +84,6 @@ namespace Johnny_Punch
                     {
                         enviromentList.Add(new CityBackground(TextureManager.beachbackgroundTex, new Vector2(j * 91, i * 82)));
                     }
-
                     if (strings[i][j] == 'd')
                     {
                         enviromentList.Add(new CityBackground(TextureManager.beachback2groundTex, new Vector2(j * 91, i * 82)));

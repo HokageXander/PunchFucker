@@ -41,7 +41,7 @@ namespace Johnny_Punch
         private Particle GenerateNewParticle()
         {
             Texture2D texture = textures[random.Next(textures.Count)]; // skapar ny random textur
-            //Vector2 position = EmitterLocation;
+            Vector2 position = EmitterLocation;
             Vector2 velocity = new Vector2(
             (float)(random.NextDouble() * 4 - 2),
             (float)(random.NextDouble() * 4 - 2));

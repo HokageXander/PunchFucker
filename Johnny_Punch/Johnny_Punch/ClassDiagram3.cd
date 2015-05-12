@@ -45,7 +45,7 @@
   <Class Name="Johnny_Punch.TextureManager" Collapsed="true">
     <Position X="18.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CgEgAAASQIAoQAAAAkAAAAQAAQACgIBIIIAAZMAgARQ=</HashCode>
+      <HashCode>CgEgAAASQIAoQAAAAkAAAAQAAQACgIBIIAAAZMAgARQ=</HashCode>
       <FileName>Game\Texture_manager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -89,13 +89,6 @@
     <TypeIdentifier>
       <HashCode>AAQAAABCEAAAAgCAAAAAAAAAAAJAAAAAAAAkAAAAAAA=</HashCode>
       <FileName>Level\Level_manager.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Johnny_Punch.ManHoleCover" Collapsed="true">
-    <Position X="0.5" Y="7.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Level\ManHoleCover.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Johnny_Punch.Road" Collapsed="true">
@@ -168,13 +161,6 @@
       <FileName>Movables\Player\Player2.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Johnny_Punch.Background" Collapsed="true">
-    <Position X="18.5" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Other\Background.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Johnny_Punch.Camera" Collapsed="true">
     <Position X="20.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
@@ -186,14 +172,14 @@
     <Position X="14.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQgAAAAAIAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ParticleExplosion.cs</FileName>
+      <FileName>Effects\ParticleExplosion.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Johnny_Punch.PinaColada" Collapsed="true">
     <Position X="0.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>PinaColada.cs</FileName>
+      <FileName>Item\PinaColada.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Johnny_Punch.Program" Collapsed="true">
@@ -207,7 +193,7 @@
     <Position X="3" Y="3.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Watermelon.cs</FileName>
+      <FileName>Item\Watermelon.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Tahoma" Size="8.25" />
