@@ -14,6 +14,8 @@ namespace Johnny_Punch
         public List<Player> playerList = new List<Player>();
         public List<Player2> playerList2 = new List<Player2>();
         public static int players = 1;
+        ParticleExplosion particleExplosion;
+
         public PlayerManager()
         {
 
@@ -22,6 +24,11 @@ namespace Johnny_Punch
         public void Update(GameTime gameTime)
         {
             AddPlayer();
+
+            foreach (ParticleExplosion e in ParticleExplosion.explosionList.ToList())
+            {
+                e.Update(gameTime);
+            }
 
             foreach (Player player in playerList)
             {
@@ -75,15 +82,20 @@ namespace Johnny_Punch
                     {
                         playerList[i].hasHit = true;
                         enemyManager.enemyList[j].stunned = true;
+
                         if (playerList[i].spriteEffect == SpriteEffects.FlipHorizontally)
                         {
                             //enemyManager.enemyList[j].pos.X -= 2;
                             enemyManager.enemyList[j].life -= 1;
+                        particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].punchBox.X, playerList[0].punchBox.Y));
                             break;
+
                         }
                         else
                         {
                             //enemyManager.enemyList[j].pos.X += 2;
+                            particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].punchBox.X + playerList[0].punchBox.Width, playerList[0].punchBox.Y));
+
                             enemyManager.enemyList[j].life -= 1;
                         }
                         break;
@@ -103,6 +115,11 @@ namespace Johnny_Punch
                         item.itemList.RemoveAt(j);
                         if (playerList[i].life <= 9)
                             playerList[i].life++;
+                        
+                        
+                        
+                        //particleExplosion = new ParticleExplosion(TextureManager.bloodTex, item.itemList[i].pos);
+
                     }
                 }
             }

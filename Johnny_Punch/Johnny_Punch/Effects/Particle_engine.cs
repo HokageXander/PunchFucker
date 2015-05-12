@@ -42,11 +42,13 @@ namespace Johnny_Punch
             Vector2 velocity = new Vector2(
             (float)(random.NextDouble() * 4 - 2),
             (float)(random.NextDouble() * 4 - 2));
+            //velocity.Normalize();
+            velocity *= (float)(random.NextDouble());
             float angle = 0;
             float angularVelocity = 0.1f * (float)(random.NextDouble() * 4 - 2); // random direktion
 
             Color color = new Color(
-          (float)(random.NextDouble()), 0, 0);
+          (float)(150), 0, 0);
             float size = (float)random.NextDouble();
             int ttl = 20 + random.Next(5000);
 
@@ -55,7 +57,7 @@ namespace Johnny_Punch
 
         public void nrOfParticle()
         {
-            int total = 20;
+            int total = 1000;
 
             for (int i = 0; i < total; i++)
             {

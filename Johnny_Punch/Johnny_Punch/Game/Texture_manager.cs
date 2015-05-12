@@ -68,6 +68,9 @@ namespace Johnny_Punch
         public static SpriteFont timeFont { get; private set; }
         #endregion
 
+        #region ParticleEffects
+        public static Texture2D bloodTex { get; private set; }
+        #endregion
 
         public static void LoadContent(ContentManager Content)
         {
@@ -122,6 +125,10 @@ namespace Johnny_Punch
 
             #region Fonts
             timeFont = Content.Load<SpriteFont>(@"Fonts\timeFont");
+            #endregion
+
+            #region ParticleEffects
+            bloodTex = Content.Load<Texture2D>(@"images\Blood");
             #endregion
         }
     }
