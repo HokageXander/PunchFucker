@@ -24,7 +24,7 @@ namespace Johnny_Punch
         {
             if (!dead)
             {
-                boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width, height);
+                //boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width, height);
                 AnimationTypes(gameTime);
             }
             else

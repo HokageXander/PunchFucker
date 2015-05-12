@@ -55,6 +55,8 @@ namespace Johnny_Punch
         #region Items
         public static Texture2D watermelon { get; private set; }
         public static Texture2D pinacolada { get; private set; }
+
+        public static Texture2D sabreTex { get; private set; }
         #endregion
 
         #region Fonts
@@ -106,6 +108,7 @@ namespace Johnny_Punch
             #region Items
             watermelon = Content.Load<Texture2D>(@"images\melon");
             pinacolada = Content.Load<Texture2D>(@"images\drink");
+            sabreTex = Content.Load<Texture2D>(@"images\sabre");
             #endregion
 
             #region Fonts

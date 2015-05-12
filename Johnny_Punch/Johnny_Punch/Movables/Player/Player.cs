@@ -58,19 +58,35 @@ namespace Johnny_Punch
             {
                 boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width - 20, height);
                 playerLeftPos = new Vector2(feetBox.X - 55, feetBox.Y); //positionen som fienden ska gå till vänster om spelaren
-                playerRightPos = new Vector2(feetBox.X + width - 20, feetBox.Y);
+                playerRightPos = new Vector2(feetBox.X + width - 30, feetBox.Y);
 
                 if (onGround) //Om vi är på marken så är Y = pos.Y
                 {
                     feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));
-                    playerRightBox = new Rectangle((int)pos.X + 15, (int)pos.Y + 35, 25, 25); //rektangeln till höger om spelaren. Om fienden krockar i börjar han slåss
-                    playerLeftBox = new Rectangle((int)pos.X - 52, (int)pos.Y + 35, 25, 25);
+                    if (spriteEffect == SpriteEffects.FlipHorizontally)
+                    {
+                        playerRightBox = new Rectangle((int)pos.X + 5, (int)pos.Y + 35, 25, 25); //rektangeln till höger om spelaren. Om fienden krockar i börjar han slåss
+                        playerLeftBox = new Rectangle((int)pos.X - 30, (int)pos.Y + 35, 25, 25);
+                    }
+                    else
+                    {
+                        playerRightBox = new Rectangle((int)pos.X - 15, (int)pos.Y + 35, 25, 25); //rektangeln till höger om spelaren. Om fienden krockar i börjar han slåss
+                        playerLeftBox = new Rectangle((int)pos.X - 44, (int)pos.Y + 35, 25, 25);
+                    }
                 }
                 else // Om vi är i luften är Y = jumpPos.Y
                 {
                     feetBox = new Rectangle((int)pos.X - (int)49, (int)posJump.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));
-                    playerRightBox = new Rectangle((int)pos.X + 15, (int)posJump.Y + 35, 30, 25);
-                    playerLeftBox = new Rectangle((int)pos.X - 52, (int)posJump.Y + 35, 30, 25);
+                    if (spriteEffect == SpriteEffects.FlipHorizontally)
+                    {
+                        playerRightBox = new Rectangle((int)pos.X + 5, (int)posJump.Y + 35, 25, 25); //rektangeln till höger om spelaren. Om fienden krockar i börjar han slåss
+                        playerLeftBox = new Rectangle((int)pos.X - 30, (int)posJump.Y + 35, 25, 25);
+                    }
+                    else
+                    {
+                        playerRightBox = new Rectangle((int)pos.X - 15, (int)posJump.Y + 35, 25, 25); //rektangeln till höger om spelaren. Om fienden krockar i börjar han slåss
+                        playerLeftBox = new Rectangle((int)pos.X - 44, (int)posJump.Y + 35, 25, 25);
+                    }
                 }
 
                 Moving(gameTime);
@@ -129,7 +145,7 @@ namespace Johnny_Punch
             if (!fight)
             {
                 #region Walk Right
-                if (keyBoardState.IsKeyDown(Keys.D))
+                if (keyBoardState.IsKeyDown(Keys.D) && !block)
                 {
                     speed.X = 3;
                     moving = true;
@@ -139,7 +155,7 @@ namespace Johnny_Punch
                 }
                 #endregion
                 #region Walk Left
-                if (keyBoardState.IsKeyDown(Keys.A) && pos.X >= Camera.prevCentre.X + 45)
+                if (keyBoardState.IsKeyDown(Keys.A) && pos.X >= Camera.prevCentre.X + 45 && !block)
                 {
                     speed.X = -3;
                     moving = true;
@@ -149,7 +165,7 @@ namespace Johnny_Punch
                 }
                 #endregion
                 #region Walk Up
-                if (keyBoardState.IsKeyDown(Keys.W) && feetBox.Y >= yLimitUp && onGround)
+                if (keyBoardState.IsKeyDown(Keys.W) && feetBox.Y >= yLimitUp && onGround && !block)
                 {
                     speed.Y = -3;
                     moving = true;
@@ -158,7 +174,7 @@ namespace Johnny_Punch
                 }
                 #endregion
                 #region Walk Down
-                if (keyBoardState.IsKeyDown(Keys.S) && feetBox.Y <= yLimitDown && onGround)
+                if (keyBoardState.IsKeyDown(Keys.S) && feetBox.Y <= yLimitDown && onGround && !block)
                 {
                     speed.Y = 3;
                     moving = true;
@@ -212,7 +228,7 @@ namespace Johnny_Punch
                         speed.Y = 0;
                     }
                 }
-                if (keyBoardState.IsKeyDown(Keys.Space) && oldKeyBoardState.IsKeyDown(Keys.Space) && onGround) // här hoppar man
+                if (keyBoardState.IsKeyDown(Keys.Space) && oldKeyBoardState.IsKeyDown(Keys.Space) && onGround && !block) // här hoppar man
                 {
                     posJump.Y = pos.Y; //när man hoppar svaras punkten man hoppade från i y-led. Man landar på den punkten i y-led sen
                     speed.Y = -3.2f;
@@ -247,15 +263,15 @@ namespace Johnny_Punch
             }
             if (punch)
             {
-                animationBox.Width = 77;
+                animationBox.Width = 81;
                 animationBox.Y = 514;
-                FightAnimation(90, 3, 77, gameTime);
+                FightAnimation(90, 3, 81, gameTime);
                 if (spriteEffect == SpriteEffects.FlipHorizontally)
                 {
-                    punchBox = new Rectangle((int)pos.X - 40 - (fightFrame * 10), (int)pos.Y - 28, 50, 20);
+                    punchBox = new Rectangle((int)pos.X - 10 - (fightFrame * 15), (int)pos.Y - 25, 50, 20);
                 }
                 else
-                    punchBox = new Rectangle((int)pos.X - 40 + (fightFrame * 15), (int)pos.Y - 28, 50, 20);
+                    punchBox = new Rectangle((int)pos.X - 40 + (fightFrame * 8), (int)pos.Y - 25, 50, 20);
 
             }
             if (punch && fightFrame >= 3)
@@ -274,7 +290,7 @@ namespace Johnny_Punch
 
         public void Block(GameTime gameTime)
         {
-            if (fightingCooldown >= 300 && keyBoardState.IsKeyDown(Keys.G) && !fight && !block)
+            if (fightingCooldown >= 300 && keyBoardState.IsKeyDown(Keys.G) && !fight && !block && onGround)
             {
                 block = true;
                 animationBox.Width = 75;
@@ -310,22 +326,6 @@ namespace Johnny_Punch
             {
                 floatLayerNr = 0 + posJump.Y * 0.0010f; //numret blir mellan 0.335 och 0.583, vilket placerar en i rätt ordning(ritas först 0, ritas sist 1(?))
             }
-
-            //else if (spriteEffect == SpriteEffects.FlipHorizontally)
-            //    spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 7, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
-
-
-
-
-
-            //spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, 0f);
-
-            ////spriteBatch.Draw(tex, feetBox, Color.Red);
-            ////spriteBatch.Draw(tex, playerRightBox, Color.Blue);
-            ////spriteBatch.Draw(tex, playerLeftBox, Color.Red);
-            ////spriteBatch.Draw(tex, punchBox, Color.Blue);
-            ////spriteBatch.Draw(tex, boundingBox, Color.Red);
-
             else
                 floatLayerNr = 0 + pos.Y * 0.0010f;
         }
