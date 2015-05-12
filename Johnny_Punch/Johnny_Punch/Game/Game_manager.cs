@@ -48,10 +48,17 @@ namespace Johnny_Punch
                     break;
 
                 case GameState.Play:
-                    enemyManager.Update(gameTime);
-                    enemyManager.AggroPlayer(playerManager, gameTime);
+                    levelManager.Update(gameTime);
+
                     playerManager.Update(gameTime);
                     playerManager.LandingPunches(enemyManager);
+                    playerManager.CollectItems(levelManager);
+
+                    enemyManager.Update(gameTime);
+                    enemyManager.AggroPlayer(playerManager, gameTime);
+                    enemyManager.FightPlayer(playerManager);
+                    enemyManager.IsBlocked(playerManager, gameTime);
+
                     TotalPlayTime(gameTime);
                     
 
@@ -89,7 +96,7 @@ namespace Johnny_Punch
 
                 }
             }
-            spriteBatch.Draw(TextureManager.statusBarTex, Vector2.Zero, Color.White);
+            spriteBatch.Draw(TextureManager.statusBarTex, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
 
             spriteBatch.DrawString(TextureManager.timeFont, secondDigitHours.ToString() + firstDigitHours.ToString() +

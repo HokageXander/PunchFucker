@@ -40,6 +40,7 @@ namespace Johnny_Punch
             keyBoardState = Keyboard.GetState();
 
             Death(gameTime);
+            FloatLayerCalculator();
             //Console.Write(life);
 
             percentLife = life / maxLife;
@@ -48,19 +49,21 @@ namespace Johnny_Punch
             posJump.X = pos.X;
             shadowScale = 1f - ((posJump.Y - pos.Y) * -0.01f);
             speed.X = 0;
-            if (!onGround)
+            if (!onGround || dead)
                 speed.Y += 0.14f;
             else
                 speed.Y = 0;
+
             if (!dead)
             {
-                boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width, height);
+                boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width - 20, height);
+                playerLeftPos = new Vector2(feetBox.X - 55, feetBox.Y); //positionen som fienden ska gå till vänster om spelaren
+                playerRightPos = new Vector2(feetBox.X + width - 20, feetBox.Y);
+
                 if (onGround) //Om vi är på marken så är Y = pos.Y
                 {
                     feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (113 - 4) - (int)offset.Y, width, height - (height - 4));
-                    playerLeftPos = new Vector2(feetBox.X + 10, feetBox.Y);
-                    playerRightPos = new Vector2(feetBox.X + width - 10, feetBox.Y);
-                    playerRightBox = new Rectangle((int)pos.X + 15, (int)pos.Y + 35, 25, 25);
+                    playerRightBox = new Rectangle((int)pos.X + 15, (int)pos.Y + 35, 25, 25); //rektangeln till höger om spelaren. Om fienden krockar i börjar han slåss
                     playerLeftBox = new Rectangle((int)pos.X - 52, (int)pos.Y + 35, 25, 25);
                 }
                 else // Om vi är i luften är Y = jumpPos.Y
@@ -72,11 +75,52 @@ namespace Johnny_Punch
 
                 Moving(gameTime);
                 Fight(gameTime);
+                Block(gameTime);
+
 
                 if ((fightFrame == 0 && !moving) || walkFrame == 0 && !fight) //Tar bort den gamla animationen som höll på när man byter till en annan animation
                 {
                     animationBox.X = 0;
                 }
+            }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            #region Shadows
+            if (spriteEffect == SpriteEffects.None && !dead)
+            {
+                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 15, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0.1f);
+            }
+            else if (spriteEffect == SpriteEffects.FlipHorizontally && !dead)
+                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 7, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0.1f);
+            else if (dead)
+            {
+                posJump.Y = pos.Y;
+                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 7, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0.1f);
+            }
+            #endregion
+
+            spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, floatLayerNr);
+
+            //spriteBatch.Draw(tex, feetBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            //spriteBatch.Draw(tex, playerRightBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            //spriteBatch.Draw(tex, playerLeftBox, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(tex, punchBox, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 1);
+            //spriteBatch.Draw(tex, boundingBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(tex, blockBox, null, Color.Aquamarine, 0, Vector2.Zero, SpriteEffects.None, 1);
+        }
+
+        public void Death(GameTime gameTime)
+        {
+            if (life <= 0)
+            {
+                dead = true;
+                animationBox.Y = 1020;
+                animationBox.X = 0;
+                animationBox.Width = 125;
+                deathTimer1 += gameTime.ElapsedGameTime.TotalMilliseconds;
+                boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, 0, 0);
             }
         }
 
@@ -168,12 +212,11 @@ namespace Johnny_Punch
                         speed.Y = 0;
                     }
                 }
-                if (keyBoardState.IsKeyDown(Keys.Space) && oldKeyBoardState.IsKeyDown(Keys.Space) && onGround)
+                if (keyBoardState.IsKeyDown(Keys.Space) && oldKeyBoardState.IsKeyDown(Keys.Space) && onGround) // här hoppar man
                 {
-                    posJump.Y = pos.Y;
+                    posJump.Y = pos.Y; //när man hoppar svaras punkten man hoppade från i y-led. Man landar på den punkten i y-led sen
                     speed.Y = -3.2f;
                     onGround = false;
-                    life -= 1;
                 }
                 #endregion
             }
@@ -191,9 +234,8 @@ namespace Johnny_Punch
                 fightTime = 0;
                 fightingCooldown += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
-
             #region StandardHit
-            if (fightingCooldown >= 300 && keyBoardState.IsKeyDown(Keys.T) && !fight && onGround)
+            if (fightingCooldown >= 300 && keyBoardState.IsKeyDown(Keys.T) && !fight && onGround && !block)
             {
                 frameTime = 120;
                 walkFrame = 0;
@@ -205,7 +247,6 @@ namespace Johnny_Punch
             }
             if (punch)
             {
-
                 animationBox.Width = 77;
                 animationBox.Y = 514;
                 FightAnimation(90, 3, 77, gameTime);
@@ -231,39 +272,53 @@ namespace Johnny_Punch
 
         }
 
-        public void Death(GameTime gameTime)
+        public void Block(GameTime gameTime)
         {
-            if (life <= 0)
+            if (fightingCooldown >= 300 && keyBoardState.IsKeyDown(Keys.G) && !fight && !block)
             {
-                dead = true;
-                animationBox.Y = 1020;
+                block = true;
+                animationBox.Width = 75;
                 animationBox.X = 0;
-                animationBox.Width = 125;
-                deathTimer1 += gameTime.ElapsedGameTime.TotalMilliseconds;
-                boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, 0, 0);
+                animationBox.Y = 0;
+                fightingCooldown = 0;
             }
-        }
 
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            if (spriteEffect == SpriteEffects.None)
+            if (block)
             {
-                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 15, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
+                blockTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (spriteEffect == SpriteEffects.FlipHorizontally)
+                {
+                    blockBox = new Rectangle((int)pos.X - 50, (int)pos.Y - 50, 35, height);
+                }
+                else
+                    blockBox = new Rectangle((int)pos.X, (int)pos.Y - 50, 35, height);
             }
-            else if (spriteEffect == SpriteEffects.FlipHorizontally)
-                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 7, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
-
-
-
-            spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, 0f);
-
-            //spriteBatch.Draw(tex, feetBox, Color.Red);
-            //spriteBatch.Draw(tex, playerRightBox, Color.Blue);
-            //spriteBatch.Draw(tex, playerLeftBox, Color.Red);
-            //spriteBatch.Draw(tex, punchBox, Color.Blue);
-            //spriteBatch.Draw(tex, boundingBox, Color.Red);
+            if (block && blockTimer >= 700)
+            {
+                block = false;
+                blockTimer = 0;
+                blockBox = new Rectangle((int)pos.X, (int)pos.Y - 40, 0, 0);
+            }
         }
+
+        public void FloatLayerCalculator()
+        {
+
+            if (spriteEffect == SpriteEffects.None)
+
+            {
+                floatLayerNr = 0 + posJump.Y * 0.0010f; //numret blir mellan 0.335 och 0.583, vilket placerar en i rätt ordning(ritas först 0, ritas sist 1(?))
+            }
+            else
+                floatLayerNr = 0 + pos.Y * 0.0010f;
+
+            ////spriteBatch.Draw(tex, feetBox, Color.Red);
+            ////spriteBatch.Draw(tex, playerRightBox, Color.Blue);
+            ////spriteBatch.Draw(tex, playerLeftBox, Color.Red);
+            ////spriteBatch.Draw(tex, punchBox, Color.Blue);
+            ////spriteBatch.Draw(tex, boundingBox, Color.Red);
+        }
+
         public Vector2 GetPos
         {
             get

@@ -93,6 +93,7 @@
     <Compile Include="Movables\Player\Player.cs" />
     <Compile Include="Movables\Player\Player_manager.cs" />
     <Compile Include="Movables\Player\Player2.cs" />
+    <Compile Include="PinaColada.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Movables\Enemy\StandardEnemy.cs" />
     <Compile Include="Level\Road.cs" />
     <Compile Include="Level\ManHoleCover.cs" />
+    <Compile Include="Watermelon.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

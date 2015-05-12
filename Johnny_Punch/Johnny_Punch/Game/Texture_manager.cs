@@ -31,8 +31,10 @@ namespace Johnny_Punch
         #endregion
 
         #region Environment graphics
-        public static Texture2D citybackgroundTex { get; private set; }
+        public static Texture2D beachbackgroundTex { get; private set; }
         public static Texture2D statusBarTex { get; private set; }
+        public static Texture2D beachback2groundTex { get; private set; }
+        public static Texture2D beachback3groundTex { get; private set; }
         public static Texture2D roadTex { get; private set; }
         public static Texture2D startMenuTex { get; private set; }
         public static Texture2D manHoleCoverTex { get; private set; }
@@ -50,6 +52,11 @@ namespace Johnny_Punch
         #region Enemy graphics
         public static Texture2D Tiny_tim { get; private set; }
         public static Texture2D standardEnemyTex { get; private set; }
+        #endregion
+
+        #region Items
+        public static Texture2D watermelon { get; private set; }
+        public static Texture2D pinacolada { get; private set; }
         #endregion
 
         #region Fonts
@@ -78,7 +85,10 @@ namespace Johnny_Punch
             #endregion
 
             #region Environment graphics
-            citybackgroundTex = Content.Load<Texture2D>(@"Images\citybackground");
+            beachbackgroundTex = Content.Load<Texture2D>(@"Images\citybackground");
+            beachback2groundTex = Content.Load<Texture2D>(@"Images\beachbackground2");
+            beachback3groundTex = Content.Load<Texture2D>(@"Images\beachbackground3");
+
             statusBarTex = Content.Load<Texture2D>(@"Images\StatusBar");
             roadTex = Content.Load<Texture2D>(@"Images\road");
             startMenuTex = Content.Load<Texture2D>(@"Images\startmenu");
@@ -96,6 +106,11 @@ namespace Johnny_Punch
             #region Enemy graphics
             Tiny_tim = Content.Load<Texture2D>(@"Images\tinytim");
             standardEnemyTex = Content.Load<Texture2D>(@"images\standardenemy");
+            #endregion
+
+            #region Items
+            watermelon = Content.Load<Texture2D>(@"images\melon");
+            pinacolada = Content.Load<Texture2D>(@"images\drink");
             #endregion
 
             #region Fonts

@@ -47,6 +47,8 @@ namespace Johnny_Punch
             else
                 speed.Y = 0;
 
+            FloatLayerCalculator();
+
             boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width, height);
             if (onGround) //Om vi är på marken så är Y = pos.Y
             {
@@ -72,6 +74,24 @@ namespace Johnny_Punch
             {
                 animationBox.X = 0;
             }
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            if (spriteEffect == SpriteEffects.None)
+            {
+                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 15, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0.1f);
+            }
+            else if (spriteEffect == SpriteEffects.FlipHorizontally)
+                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 7, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0.1f);
+
+            spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, floatLayerNr);
+
+            spriteBatch.Draw(tex, feetBox, Color.Red);
+            //spriteBatch.Draw(tex, playerRightBox, Color.Blue);
+            //spriteBatch.Draw(tex, playerLeftBox, Color.Red);
+            //spriteBatch.Draw(tex, punchBox, Color.Blue);
+            //spriteBatch.Draw(tex, boundingBox, Color.Red);
         }
 
         public void Moving(GameTime gameTime)
@@ -223,23 +243,16 @@ namespace Johnny_Punch
 
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public void FloatLayerCalculator()
         {
-            if (spriteEffect == SpriteEffects.None)
+            if (!onGround)
             {
-                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 15, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
+                floatLayerNr = 0 + posJump.Y * 0.0010f; //numret blir mellan 0.335 och 0.583, vilket placerar en i rätt ordning
             }
-            else if (spriteEffect == SpriteEffects.FlipHorizontally)
-                spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 7, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
-
-            spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, 0f);
-
-            spriteBatch.Draw(tex, feetBox, Color.Red);
-            //spriteBatch.Draw(tex, playerRightBox, Color.Blue);
-            //spriteBatch.Draw(tex, playerLeftBox, Color.Red);
-            //spriteBatch.Draw(tex, punchBox, Color.Blue);
-            //spriteBatch.Draw(tex, boundingBox, Color.Red);
+            else
+                floatLayerNr = 0 + pos.Y * 0.0010f;
         }
+
         public Vector2 GetPos
         {
             get
