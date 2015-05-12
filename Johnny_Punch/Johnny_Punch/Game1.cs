@@ -64,7 +64,7 @@ namespace Johnny_Punch
             gameManager.Update(gameTime);
 
             base.Update(gameTime);
-            if (gameManager.gameState == GameManager.GameState.Play && ready)
+            if (gameManager.gameState == GameManager.GameState.Play && ready || gameManager.gameState == GameManager.GameState.Pause)
             {
                 camera.Update(gameManager.playerManager.playerList[0].GetPos, gameManager.playerManager.playerList[0].GetRec, Window);
             Window.Title = gameManager.playerManager.playerList[0].playerLeftPos.ToString() + " : " + gameManager.playerManager.playerList[0].playerRightPos.ToString();
@@ -73,7 +73,7 @@ namespace Johnny_Punch
         
         protected override void Draw(GameTime gameTime)
         {
-            if (gameManager.gameState == GameManager.GameState.Play)
+            if (gameManager.gameState == GameManager.GameState.Play || gameManager.gameState == GameManager.GameState.Pause)
             {
                 GraphicsDevice.Clear(Color.LightPink);
                 spriteBatch.Begin(SpriteSortMode.FrontToBack, BlendState.AlphaBlend, null, null, null, null, camera.GetTransform);

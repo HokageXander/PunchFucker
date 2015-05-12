@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Johnny_Punch
 {
@@ -14,6 +17,7 @@ namespace Johnny_Punch
         public PlayerManager playerManager;
         EnemyManager enemyManager;
         LevelManager levelManager;
+        KeyboardState keyBoardState, oldKeyBoardState;
 
         public int firstDigitSeconds, secondDigitSeconds, firstDigitMinutes, secondDigitMinutes, firstDigitHours, secondDigitHours;
         public double time, digitSeconds;
@@ -37,6 +41,9 @@ namespace Johnny_Punch
 
         public void Update(GameTime gameTime)
         {
+            oldKeyBoardState = keyBoardState;
+            keyBoardState = Keyboard.GetState();
+
             switch (gameState)
             {
                 case GameState.Menu:
@@ -48,6 +55,12 @@ namespace Johnny_Punch
                     break;
 
                 case GameState.Play:
+                    if (keyBoardState.IsKeyDown(Keys.B) && oldKeyBoardState.IsKeyUp(Keys.B))
+                    {
+                        gameState = GameState.Pause;
+                        menu.play = false;
+                        menu.menuState = Menu.MenuState.Pause;
+                    }
                     levelManager.Update(gameTime);
 
                     playerManager.Update(gameTime);
@@ -66,6 +79,12 @@ namespace Johnny_Punch
                     break;
 
                 case GameState.Pause:
+                    menu.Update(gameTime);
+
+                    if (menu.play == true)
+                    {
+                        gameState = GameState.Play;
+                    }
                     break;
 
                 case GameState.End:
@@ -107,6 +126,15 @@ namespace Johnny_Punch
 
             }
 
+            switch(gameState)
+            {
+                case GameState.Pause:
+                    menu.Draw(spriteBatch);
+
+                    
+                    break;
+            }
+
 
             spriteBatch.DrawString(TextureManager.timeFont, secondDigitHours.ToString() + firstDigitHours.ToString() +
             ":" + secondDigitMinutes.ToString() + firstDigitMinutes.ToString() +
@@ -135,6 +163,14 @@ namespace Johnny_Punch
                     break;
 
                 case GameState.Pause:
+                    levelManager.Draw(spriteBatch);
+                    enemyManager.Draw(spriteBatch);
+                    playerManager.Draw(spriteBatch);
+
+                    foreach (ParticleExplosion e in ParticleExplosion.explosionList)
+                    {
+                        e.Draw(spriteBatch);
+                    }
                     break;
 
                 case GameState.End:

@@ -24,6 +24,15 @@ namespace Johnny_Punch
         public static Texture2D menuSoundOn { get; private set; }
         public static Texture2D menuSoundOff { get; private set; }
 
+        public static Texture2D pauseNo { get; private set; }
+        public static Texture2D pauseYes { get; private set; }
+        public static Texture2D pauseResume { get; private set; }
+        public static Texture2D pauseMenu { get; private set; }
+        public static Texture2D pauseQuest { get; private set; }
+
+
+
+
         #endregion
 
         #region StatusBar graphics
@@ -88,6 +97,12 @@ namespace Johnny_Punch
             menuSound = Content.Load<Texture2D>(@"Images\MenuImages\MenuSound");
             menuSoundOn = Content.Load<Texture2D>(@"Images\MenuImages\MenuSoundOn");
             menuSoundOff = Content.Load<Texture2D>(@"Images\MenuImages\MenuSoundOff");
+            pauseMenu = Content.Load<Texture2D>(@"Images\MenuImages\pauseMenu");
+            pauseNo = Content.Load<Texture2D>(@"Images\MenuImages\MenuNo");
+            pauseYes = Content.Load<Texture2D>(@"Images\MenuImages\MenuYes");
+            pauseResume = Content.Load<Texture2D>(@"Images\MenuImages\MenuResume");
+            pauseQuest = Content.Load<Texture2D>(@"Images\MenuImages\PauseQuest");
+
             #endregion
 
             #region StatusBar graphics

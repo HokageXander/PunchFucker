@@ -215,8 +215,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-
-
     <Compile Include="Images\beachbackground2.png">
       <Name>beachbackground2</Name>
       <Importer>TextureImporter</Importer>
@@ -224,7 +222,6 @@
     </Compile>
     <Compile Include="Images\beachbackground3.png">
       <Name>beachbackground3</Name>
-
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -239,6 +236,37 @@
   <ItemGroup>
     <Compile Include="Images\Blood.png">
       <Name>Blood</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\MenuImages\pauseMenu.png">
+      <Name>pauseMenu</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\MenuImages\MenuNo.png">
+      <Name>MenuNo</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\MenuImages\MenuResume.png">
+      <Name>MenuResume</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Images\MenuImages\MenuYes.png">
+      <Name>MenuYes</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Images\MenuImages\PauseQuest.png">
+      <Name>PauseQuest</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

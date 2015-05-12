@@ -16,13 +16,15 @@ namespace Johnny_Punch
     {
         int menuNumber = 1;
         KeyboardState keyBoardState, oldKeyBoardState;
-        public bool play, quit, sound = true;
+        public bool play, quit, sound = true, pause, quitScreen, pauseOptions;
+
+
 
         public enum MenuState
         {
-            MainMenu, NewGame, Options
+            MainMenu, NewGame, Options, Pause, PauseOptions, PauseQuit
         }
-        MenuState menuState;
+        public MenuState menuState;
         public Menu(ContentManager Content)
         {
             TextureManager.LoadContent(Content);
@@ -35,38 +37,42 @@ namespace Johnny_Punch
             oldKeyBoardState = keyBoardState;
             keyBoardState = Keyboard.GetState();
 
+            //if (pause)
+            //    menuState = MenuState.Pause;
+
+
             #region Key Up
             if (keyBoardState.IsKeyDown(Keys.Up) && oldKeyBoardState.IsKeyUp(Keys.Up)) // väljer vilken "knapp" man vill till i menyn
             {
                 menuNumber--;
-                if (menuNumber == 0 && menuState == MenuState.MainMenu) // om man trycker upp vid toppen går man till botten
+                if (menuNumber == 0 && menuState == MenuState.MainMenu || menuNumber == 0 && menuState == MenuState.Pause && !quitScreen) // om man trycker upp vid toppen går man till botten
                 {
                     menuNumber = 3;
                 }
-                if (menuNumber == 0 && menuState == MenuState.NewGame)
+                if (menuNumber == 0 && menuState == MenuState.NewGame || menuState == MenuState.Pause && quitScreen)
                 {
                     menuNumber = 2;
                 }
-                if (menuNumber == 0 && menuState == MenuState.Options)
+                if (menuNumber == 0 && menuState == MenuState.Options || menuNumber == 0 && menuState == MenuState.PauseOptions)
                 {
                     menuNumber = 1;
                 }
             }
             #endregion
-
+            Console.WriteLine(menuNumber);
             #region Key Down
             if (keyBoardState.IsKeyDown(Keys.Down) && oldKeyBoardState.IsKeyUp(Keys.Down))
             {
                 menuNumber++;
-                if (menuNumber == 4 && menuState == MenuState.MainMenu)
+                if (menuNumber == 4 && menuState == MenuState.MainMenu || menuNumber == 4 && menuState == MenuState.Pause && !quitScreen)
                 {
                     menuNumber = 1;
                 }
-                if (menuNumber == 3 && menuState == MenuState.NewGame)
+                if (menuNumber == 3 && menuState == MenuState.NewGame || menuState == MenuState.Pause && quitScreen)
                 {
                     menuNumber = 1;
                 }
-                if (menuNumber == 2 && menuState == MenuState.Options)
+                if (menuNumber == 2 && menuState == MenuState.Options || menuNumber == 2 && menuState == MenuState.PauseOptions)
                 {
                     menuNumber = 1;
                 }
@@ -98,11 +104,14 @@ namespace Johnny_Punch
                     {
                         PlayerManager.players = 1;
                         play = true;
+                        menuNumber = 1;
                     }
                     if (menuNumber == 2 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
                     {
                         PlayerManager.players = 2;
                         play = true;
+                        menuNumber = 1;
+
                     }
                     if (keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back))
                     {
@@ -126,6 +135,58 @@ namespace Johnny_Punch
                         menuNumber = 1;
                     }
                     break;
+
+                case MenuState.Pause:
+                    if (menuNumber == 1 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
+                    {
+                        play = true;
+                    }
+                    if (menuNumber == 2 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
+                    {
+                        menuState = MenuState.PauseOptions;
+                        menuNumber = 1;
+                    }
+                    if (menuNumber == 3 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
+                    {
+                        menuNumber = 2;
+                        menuState = MenuState.PauseQuit;
+
+                    }
+
+                    
+                    break;
+
+                case MenuState.PauseOptions:
+                       if (menuNumber == 1 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter) && sound)
+                    {
+                        sound = false;
+                    }
+                    else if (menuNumber == 1 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter) && !sound)
+                    {
+                        sound = true;
+                        menuNumber = 1;
+                    }
+                    if (keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back))
+                    {
+                        menuState = MenuState.Pause;
+                        menuNumber = 2;
+                    }
+
+                    break;
+
+                case MenuState.PauseQuit:
+                    if (menuNumber == 1 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
+                    {
+                        menuState = MenuState.MainMenu;
+                        
+                    }
+                    else if (menuNumber == 2 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
+                    {
+                        menuState = MenuState.Pause;
+                        menuNumber = 3;
+                    }
+                    break;
+
             #endregion
 
             }
@@ -133,7 +194,11 @@ namespace Johnny_Punch
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureManager.menuBackground, Vector2.Zero, Color.White);
+            if (!(menuState == MenuState.Pause || menuState == MenuState.PauseOptions || menuState == MenuState.PauseQuit ))
+                spriteBatch.Draw(TextureManager.menuBackground, Vector2.Zero, Color.White);
+            else
+            spriteBatch.Draw(TextureManager.pauseMenu, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
+
 
             #region menuStates
             switch (menuState)
@@ -190,6 +255,68 @@ namespace Johnny_Punch
                     }
                     else
                         spriteBatch.Draw(TextureManager.menuSoundOff, new Vector2(903, 227), Color.Yellow);
+                    break;
+
+                case MenuState.Pause:
+               
+                        if (menuNumber == 1)
+                        {
+
+                            spriteBatch.Draw(TextureManager.pauseResume, new Vector2(300, 175), Color.Red);
+                        }
+                        else
+                            spriteBatch.Draw(TextureManager.pauseResume, new Vector2(300, 175), Color.Yellow);
+
+                        if (menuNumber == 2)
+                        {
+                            spriteBatch.Draw(TextureManager.menuOptions, new Vector2(300, 300), Color.Red);
+                        }
+                        else
+                            spriteBatch.Draw(TextureManager.menuOptions, new Vector2(300, 300), Color.Yellow);
+
+                        if (menuNumber == 3)
+                        {
+                            spriteBatch.Draw(TextureManager.menuQuit, new Vector2(300, 425), Color.Red);
+                        }
+                        else
+                            spriteBatch.Draw(TextureManager.menuQuit, new Vector2(300, 425), Color.Yellow);
+                                            
+                    break;
+
+                case MenuState.PauseOptions:
+
+                     if (menuNumber == 1)
+                    {
+                        spriteBatch.Draw(TextureManager.menuSound, new Vector2(290, 200), Color.Red);
+                    }
+                    else
+                        spriteBatch.Draw(TextureManager.menuSound, new Vector2(290, 200), Color.Yellow);
+
+                    if (sound)
+                    {
+                        spriteBatch.Draw(TextureManager.menuSoundOn, new Vector2(800, 230), Color.Yellow);
+                    }
+                    else
+                        spriteBatch.Draw(TextureManager.menuSoundOff, new Vector2(800, 227), Color.Yellow);
+
+                        
+                    break;
+
+                case MenuState.PauseQuit:
+                    spriteBatch.Draw(TextureManager.pauseQuest, new Vector2(345, 250), Color.Yellow);
+                        if (menuNumber == 1)
+                        {
+                            spriteBatch.Draw(TextureManager.pauseYes, new Vector2(425, 405), Color.Red);
+                        }
+                        else
+                            spriteBatch.Draw(TextureManager.pauseYes, new Vector2(425, 405), Color.Yellow);
+                        if (menuNumber == 2)
+                        {
+                            spriteBatch.Draw(TextureManager.pauseNo, new Vector2(700, 403), Color.Red);
+                        }
+                        else
+                            spriteBatch.Draw(TextureManager.pauseNo, new Vector2(700, 403), Color.Yellow);
+                    
                     break;
             #endregion
             }
