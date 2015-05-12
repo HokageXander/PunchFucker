@@ -304,30 +304,19 @@ namespace Johnny_Punch
         public void FloatLayerCalculator()
         {
 
-
             if (spriteEffect == SpriteEffects.None)
 
             {
                 floatLayerNr = 0 + posJump.Y * 0.0010f; //numret blir mellan 0.335 och 0.583, vilket placerar en i rätt ordning(ritas först 0, ritas sist 1(?))
             }
-
-            //else if (spriteEffect == SpriteEffects.FlipHorizontally)
-            //    spriteBatch.Draw(TextureManager.playerShadow, new Vector2(posJump.X - 7, posJump.Y + (height / 2) - 9), null, new Color(0, 0, 0, 120), 0f, new Vector2(63 / 2, 21 / 2), shadowScale, SpriteEffects.None, 0);
-
-
-
-
-
-            //spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, 0f);
+            else
+                floatLayerNr = 0 + pos.Y * 0.0010f;
 
             ////spriteBatch.Draw(tex, feetBox, Color.Red);
             ////spriteBatch.Draw(tex, playerRightBox, Color.Blue);
             ////spriteBatch.Draw(tex, playerLeftBox, Color.Red);
             ////spriteBatch.Draw(tex, punchBox, Color.Blue);
             ////spriteBatch.Draw(tex, boundingBox, Color.Red);
-
-            else
-                floatLayerNr = 0 + pos.Y * 0.0010f;
         }
 
         public Vector2 GetPos
