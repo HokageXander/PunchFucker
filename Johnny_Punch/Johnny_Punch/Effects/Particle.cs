@@ -43,7 +43,7 @@ namespace Johnny_Punch
             Vector2 origin = new Vector2(Texture.Width / 2, Texture.Height / 2);
 
             spriteBatch.Draw(Texture, Position, sourceRectangle, Color,
-                Angle, origin, 0.5f, SpriteEffects.None, 0.9f);
+                Angle, origin, 0.6f, SpriteEffects.None, 0.9f);
         }
     }
 }

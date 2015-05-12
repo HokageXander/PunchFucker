@@ -87,14 +87,14 @@ namespace Johnny_Punch
                         {
                             //enemyManager.enemyList[j].pos.X -= 2;
                             enemyManager.enemyList[j].life -= 1;
-                        particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].punchBox.X, playerList[0].punchBox.Y));
+                        particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].punchBox.X, playerList[0].punchBox.Y), Color.Red);
                             break;
 
                         }
                         else
                         {
                             //enemyManager.enemyList[j].pos.X += 2;
-                            particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].punchBox.X + playerList[0].punchBox.Width, playerList[0].punchBox.Y));
+                            particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].punchBox.X + playerList[0].punchBox.Width, playerList[0].punchBox.Y), Color.Red);
 
                             enemyManager.enemyList[j].life -= 1;
                         }
@@ -110,16 +110,14 @@ namespace Johnny_Punch
             {
                 for (int j = 0; j < item.itemList.Count; j++)
                 {
-                    if (playerList[i].boundingBox.Intersects(item.itemList[j].boundingBox))
+                    if (playerList[i].feetBox.Intersects(item.itemList[j].boundingBox))
                     {
                         item.itemList.RemoveAt(j);
                         if (playerList[i].life <= 9)
                             playerList[i].life++;
-                        
-                        
-                        
-                        //particleExplosion = new ParticleExplosion(TextureManager.bloodTex, item.itemList[i].pos);
 
+                        //particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].feetBox.X, playerList[0].feetBox.Y), Color.Yellow);
+       
                     }
                 }
             }

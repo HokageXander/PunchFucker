@@ -22,7 +22,7 @@ namespace Johnny_Punch
 
         public virtual void Update(GameTime gameTime)
         {
-            boundingBox = new Rectangle((int)pos.X + 20, (int)pos.Y + 20, width / 4, height / 4);
+            boundingBox = new Rectangle((int)pos.X + 20, (int)pos.Y + 20, width / 2, height / 2);
             FloatLayerCalculator();
         }
 

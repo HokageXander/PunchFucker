@@ -13,13 +13,16 @@ namespace Johnny_Punch
         public Vector2 EmitterLocation { get; set; } // returnar lokationen för vektorn
         private List<Particle> particles;
         public static List<Texture2D> textures;
+        public Color color;
+        public bool IfItem;
 
-        public ParticleEngine(List<Texture2D> textures, Vector2 location) // hämtar en textur och position
+        public ParticleEngine(List<Texture2D> textures, Vector2 location, Color color) // hämtar en textur och position
         {
             EmitterLocation = location;
             ParticleEngine.textures = textures;
             this.particles = new List<Particle>();
             random = new Random();
+            this.color = color;
         }
 
         public void Update()
@@ -42,13 +45,15 @@ namespace Johnny_Punch
             Vector2 velocity = new Vector2(
             (float)(random.NextDouble() * 4 - 2),
             (float)(random.NextDouble() * 4 - 2));
+            
             //velocity.Normalize();
             velocity *= (float)(random.NextDouble());
             float angle = 0;
-            float angularVelocity = 0.1f * (float)(random.NextDouble() * 4 - 2); // random direktion
+            float angularVelocity = 0.1f ; // random direktion
 
-            Color color = new Color(
-          (float)(150), 0, 0);
+
+          //  Color color = new Color(
+          //(float)(150), 0, 0);
             float size = (float)random.NextDouble();
             int ttl = 20 + random.Next(5000);
 

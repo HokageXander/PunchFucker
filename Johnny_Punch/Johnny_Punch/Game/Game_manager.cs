@@ -81,9 +81,9 @@ namespace Johnny_Punch
             {
                 if (playerManager.playerList[0].percentLife < 1.0f)
                 {
-                    spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120 /*- 50 * (PlayerManager.players - 1)*/, 608, 155, 35), Color.Red);
+                    spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120 /*- 50 * (PlayerManager.players - 1)*/, 608 - ((PlayerManager.players - 1)* 42), 155, 35), Color.Red);
                 }
-                spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120, 608, (int)(155 * playerManager.playerList[0].percentLife), 35), Color.Green);
+                spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120, 608 - ((PlayerManager.players - 1) * 42), (int)(155 * playerManager.playerList[0].percentLife), 35), Color.Green);
 
                 if (PlayerManager.players == 2)
                 {

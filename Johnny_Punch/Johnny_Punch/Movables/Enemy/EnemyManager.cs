@@ -11,7 +11,7 @@ namespace Johnny_Punch
     {
 
         public List<Enemy> enemyList = new List<Enemy>();
-        
+        public ParticleExplosion particleExplosion;
         public EnemyManager(GraphicsDevice graphicsDevice)
         {
             EnemyType();
@@ -123,6 +123,9 @@ namespace Johnny_Punch
                         enemyList[j].fightFrame = 0;
                         enemyList[j].fightingCooldown = -200;
                         enemyList[j].punchBox = new Rectangle((int)enemyList[j].pos.X - 44, (int)enemyList[j].pos.Y - 65, 0, 0); //resettar slaget hitbox ovanför gubben igen
+
+                        particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerManager.playerList[0].blockBox.X, playerManager.playerList[0].blockBox.Y + 50), Color.Blue);
+
                     }
                 }
             }

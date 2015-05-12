@@ -20,14 +20,14 @@ namespace Johnny_Punch
 
         double timer;
 
-        public ParticleExplosion(Texture2D tex, Vector2 pos)
+        public ParticleExplosion(Texture2D tex, Vector2 pos, Color color)
             :base(tex,pos)
         {
             timer = 300;
             particleList = new List<Texture2D>();
             particleList.Add(tex);
 
-            particleEngine = new ParticleEngine(particleList, pos);
+            particleEngine = new ParticleEngine(particleList, pos, color);
             particleEngine.nrOfParticle();
 
             explosionList.Add(this);
