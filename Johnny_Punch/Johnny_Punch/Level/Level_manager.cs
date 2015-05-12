@@ -83,7 +83,16 @@ namespace Johnny_Punch
                     }
                     if (strings[i][j] == 'c')
                     {
-                        enviromentList.Add(new CityBackground(TextureManager.citybackgroundTex, new Vector2(j * 91, i * 82)));
+                        enviromentList.Add(new CityBackground(TextureManager.beachbackgroundTex, new Vector2(j * 91, i * 82)));
+                    }
+
+                    if (strings[i][j] == 'd')
+                    {
+                        enviromentList.Add(new CityBackground(TextureManager.beachback2groundTex, new Vector2(j * 91, i * 82)));
+                    }
+                    if (strings[i][j] == 'f')
+                    {
+                        enviromentList.Add(new CityBackground(TextureManager.beachback3groundTex, new Vector2(j * 91, i * 82)));
                     }
                 }
             }
