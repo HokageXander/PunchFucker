@@ -14,6 +14,7 @@ namespace Johnny_Punch
         public Vector2 speed, playerLeftPos, playerRightPos;
         public Rectangle playerLeftBox, playerRightBox;
         public KeyboardState keyBoardState, oldKeyBoardState;
+        public static bool sabreEquipped;
         float shadowScale;
         int yLimitUp = 335, yLimitDown = 583;
 

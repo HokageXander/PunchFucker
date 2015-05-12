@@ -117,6 +117,10 @@ namespace Johnny_Punch
                     {
                         itemList.Add(new PinaColada(TextureManager.pinacolada, new Vector2(j * 91, i * 82)));
                     }
+                    if (strings[i][j] == 's')
+                    {
+                        itemList.Add(new Sabre(TextureManager.sabreTex, new Vector2(j * 91, i * 82)));
+                    }
                 }
             }
             strings.Clear();
