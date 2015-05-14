@@ -60,6 +60,7 @@ namespace Johnny_Punch
                         menu.play = false;
                         menu.menuState = Menu.MenuState.Pause;
                     }
+
                     levelManager.Update(gameTime);
 
                     playerManager.Update(gameTime);
@@ -70,8 +71,13 @@ namespace Johnny_Punch
                     enemyManager.AggroPlayer(playerManager, gameTime);
                     enemyManager.FightPlayer(playerManager);
                     enemyManager.IsBlocked(playerManager, gameTime);
+<<<<<<< HEAD
+=======
+
+                    CheckIsDead();
+>>>>>>> origin/master
                     TotalPlayTime(gameTime);
-                    
+
 
                     time += gameTime.ElapsedGameTime.TotalSeconds;
                     break;
@@ -97,7 +103,7 @@ namespace Johnny_Punch
             {
                 if (playerManager.playerList[0].percentLife < 1.0f)
                 {
-                    spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120 /*- 50 * (PlayerManager.players - 1)*/, 608 - ((PlayerManager.players - 1)* 42), 155, 35), Color.Red);
+                    spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120 /*- 50 * (PlayerManager.players - 1)*/, 608 - ((PlayerManager.players - 1) * 42), 155, 35), Color.Red);
                 }
                 spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(120, 608 - ((PlayerManager.players - 1) * 42), (int)(155 * playerManager.playerList[0].percentLife), 35), Color.Green);
 
@@ -114,19 +120,25 @@ namespace Johnny_Punch
             }
             if (PlayerManager.players == 1)
             {
-            spriteBatch.Draw(TextureManager.statusBarPlayerOneTex, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                spriteBatch.Draw(TextureManager.statusBarPlayerOneTex, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
             }
             if (PlayerManager.players == 2)
             {
-            spriteBatch.Draw(TextureManager.statusBarPlayerTwoTex, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                spriteBatch.Draw(TextureManager.statusBarPlayerTwoTex, Vector2.Zero, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
 
             }
 
-            switch(gameState)
+            switch (gameState)
             {
                 case GameState.Pause:
+<<<<<<< HEAD
                     menu.Draw(spriteBatch);                    
+=======
+                    menu.Draw(spriteBatch);
+
+
+>>>>>>> origin/master
                     break;
             }
 
@@ -164,6 +176,20 @@ namespace Johnny_Punch
             }
         }
 
+<<<<<<< HEAD
+=======
+
+        public static void CheckIsDead()
+        {
+            foreach (ParticleExplosion e in ParticleExplosion.explosionList)
+            {
+                if (e.IsDead)
+                    ParticleExplosion.explosionList.Remove(e);
+                break;
+            }
+        }
+
+>>>>>>> origin/master
         public void TotalPlayTime(GameTime gameTime)
         {
             #region DigitTimer
@@ -197,7 +223,7 @@ namespace Johnny_Punch
                 secondDigitHours++;
                 firstDigitHours = 0;
             }
-            #endregion 
+            #endregion
         }
     }
 }

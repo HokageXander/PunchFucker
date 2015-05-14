@@ -101,6 +101,7 @@
     <Compile Include="Movables\Enemy\StandardEnemy.cs" />
     <Compile Include="Level\Road.cs" />
     <Compile Include="Item\Watermelon.cs" />
+    <Compile Include="Item\Sabre.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

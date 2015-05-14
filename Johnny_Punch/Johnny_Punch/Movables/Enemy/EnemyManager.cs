@@ -12,11 +12,11 @@ namespace Johnny_Punch
 
         public List<Enemy> enemyList = new List<Enemy>();
         public ParticleExplosion particleExplosion;
-       
+
         public EnemyManager(GraphicsDevice graphicsDevice)
         {
-            EnemyType();
 
+            EnemyType();
 
 
         }
@@ -52,8 +52,8 @@ namespace Johnny_Punch
 
         public void SpawnEnemy()
         {
-           
-           
+
+
         }
 
         public void RemoveEnemy()

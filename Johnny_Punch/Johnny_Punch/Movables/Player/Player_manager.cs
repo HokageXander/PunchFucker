@@ -24,7 +24,7 @@ namespace Johnny_Punch
         {
             AddPlayer();
 
-            foreach (ParticleExplosion e in ParticleExplosion.explosionList.ToList())
+            foreach (ParticleExplosion e in ParticleExplosion.explosionList.ToList())//updaterar alla partikeleffekter 
             {
                 e.Update(gameTime);
             }

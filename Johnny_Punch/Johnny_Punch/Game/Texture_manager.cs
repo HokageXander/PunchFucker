@@ -45,9 +45,7 @@ namespace Johnny_Punch
         public static Texture2D beachbackgroundTex { get; private set; }
         public static Texture2D statusBarPlayerOneTex { get; private set; }
         public static Texture2D statusBarPlayerTwoTex { get; private set; }
-        public static Texture2D beachback2groundTex { get; private set; }
-
-        
+        public static Texture2D beachback2groundTex { get; private set; }        
         public static Texture2D beachback3groundTex { get; private set; }
         public static Texture2D roadTex { get; private set; }
         public static Texture2D startMenuTex { get; private set; }
@@ -70,7 +68,6 @@ namespace Johnny_Punch
         #region Items
         public static Texture2D watermelon { get; private set; }
         public static Texture2D pinacolada { get; private set; }
-
         public static Texture2D sabreTex { get; private set; }
         #endregion
 
@@ -113,7 +110,6 @@ namespace Johnny_Punch
             beachbackgroundTex = Content.Load<Texture2D>(@"Images\citybackground");
             beachback2groundTex = Content.Load<Texture2D>(@"Images\beachbackground2");
             beachback3groundTex = Content.Load<Texture2D>(@"Images\beachbackground3");
-
             statusBarPlayerOneTex = Content.Load<Texture2D>(@"Images\StatusBar1player");
             statusBarPlayerTwoTex = Content.Load<Texture2D>(@"Images\StatusBar");
             roadTex = Content.Load<Texture2D>(@"Images\road");
@@ -136,7 +132,7 @@ namespace Johnny_Punch
             #region Items
             watermelon = Content.Load<Texture2D>(@"images\melon");
             pinacolada = Content.Load<Texture2D>(@"images\drink");
-            //sabreTex = Content.Load<Texture2D>(@"images\sabre");
+            sabreTex = Content.Load<Texture2D>(@"images\sabre");
             #endregion
 
             #region Fonts
