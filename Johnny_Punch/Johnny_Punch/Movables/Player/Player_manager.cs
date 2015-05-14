@@ -10,11 +10,10 @@ namespace Johnny_Punch
 {
     class PlayerManager
     {
-
         public List<Player> playerList = new List<Player>();
         public List<Player2> playerList2 = new List<Player2>();
         public static int players = 1;
-        ParticleExplosion particleExplosion;
+        public ParticleExplosion particleExplosion;
 
         public PlayerManager()
         {
@@ -28,6 +27,12 @@ namespace Johnny_Punch
             foreach (ParticleExplosion e in ParticleExplosion.explosionList.ToList())
             {
                 e.Update(gameTime);
+            }
+            foreach (ParticleExplosion e in ParticleExplosion.explosionList)
+            {
+                if (e.IsDead)
+                    ParticleExplosion.explosionList.Remove(e);
+                break;
             }
 
             foreach (Player player in playerList)
@@ -49,6 +54,10 @@ namespace Johnny_Punch
             foreach (Player2 player in playerList2)
             {
                 player.Draw(spriteBatch);
+            }
+            foreach (ParticleExplosion e in ParticleExplosion.explosionList)
+            {
+                e.Draw(spriteBatch);
             }
         }
 

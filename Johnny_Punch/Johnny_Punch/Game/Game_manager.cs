@@ -22,7 +22,6 @@ namespace Johnny_Punch
         public int firstDigitSeconds, secondDigitSeconds, firstDigitMinutes, secondDigitMinutes, firstDigitHours, secondDigitHours;
         public double time, digitSeconds;
 
-
         public enum GameState
         {
             Menu, Play, Pause, End
@@ -71,7 +70,6 @@ namespace Johnny_Punch
                     enemyManager.AggroPlayer(playerManager, gameTime);
                     enemyManager.FightPlayer(playerManager);
                     enemyManager.IsBlocked(playerManager, gameTime);
-                    CheckIsDead();
                     TotalPlayTime(gameTime);
                     
 
@@ -94,7 +92,6 @@ namespace Johnny_Punch
 
         public void DrawStats(SpriteBatch spriteBatch)
         {
-
 
             for (int i = 0; i < playerManager.playerList.Count; i++)// Lifebars till spelarna
             {
@@ -129,12 +126,9 @@ namespace Johnny_Punch
             switch(gameState)
             {
                 case GameState.Pause:
-                    menu.Draw(spriteBatch);
-
-                    
+                    menu.Draw(spriteBatch);                    
                     break;
             }
-
 
             spriteBatch.DrawString(TextureManager.timeFont, secondDigitHours.ToString() + firstDigitHours.ToString() +
             ":" + secondDigitMinutes.ToString() + firstDigitMinutes.ToString() +
@@ -154,12 +148,7 @@ namespace Johnny_Punch
                     levelManager.Draw(spriteBatch);
                     enemyManager.Draw(spriteBatch);
                     playerManager.Draw(spriteBatch);
-
-                    foreach (ParticleExplosion e in ParticleExplosion.explosionList)
-                    {
-                        e.Draw(spriteBatch);
-                    }
-
+                   
                     break;
 
                 case GameState.Pause:
@@ -167,26 +156,11 @@ namespace Johnny_Punch
                     enemyManager.Draw(spriteBatch);
                     playerManager.Draw(spriteBatch);
 
-                    foreach (ParticleExplosion e in ParticleExplosion.explosionList)
-                    {
-                        e.Draw(spriteBatch);
-                    }
                     break;
 
                 case GameState.End:
 
                     break;
-            }
-        }
-
-
-        public static void CheckIsDead( )
-        {
-            foreach (ParticleExplosion e in ParticleExplosion.explosionList)
-            {
-                if(e.IsDead )
-                ParticleExplosion.explosionList.Remove(e);
-                break;
             }
         }
 

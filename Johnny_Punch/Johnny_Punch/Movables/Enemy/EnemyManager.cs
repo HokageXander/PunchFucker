@@ -12,9 +12,12 @@ namespace Johnny_Punch
 
         public List<Enemy> enemyList = new List<Enemy>();
         public ParticleExplosion particleExplosion;
+       
         public EnemyManager(GraphicsDevice graphicsDevice)
         {
             EnemyType();
+
+
 
         }
 
@@ -25,6 +28,7 @@ namespace Johnny_Punch
                 enemy.Update(gameTime);
             }
             RemoveEnemy();
+
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -37,18 +41,19 @@ namespace Johnny_Punch
 
         public void EnemyType()
         {
-           
-            enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(500, 400)));
+
+
             enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(450, 500)));
             enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(400, 300)));
-            enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(1500, 400)));
-            
-            
+            enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(500, 400)));
+            enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(450, 800)));
+
         }
 
-        public void SpawnEnemy(GameTime gameTime)
+        public void SpawnEnemy()
         {
-            
+           
+           
         }
 
         public void RemoveEnemy()
@@ -97,12 +102,16 @@ namespace Johnny_Punch
                         {
                             //playerManager.playerList[i].pos.X -= 2;
                             playerManager.playerList[i].life -= 1;
+                            particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(enemyList[j].punchBox.X, enemyList[j].punchBox.Y), Color.DarkRed);
+
                             break;
 
                         }
                         else
                             //playerManager.playerList[i].pos.X += 2;
-                        playerManager.playerList[i].life -= 1;
+                            playerManager.playerList[i].life -= 1;
+                        particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(enemyList[j].punchBox.X + enemyList[j].punchBox.Width, enemyList[j].punchBox.Y), Color.DarkRed);
+
                         break;
                     }
                 }
