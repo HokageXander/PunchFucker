@@ -48,6 +48,7 @@ namespace Johnny_Punch
             spriteBatch.Draw(tex, feetBox, Color.Red);
             spriteBatch.Draw(tex, punchBox, Color.PaleGoldenrod);
             //spriteBatch.Draw(tex, boundingBox, Color.Red);
+            
         }
 
         public void AnimationTypes(GameTime gameTime)

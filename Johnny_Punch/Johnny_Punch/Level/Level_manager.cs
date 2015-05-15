@@ -30,7 +30,6 @@ namespace Johnny_Punch
 
         public void Update(GameTime gameTime)
         {
-
             if (levelNr == 1) //vet ej om detta kommer att fungera, men kan få vara grunden tills vidare
             {
                 streamReaderEnvironment = new StreamReader(@"lvl1environment.txt");
