@@ -119,11 +119,7 @@ namespace Johnny_Punch
             {
                 for (int j = 0; j < item.itemList.Count; j++)
                 {
-<<<<<<< HEAD
-                    if (playerList[i].feetBox.Intersects(item.itemList[j].boundingBox) /*&& !(item.itemList[j] is Sabre)*/)
-=======
                     if (playerList[i].feetBox.Intersects(item.itemList[j].boundingBox))
->>>>>>> origin/master
                     {
                         item.itemList.RemoveAt(j);
                         if (playerList[i].life <= 9)
@@ -131,14 +127,6 @@ namespace Johnny_Punch
 
                         //particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].feetBox.X, playerList[0].feetBox.Y), Color.Yellow);
                     }
-<<<<<<< HEAD
-                    //if (playerList[i].feetBox.Intersects(item.itemList[j].boundingBox) && item.itemList[j] is Sabre)
-                    //{
-                    //    item.itemList.RemoveAt(j);
-                    //    //item.itemList.Add(new Sabre(TextureManager.sabreTex, new Vector2(playerList[i].pos.X + 10, playerList[i].pos.Y)));
-                    //}
-=======
->>>>>>> origin/master
                 }
             }
         }
