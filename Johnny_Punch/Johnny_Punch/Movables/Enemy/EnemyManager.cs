@@ -12,6 +12,7 @@ namespace Johnny_Punch
 
         public List<Enemy> enemyList = new List<Enemy>();
         public ParticleExplosion particleExplosion;
+        bool spawn1, spawn2;
 
         public EnemyManager(GraphicsDevice graphicsDevice)
         {
@@ -41,19 +42,33 @@ namespace Johnny_Punch
 
         public void EnemyType()
         {
-
-
             enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(450, 500)));
             enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(400, 300)));
             enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(500, 400)));
-            enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(450, 800)));
-
+            enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2000, 450)));
         }
 
-        public void SpawnEnemy()
+        public void SpawnEnemy(PlayerManager playerManager)
         {
-
-
+            for (int j = 0; j < playerManager.playerList.Count; j++)
+            {
+                if (playerManager.playerList[j].pos.X > 2000 && !spawn1) // när spelaren har nått en punkt så spawnas det fiender, så många som man lägger i if-satsen
+                {
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2000, 800)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2650, 450)));
+                    spawn1 = true; // måste göra boolen true, så går fienderna till en, och så spawnas det inte mer än vad som står åvan
+                }
+                if (playerManager.playerList[j].pos.X > 3000 && !spawn2)
+                {
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3300, 800)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2400, 450)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3550, 300)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3550, 550)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2800, 800)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3000, 800)));
+                    spawn2 = true;
+                }
+            }
         }
 
         public void RemoveEnemy()
@@ -66,6 +81,7 @@ namespace Johnny_Punch
                 }
             }
         }
+
         public void AggroPlayer(PlayerManager playerManager, GameTime gameTime)
         {
             for (int i = 0; i < enemyList.Count; i++)
@@ -77,6 +93,8 @@ namespace Johnny_Punch
                         enemyList[i].Aggro(playerManager.playerList[j]);
                         enemyList[i].Fight(gameTime, playerManager.playerList[j]);
                     }
+                    if (spawn1 || spawn2) // när fiender spawnas så aggrar dom på spelaren direkt
+                        enemyList[i].SpawnAggro(playerManager.playerList[j]);
                 }
             }
         }
@@ -118,7 +136,7 @@ namespace Johnny_Punch
             }
         }
 
-        public void IsBlocked(PlayerManager playerManager, GameTime gameTime)
+        public void IsBlocked(PlayerManager playerManager, GameTime gameTime) //stoppar gubbens slag om han slår på blocken
         {
             for (int i = 0; i < playerManager.playerList.Count; i++)
             {
@@ -138,6 +156,6 @@ namespace Johnny_Punch
                     }
                 }
             }
-        } //stoppar gubbens slag om han slår på blocken
+        } 
     }
 }

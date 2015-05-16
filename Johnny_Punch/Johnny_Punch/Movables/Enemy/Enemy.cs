@@ -18,8 +18,8 @@ namespace Johnny_Punch
             : base(tex, pos)
         {
 
-
         }
+
         public override void Update(GameTime gameTime)
         {
             if (!dead)
@@ -77,7 +77,7 @@ namespace Johnny_Punch
             }
         }
 
-        public void Aggro(Player player)
+        public void Aggro(Player player) // aggrofunktionen när dom är nära spelaren
         {
 
             animationBox.Y = 0;
@@ -114,7 +114,33 @@ namespace Johnny_Punch
                 spriteEffect = SpriteEffects.FlipHorizontally;
             else if (feetBox.Intersects(player.playerLeftBox))
                 spriteEffect = SpriteEffects.None;
-        }
+        }  
+
+        public void SpawnAggro(Player player) // aggrofunktionen när dom spawnar och inte är i aggrozonen
+        {
+            Vector2 feetPos = new Vector2(feetBox.X, feetBox.Y);
+            Vector2 playerfeetPos = new Vector2(player.feetBox.X, player.feetBox.Y);
+            if (Vector2.Distance(feetPos, playerfeetPos) > aggroRadius)
+            {
+                moving = true;
+                if (feetPos.X < playerfeetPos.X)
+                {
+                    direction = player.playerLeftPos - feetPos;
+                }
+                else
+                    direction = player.playerRightPos - feetPos;
+
+                direction.Normalize();
+                velocity.X = enemySpeed * direction.X;
+                velocity.Y = enemySpeed * direction.Y;
+                pos += velocity;
+
+                if (direction.X < 0)
+                    spriteEffect = SpriteEffects.FlipHorizontally;
+                else
+                    spriteEffect = SpriteEffects.None;
+            }
+        } 
 
         public void Fight(GameTime gameTime, Player player)
         {

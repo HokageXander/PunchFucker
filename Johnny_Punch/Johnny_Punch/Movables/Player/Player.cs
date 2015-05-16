@@ -14,7 +14,6 @@ namespace Johnny_Punch
         public Vector2 speed, playerLeftPos, playerRightPos;
         public Rectangle playerLeftBox, playerRightBox;
         public KeyboardState keyBoardState, oldKeyBoardState;
-        public static bool sabreEquipped;
         float shadowScale;
         int yLimitUp = 335, yLimitDown = 583;
 
@@ -122,7 +121,7 @@ namespace Johnny_Punch
             //spriteBatch.Draw(tex, feetBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(tex, playerRightBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(tex, playerLeftBox, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(tex, punchBox, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 1);
+            //spriteBatch.Draw(tex, punchBox, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(tex, boundingBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             spriteBatch.Draw(tex, blockBox, null, Color.Aquamarine, 0, Vector2.Zero, SpriteEffects.None, 1);
         }

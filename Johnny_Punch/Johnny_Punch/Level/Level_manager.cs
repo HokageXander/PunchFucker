@@ -71,14 +71,6 @@ namespace Johnny_Punch
             {
                 for (int j = 0; j < strings[i].Length; j++)
                 {
-                    if (strings[i][j] == 'r')
-                    {
-                        enviromentList.Add(new Road(TextureManager.roadTex, new Vector2(j * 82, 10 + i * 82)));
-                    }
-                    if (strings[i][j] == 'm')
-                    {
-                        enviromentList.Add(new SmallPlant(TextureManager.smallPlantTex, new Vector2(j * 82, 10 + i * 82)));
-                    }
                     if (strings[i][j] == 'c')
                     {
                         enviromentList.Add(new CityBackground(TextureManager.beachbackgroundTex, new Vector2(j * 91, i * 82)));
@@ -90,6 +82,14 @@ namespace Johnny_Punch
                     if (strings[i][j] == 'f')
                     {
                         enviromentList.Add(new CityBackground(TextureManager.beachback3groundTex, new Vector2(j * 91, i * 82)));
+                    }
+                    if (strings[i][j] == 'r')
+                    {
+                        enviromentList.Add(new Road(TextureManager.roadTex, new Vector2(j * 82, 10 + i * 82)));
+                    }
+                    if (strings[i][j] == 'm')
+                    {
+                        enviromentList.Add(new SmallPlant(TextureManager.smallPlantTex, new Vector2(j * 82, 10 + i * 82)));
                     }
                 }
             }
@@ -116,10 +116,10 @@ namespace Johnny_Punch
                     {
                         itemList.Add(new PinaColada(TextureManager.pinacolada, new Vector2(j * 91, i * 82)));
                     }
-                    if (strings[i][j] == 's')
-                    {
-                        itemList.Add(new Sabre(TextureManager.sabreTex, new Vector2(j * 91, i * 82)));
-                    }
+                    //if (strings[i][j] == 's')
+                    //{
+                    //    itemList.Add(new Sabre(TextureManager.sabreTex, new Vector2(j * 91, i * 82)));
+                    //}
                 }
             }
             strings.Clear();
