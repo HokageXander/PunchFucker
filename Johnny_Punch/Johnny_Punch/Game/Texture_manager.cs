@@ -50,6 +50,7 @@ namespace Johnny_Punch
         public static Texture2D roadTex { get; private set; }
         public static Texture2D startMenuTex { get; private set; }
         public static Texture2D smallPlantTex { get; private set; }
+        public static Texture2D jungleEntranceTex { get; private set; }
         #endregion
 
         #region Player graphics
@@ -115,6 +116,7 @@ namespace Johnny_Punch
             roadTex = Content.Load<Texture2D>(@"Images\road");
             startMenuTex = Content.Load<Texture2D>(@"Images\startmenu");
             smallPlantTex = Content.Load<Texture2D>(@"Images\plant");
+            jungleEntranceTex = Content.Load<Texture2D>(@"Images\jungleEntrance");
 
             #endregion
 

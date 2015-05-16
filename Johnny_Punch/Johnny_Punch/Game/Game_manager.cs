@@ -62,10 +62,11 @@ namespace Johnny_Punch
                     }
 
                     levelManager.Update(gameTime);
+                    levelManager.NextLevel(playerManager, enemyManager);
 
                     playerManager.Update(gameTime);
                     playerManager.LandingPunches(enemyManager);
-                    playerManager.CollectItems(levelManager);
+                    playerManager.CollectItems(levelManager);                    
 
                     enemyManager.Update(gameTime);
                     enemyManager.AggroPlayer(playerManager, gameTime);

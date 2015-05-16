@@ -144,7 +144,7 @@ namespace Johnny_Punch
             if (!fight)
             {
                 #region Walk Right
-                if (keyBoardState.IsKeyDown(Keys.D) && !block)
+                if (keyBoardState.IsKeyDown(Keys.D) && !block && pos.X < LevelManager.levelEndPosX)
                 {
                     speed.X = 3;
                     moving = true;

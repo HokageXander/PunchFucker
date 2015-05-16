@@ -75,7 +75,7 @@ namespace Johnny_Punch
         {
             for (int i = 0; i < enemyList.Count; i++)
             {
-                if (enemyList[i].deathBlinkCount >= 7)
+                if (enemyList[i].deathBlinkCount >= 7) // när han blinkat vitt ett par gånger så dör han
                 {
                     enemyList.RemoveAt(i);
                 }

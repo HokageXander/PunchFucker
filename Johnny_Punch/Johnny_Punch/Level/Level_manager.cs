@@ -14,31 +14,33 @@ namespace Johnny_Punch
 {
     class LevelManager
     {
+        StreamReader streamReaderEnvironment, streamReaderItems;
         List<string> strings = new List<string>();
         List<Environment> enviromentList = new List<Environment>();
         public List<Item> itemList = new List<Item>();
-        StreamReader streamReaderEnvironment, streamReaderItems;
-        public static int levelNr = 2;
+        public static int levelNr = 1, levelEndPosX;
+        public Rectangle nextLevelBox;
 
         public LevelManager(ContentManager Content)
         {
-            streamReaderEnvironment = new StreamReader(@"lvl1environment.txt");
-            streamReaderItems = new StreamReader(@"lvl1items.txt");
+            streamReaderEnvironment = new StreamReader(@"lvl" + LevelManager.levelNr + "environment.txt");
+            streamReaderItems = new StreamReader(@"lvl" + LevelManager.levelNr + "items.txt");
             MapReader(streamReaderEnvironment);
             ItemReader(streamReaderItems);
+            
         }
 
         public void Update(GameTime gameTime)
         {
-            if (levelNr == 1) //vet ej om detta kommer att fungera, men kan få vara grunden tills vidare
+            if (levelNr == 1)
             {
-                streamReaderEnvironment = new StreamReader(@"lvl1environment.txt");
-                streamReaderItems = new StreamReader(@"lvl1items.txt");
+                levelEndPosX = 5000; //man kan inte gå förbi detta i X-led (player.Movement)
+                nextLevelBox = new Rectangle(levelEndPosX, (int)335, 40, 300); //tar man i denna går man över till level 2
             }
             if (levelNr == 2)
             {
-                streamReaderEnvironment = new StreamReader(@"lvl2environment.txt");
-                streamReaderItems = new StreamReader(@"lvl2items.txt");
+                levelEndPosX = 2500;
+                nextLevelBox = new Rectangle(levelEndPosX, (int)335, 40, 300);
             }
 
             foreach (Item item in itemList)
@@ -57,10 +59,12 @@ namespace Johnny_Punch
             {
                 item.Draw(spriteBatch);
             }
+            spriteBatch.Draw(TextureManager.lifeBarTex, nextLevelBox, Color.Black);
         }
 
         public void MapReader(StreamReader streamReaderEnvironment)
         {
+            streamReaderEnvironment = new StreamReader(@"lvl" + LevelManager.levelNr + "environment.txt");
             while (!streamReaderEnvironment.EndOfStream)
             {
                 strings.Add(streamReaderEnvironment.ReadLine());
@@ -98,6 +102,7 @@ namespace Johnny_Punch
 
         public void ItemReader(StreamReader streamReaderItems)
         {
+            streamReaderItems = new StreamReader(@"lvl" + LevelManager.levelNr + "items.txt");
             while (!streamReaderItems.EndOfStream)
             {
                 strings.Add(streamReaderItems.ReadLine());
@@ -116,13 +121,32 @@ namespace Johnny_Punch
                     {
                         itemList.Add(new PinaColada(TextureManager.pinacolada, new Vector2(j * 91, i * 82)));
                     }
-                    //if (strings[i][j] == 's')
-                    //{
-                    //    itemList.Add(new Sabre(TextureManager.sabreTex, new Vector2(j * 91, i * 82)));
-                    //}
+                    if (strings[i][j] == 'J') //konstigt att trädet är i items, men yolo
+                    {
+                        enviromentList.Add(new JungleTree(TextureManager.jungleEntranceTex, new Vector2(j * 82, 10 + i * 82)));
+                    }
                 }
             }
             strings.Clear();
-        } // jag lade till en textfil för items. Kanske fiender också?
+        }
+
+        public void NextLevel(PlayerManager playerManager, EnemyManager enemyManager)
+        {
+            for (int i = 0; i < playerManager.playerList.Count; i++)
+            {
+                if (playerManager.playerList[i].boundingBox.Intersects(nextLevelBox))
+                {
+                    playerManager.playerList[i].pos = new Vector2(800, 400);
+                    Camera.prevCentre.X = 0; //resettar så att kameran hamnar på spelaren igen
+                    enemyManager.enemyList.Clear(); //raderar alla gamla fiender
+                    enviromentList.Clear();
+                    itemList.Clear();
+                    LevelManager.levelNr++;
+                    MapReader(streamReaderEnvironment); //läser om den nya textfilen i level 2
+                    ItemReader(streamReaderItems);
+                    Game1.ready = false; //fet loadingscreen
+                }
+            }
+        }
     }
 }
