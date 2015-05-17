@@ -71,11 +71,7 @@ namespace Johnny_Punch
                     enemyManager.AggroPlayer(playerManager, gameTime);
                     enemyManager.FightPlayer(playerManager);
                     enemyManager.IsBlocked(playerManager, gameTime);
-<<<<<<< HEAD
-=======
 
-                    CheckIsDead();
->>>>>>> origin/master
                     TotalPlayTime(gameTime);
 
 
@@ -132,13 +128,9 @@ namespace Johnny_Punch
             switch (gameState)
             {
                 case GameState.Pause:
-<<<<<<< HEAD
+
                     menu.Draw(spriteBatch);                    
-=======
-                    menu.Draw(spriteBatch);
 
-
->>>>>>> origin/master
                     break;
             }
 
@@ -176,20 +168,7 @@ namespace Johnny_Punch
             }
         }
 
-<<<<<<< HEAD
-=======
 
-        public static void CheckIsDead()
-        {
-            foreach (ParticleExplosion e in ParticleExplosion.explosionList)
-            {
-                if (e.IsDead)
-                    ParticleExplosion.explosionList.Remove(e);
-                break;
-            }
-        }
-
->>>>>>> origin/master
         public void TotalPlayTime(GameTime gameTime)
         {
             #region DigitTimer
