@@ -179,18 +179,7 @@ namespace Johnny_Punch
             }
         }
 
-<<<<<<< HEAD
-        public static void CheckIsDead()
-        {
-            foreach (ParticleExplosion e in ParticleExplosion.explosionList)
-            {
-                if (e.IsDead)
-                    ParticleExplosion.explosionList.Remove(e);
-                break;
-            }
-        }
-=======
->>>>>>> origin/master
+
 
         public void TotalPlayTime(GameTime gameTime)
         {
