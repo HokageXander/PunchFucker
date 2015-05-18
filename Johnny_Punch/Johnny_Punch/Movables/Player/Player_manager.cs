@@ -65,7 +65,7 @@ namespace Johnny_Punch
         {
             if (playerList.Count <= 0 && players == 1)
             {
-                playerList.Add(new Player(TextureManager.Player1tex, new Vector2(4200, 400)));
+                playerList.Add(new Player(TextureManager.Player1tex, new Vector2(800, 400)));
             }
             if (playerList.Count <= 0 && players == 2)
             {

@@ -40,7 +40,11 @@ namespace Johnny_Punch
             if (levelNr == 2)
             {
                 levelEndPosX = 2500;
+                if (Boss.died)
                 nextLevelBox = new Rectangle(levelEndPosX, (int)335, 40, 300);
+                else
+                    nextLevelBox = new Rectangle(levelEndPosX, (int)335, 0, 0);
+                    
             }
 
             foreach (Item item in itemList)

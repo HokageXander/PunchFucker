@@ -67,6 +67,8 @@ namespace Johnny_Punch
         #region Enemy graphics
         public static Texture2D standardEnemyTex { get; private set; }
         public static Texture2D bulletTex { get; private set; }
+        public static Texture2D bombTex { get; private set; }
+        public static Texture2D explosionTex { get; private set; }
         #endregion
 
         #region Items
@@ -135,6 +137,8 @@ namespace Johnny_Punch
             #region Enemy graphics
             standardEnemyTex = Content.Load<Texture2D>(@"images\standardenemy");
             bulletTex = Content.Load<Texture2D>(@"images\bulletTex");
+            bombTex = Content.Load<Texture2D>(@"images\bombTex");
+            explosionTex = Content.Load<Texture2D>(@"images\explosion");
             #endregion
 
             #region Items

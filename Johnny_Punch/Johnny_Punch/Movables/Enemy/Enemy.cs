@@ -14,7 +14,7 @@ namespace Johnny_Punch
         protected Vector2 velocity, direction;
         public int damageToPlayer;
         protected float enemySpeed, scale;
-        public double bossShootTimer;
+        public double bossShootTimer, bossDropBombTimer;
 
         public Enemy(Texture2D tex, Vector2 pos)
             : base(tex, pos)
@@ -236,16 +236,22 @@ namespace Johnny_Punch
         {
             bossShootTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if (bossShootTimer >= 400)
+            if (bossShootTimer >= 340)
             {
                 bossShootTimer = 0;
                 bossAttacksList.Add(new Bullet(TextureManager.bulletTex, new Vector2(pos.X, pos.Y), dirNr));
             }
         }
 
-        public void BossDropBomb()
+        public void BossDropBomb(List<BossAttacks> bossAttacksList, GameTime gameTime)
         {
+            bossDropBombTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
+            if (bossDropBombTimer >= 700)
+            {
+                bossDropBombTimer = 0;
+                bossAttacksList.Add(new Bomb(TextureManager.bombTex, new Vector2(pos.X, pos.Y), TextureManager.explosionTex));
+            }
         }
     }
 }

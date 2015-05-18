@@ -171,6 +171,7 @@ namespace Johnny_Punch
 
         public void BossAttacks(GameTime gameTime)
         {
+            #region Spawning Boss Attacks
             for (int i = 0; i < enemyList.Count; i++)
             {
                 if (enemyList[i] is Boss && Boss.shootLeft)
@@ -180,6 +181,64 @@ namespace Johnny_Punch
                 if (enemyList[i] is Boss && Boss.shootRight)
                 {
                     enemyList[i].BossShoot(bossAttackList, gameTime, -1);
+                }
+                if (enemyList[i] is Boss && Boss.dropBomb)
+                {
+                    enemyList[i].BossDropBomb(bossAttackList, gameTime);
+                }
+            }
+            #endregion
+            #region Remove Boss Attacks
+            for (int j = 0; j < bossAttackList.Count; j++)
+            {
+                if (bossAttackList[j].bulletTimer >= 3 && bossAttackList[j] is Bullet)
+                {
+                    bossAttackList.RemoveAt(j);
+                }
+                if (bossAttackList[j].frame >= 13 && bossAttackList[j] is Bomb)
+                {
+                    bossAttackList.RemoveAt(j);
+                }
+            }
+            #endregion
+        }
+
+        public void BossDamage(PlayerManager playerManager)
+        {
+            for (int i = 0; i < playerManager.playerList.Count; i++)
+            {
+                for (int j = 0; j < bossAttackList.Count; j++)
+                {
+                    if (bossAttackList[j] is Bullet)
+                    {
+                        float Ydistance = (playerManager.playerList[i].feetBox.Y - 4) - (bossAttackList[j].pos.Y + 78);
+                        if (Ydistance < 0)
+                        {
+                            Ydistance *= -1;
+                        }
+
+                        if (bossAttackList[j].boundingBox.Intersects(playerManager.playerList[i].boundingBox) && Ydistance <= 15)
+                        {
+                            bossAttackList.RemoveAt(j);
+                            playerManager.playerList[i].life -= 2;
+                        }
+                    }
+                    else if (bossAttackList[j] is Bomb)
+                    {
+                        float Ydistance = (playerManager.playerList[i].feetBox.Y - 4) - (bossAttackList[j].pos.Y + 65);
+                        if (Ydistance < 0)
+                        {
+                            Ydistance *= -1;
+                        }
+
+                        if (bossAttackList[j].boundingBox.Intersects(playerManager.playerList[i].boundingBox) && Ydistance <= 36
+                            && bossAttackList[j].exploded && !bossAttackList[j].explosionHit)
+                        {
+                            bossAttackList[j].explosionHit = true;
+                            playerManager.playerList[i].life -= 1;
+                        }
+
+                    }
                 }
             }
         }

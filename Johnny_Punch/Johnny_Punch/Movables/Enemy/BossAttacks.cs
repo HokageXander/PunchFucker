@@ -13,11 +13,15 @@ namespace Johnny_Punch
 {
     class BossAttacks : GameObject
     {
-        float floatLayerNr;
+        public float floatLayerNr, floatLayerOffsetY;
+        public int frame;
+        protected SpriteEffects spriteEffects;
+        public double bulletTimer, bombTimer;
+        public bool exploded, explosionHit;
         public BossAttacks(Texture2D tex, Vector2 pos)
             : base(tex, pos)
         {
-
+            spriteEffects = SpriteEffects.None;
         }
 
         public virtual void Update(GameTime gameTime)
@@ -28,13 +32,13 @@ namespace Johnny_Punch
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(tex, pos, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, floatLayerNr);
+            spriteBatch.Draw(tex, pos, null, Color.White, 0, Vector2.Zero, 1, spriteEffects, floatLayerNr);
             //spriteBatch.Draw(tex, boundingBox, null, Color.Black, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
         }
 
         public void FloatLayerCalculator()
         {
-            floatLayerNr = 0 + pos.Y * 0.0010f;
+            floatLayerNr = 0 + (pos.Y + floatLayerOffsetY) * 0.0010f;
         }
     }
 }
