@@ -14,6 +14,7 @@ namespace Johnny_Punch
         protected Vector2 velocity, direction;
         public int damageToPlayer;
         protected float enemySpeed, scale;
+        public double bossShootTimer;
 
         public Enemy(Texture2D tex, Vector2 pos)
             : base(tex, pos)
@@ -231,30 +232,19 @@ namespace Johnny_Punch
             floatLayerNr = 0 + pos.Y * 0.0010f; //numret blir mellan 0.335 och 0.583, vilket placerar en i rätt ordning(ritas först 0, ritas sist 1(?))
         }
 
-        public void BossFight()
+        public void BossShoot(List<BossAttacks> bossAttacksList, GameTime gameTime, int dirNr)
         {
-            Vector2 shootingStartPos = new Vector2(LevelManager.levelEndPosX, 335);
-            direction = shootingStartPos - pos;
-            direction.Normalize();
-            velocity.X = 4 * direction.X;
-            velocity.Y = 5 * direction.Y;
+            bossShootTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            pos += velocity;
-
-            if (direction.X < 0)
-                spriteEffect = SpriteEffects.FlipHorizontally;
-            else
-                spriteEffect = SpriteEffects.None;
-            if (pos.X >= direction.X)
+            if (bossShootTimer >= 400)
             {
-                Vector2 shootingEndPos = new Vector2(LevelManager.levelEndPosX, 583);
-                direction = shootingStartPos - pos;
-                direction.Normalize();
-                velocity.X = 2 * direction.X;
-                velocity.Y = 2 * direction.Y;
-
-                pos += velocity;
+                bossShootTimer = 0;
+                bossAttacksList.Add(new Bullet(TextureManager.bulletTex, new Vector2(pos.X, pos.Y), dirNr));
             }
+        }
+
+        public void BossDropBomb()
+        {
 
         }
     }

@@ -65,9 +65,8 @@ namespace Johnny_Punch
         #endregion
 
         #region Enemy graphics
-        public static Texture2D OctopimpTex { get; private set; }
-        public static Texture2D tentacleTex { get; private set; }
         public static Texture2D standardEnemyTex { get; private set; }
+        public static Texture2D bulletTex { get; private set; }
         #endregion
 
         #region Items
@@ -134,9 +133,8 @@ namespace Johnny_Punch
             #endregion
 
             #region Enemy graphics
-            OctopimpTex = Content.Load<Texture2D>(@"Images\octopussy(nowater)");
-            tentacleTex = Content.Load<Texture2D>(@"Images\tentacle");
             standardEnemyTex = Content.Load<Texture2D>(@"images\standardenemy");
+            bulletTex = Content.Load<Texture2D>(@"images\bulletTex");
             #endregion
 
             #region Items

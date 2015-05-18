@@ -72,6 +72,9 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bomb.cs" />
+    <Compile Include="BossAttacks.cs" />
+    <Compile Include="Bullet.cs" />
     <Compile Include="Movables\Enemy\Boss.cs" />
     <Compile Include="Level\JungleTree.cs" />
     <Compile Include="Level\CityBackground.cs" />

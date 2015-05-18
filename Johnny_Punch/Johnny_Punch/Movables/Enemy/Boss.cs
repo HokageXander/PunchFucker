@@ -10,7 +10,12 @@ namespace Johnny_Punch
 {
     class Boss : Enemy
     {
-        public Boss(Texture2D tex, Vector2 pos) : base(tex, pos)
+        public static bool bossEngaged, shootLeft, shootRight;
+        public bool firstWalk = true;
+        Rectangle topLeft, bottomLeft, topRight, bottomRight;
+
+        public Boss(Texture2D tex, Vector2 pos)
+            : base(tex, pos)
         {
             animationBox = new Rectangle(0, 0, 75, 116);
             width /= 9;
@@ -21,6 +26,7 @@ namespace Johnny_Punch
             enemySpeed = 1.5f;
             scale = 1.2f;
             offset = new Vector2(width / 2, height / 2);
+
         }
 
         public override void Update(GameTime gameTime)
@@ -30,7 +36,15 @@ namespace Johnny_Punch
             else
                 speed.Y = 0;
 
-            Moves();
+            topLeft = new Rectangle(LevelManager.levelEndPosX - 1260, 335, 50, 50);
+            bottomLeft = new Rectangle(LevelManager.levelEndPosX - 1240, 563, 50, 50);
+            topRight = new Rectangle(LevelManager.levelEndPosX + 2, 335, 50, 50);
+            bottomRight = new Rectangle(LevelManager.levelEndPosX - 10, 563, 50, 50);
+
+            if (bossEngaged)
+                BossMovement();
+            pos += velocity;
+            moving = true;
 
             boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width - 15, height - 10);
             feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (122 - 4) - (int)offset.Y, width - 10, height - (height - 4));
@@ -40,23 +54,76 @@ namespace Johnny_Punch
         public override void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.Draw(tex, boundingBox, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
+            spriteBatch.Draw(tex, topRight, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
+            spriteBatch.Draw(tex, topLeft, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
+            spriteBatch.Draw(tex, bottomRight, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
+            spriteBatch.Draw(tex, bottomLeft, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
             base.Draw(spriteBatch);
         }
 
-        public void Moves()
+        public void BossMovement()
         {
-            if (!onGround)
+            if (firstWalk)
             {
-                animationBox.Width = 75;
-                animationBox.Y = 116;
-                animationBox.X = 0;
+                direction = new Vector2(1900, 450) - pos;
+                direction.Normalize();
 
-                if (pos.Y >= posJump.Y)
-                {
-                    pos.Y = posJump.Y;
-                    onGround = true;
-                    speed.Y = 0;
-                }
+                velocity.X = 1 * direction.X;
+                velocity.Y = 1 * direction.Y;
+                spriteEffect = SpriteEffects.FlipHorizontally;
+            }
+            if (pos.X <= 2200 && firstWalk)
+            {
+                firstWalk = false;
+                direction = new Vector2(topRight.X, topRight.Y) - pos;
+                direction.Normalize();
+
+                velocity.X = 6 * direction.X;
+                velocity.Y = 6 * direction.Y;
+                spriteEffect = SpriteEffects.None;
+            }
+
+            if (boundingBox.Intersects(topRight))
+            {
+                direction = new Vector2(bottomRight.X, bottomRight.Y) - pos;
+                direction.Normalize();
+
+                velocity.X = 1.5f * direction.X;
+                velocity.Y = 1.5f * direction.Y;
+                spriteEffect = SpriteEffects.FlipHorizontally;
+                shootRight = true;
+            }
+            else
+                shootRight = false;
+            if (boundingBox.Intersects(bottomRight))
+            {
+                direction = new Vector2(topLeft.X + 50, topLeft.Y) - pos;
+                direction.Normalize();
+
+                velocity.X = 6 * direction.X;
+                velocity.Y = 6 * direction.Y;
+                spriteEffect = SpriteEffects.FlipHorizontally;
+            }
+            if (boundingBox.Intersects(topLeft))
+            {
+                direction = new Vector2(bottomLeft.X + 50, bottomLeft.Y) - pos;
+                direction.Normalize();
+
+                velocity.X = 1.5f * direction.X;
+                velocity.Y = 1.5f * direction.Y;
+                spriteEffect = SpriteEffects.None;
+                shootLeft = true;
+            }
+            else
+                shootLeft = false;
+            if (boundingBox.Intersects(bottomLeft))
+            {
+                direction = new Vector2(topRight.X, topRight.Y) - pos;
+                direction.Normalize();
+
+                velocity.X = 6 * direction.X;
+                velocity.Y = 6 * direction.Y;
+                spriteEffect = SpriteEffects.None;
             }
         }
     }

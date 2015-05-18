@@ -11,6 +11,7 @@ namespace Johnny_Punch
     {
 
         public List<Enemy> enemyList = new List<Enemy>();
+        public List<BossAttacks> bossAttackList = new List<BossAttacks>();
         public ParticleExplosion particleExplosion;
         bool spawn1, spawn2;
 
@@ -18,7 +19,6 @@ namespace Johnny_Punch
         {
 
             EnemyType();
-
 
         }
 
@@ -28,7 +28,12 @@ namespace Johnny_Punch
             {
                 enemy.Update(gameTime);
             }
+            foreach (BossAttacks bossAttack in bossAttackList)
+            {
+                bossAttack.Update(gameTime);
+            }
             RemoveEnemy();
+            BossAttacks(gameTime);
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -36,6 +41,10 @@ namespace Johnny_Punch
             foreach (Enemy enemy in enemyList)
             {
                 enemy.Draw(spriteBatch);
+            }
+            foreach (BossAttacks bossAttack in bossAttackList)
+            {
+                bossAttack.Draw(spriteBatch);
             }
         }
 
@@ -75,7 +84,7 @@ namespace Johnny_Punch
                     spawn1 = false;
                     spawn2 = false;
                     //enemyList.Add(new Octopimp(TextureManager.OctopimpTex, new Vector2(2000, 340)));
-                    enemyList.Add(new Boss(TextureManager.standardEnemyTex, new Vector2(2000, 450)));
+                    enemyList.Add(new Boss(TextureManager.standardEnemyTex, new Vector2(2600, 450)));
 
                 }
             }
@@ -103,7 +112,7 @@ namespace Johnny_Punch
                         enemyList[i].Aggro(playerManager.playerList[j]);
                         enemyList[i].Fight(gameTime, playerManager.playerList[j]);
                     }
-                    if (spawn1 || spawn2&& !(enemyList[i] is Boss)) // när fiender spawnas så aggrar dom på spelaren direkt
+                    if (spawn1 || spawn2 && !(enemyList[i] is Boss)) // när fiender spawnas så aggrar dom på spelaren direkt
                         enemyList[i].SpawnAggro(playerManager.playerList[j]);
                 }
             }
@@ -146,16 +155,31 @@ namespace Johnny_Punch
             }
         }
 
-        public void BossAggro(PlayerManager playerManager)
+        public void BossFightStart(PlayerManager playerManager)
+        {
+            for (int i = 0; i < playerManager.playerList.Count; i++)
+            {
+                for (int j = 0; j < enemyList.Count; j++)
+                {
+                    if (playerManager.playerList[i].pos.X >= 1750 && LevelManager.levelNr == 2)
+                    {
+                        Boss.bossEngaged = true;
+                    }
+                }
+            }
+        }
+
+        public void BossAttacks(GameTime gameTime)
         {
             for (int i = 0; i < enemyList.Count; i++)
             {
-                for (int j = 0; j < playerManager.playerList.Count; j++)
+                if (enemyList[i] is Boss && Boss.shootLeft)
                 {
-                    if (enemyList[i] is Boss)
-                    {
-                        enemyList[i].BossFight();
-                    }
+                    enemyList[i].BossShoot(bossAttackList, gameTime, 1);
+                }
+                if (enemyList[i] is Boss && Boss.shootRight)
+                {
+                    enemyList[i].BossShoot(bossAttackList, gameTime, -1);
                 }
             }
         }

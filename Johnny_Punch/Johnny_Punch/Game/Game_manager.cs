@@ -77,9 +77,8 @@ namespace Johnny_Punch
                     enemyManager.AggroPlayer(playerManager, gameTime);
                     enemyManager.FightPlayer(playerManager);
                     enemyManager.IsBlocked(playerManager, gameTime);
-
                     enemyManager.SpawnEnemy(playerManager);
-                    enemyManager.BossAggro(playerManager);
+                    enemyManager.BossFightStart(playerManager);
 
 
                     TotalPlayTime(gameTime);
