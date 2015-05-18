@@ -18,8 +18,9 @@ namespace Johnny_Punch
         SpriteBatch spriteBatch;
         GameManager gameManager;
         Camera camera;
-        bool ready;
+        public static bool ready;
         float loadingRotation = 1;
+        double loadingTime;
 
         public Game1()
         {
@@ -54,12 +55,15 @@ namespace Johnny_Punch
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) || gameManager.menu.quit == true)
                 this.Exit();
             if (!ready && gameManager.gameState == GameManager.GameState.Play)
+            {
                 loadingRotation *= 1.008f; //gör att cirkeln roterar vid loadingScreen
+                loadingTime += gameTime.ElapsedGameTime.TotalSeconds;
+            }
 
-            if (gameManager.firstDigitSeconds >= 2f && !ready)
+            if (loadingTime >= 2f && !ready)
             {
                 ready = true; // för att spelet ska hinna ladda in före kameran går igång. Kameran annars ledsen :(
-                gameManager.digitSeconds = 0;
+                loadingTime = 0;
             }
             gameManager.Update(gameTime);
 
@@ -67,7 +71,7 @@ namespace Johnny_Punch
             if (gameManager.gameState == GameManager.GameState.Play && ready || gameManager.gameState == GameManager.GameState.Pause)
             {
                 camera.Update(gameManager.playerManager.playerList[0].GetPos, gameManager.playerManager.playerList[0].GetRec, Window);
-            Window.Title = gameManager.playerManager.playerList[0].playerLeftPos.ToString() + " : " + gameManager.playerManager.playerList[0].playerRightPos.ToString();
+            Window.Title = gameManager.playerManager.playerList[0].playerLeftPos.ToString() + " : " + Camera.centre.X.ToString();
             }
         }
         

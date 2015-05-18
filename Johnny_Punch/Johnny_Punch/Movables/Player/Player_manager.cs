@@ -96,7 +96,7 @@ namespace Johnny_Punch
                         {
                             //enemyManager.enemyList[j].pos.X -= 2;
                             enemyManager.enemyList[j].life -= 1;
-                        particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].punchBox.X, playerList[0].punchBox.Y), Color.Red);
+                            particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].punchBox.X, playerList[0].punchBox.Y), Color.Red);
                             break;
 
                         }
@@ -130,5 +130,6 @@ namespace Johnny_Punch
                 }
             }
         }
+
     }
 }

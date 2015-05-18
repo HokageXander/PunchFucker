@@ -13,8 +13,8 @@ namespace Johnny_Punch
 {
      public class Environment
     {
-         private Vector2 pos;
-         private Texture2D tex;
+         protected Vector2 pos;
+         protected Texture2D tex;
 
         public Environment(Vector2 pos, Texture2D tex)
          {

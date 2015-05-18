@@ -22,14 +22,14 @@ namespace Johnny_Punch
 
         public virtual void Update(GameTime gameTime)
         {
-            boundingBox = new Rectangle((int)pos.X + 20, (int)pos.Y + 20, (int)(width / 1.5f), (int)(height / 2f));
+            boundingBox = new Rectangle((int)pos.X + 6, (int)pos.Y + 30, (int)(width / 1.5f), (int)(height / 2f));
             FloatLayerCalculator();
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
-        {
+        {            
             spriteBatch.Draw(tex, pos, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, floatLayerNr);
-            spriteBatch.Draw(tex, boundingBox, null, Color.Black, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
+            //spriteBatch.Draw(tex, boundingBox, null, Color.Black, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
         }
 
         public void FloatLayerCalculator()

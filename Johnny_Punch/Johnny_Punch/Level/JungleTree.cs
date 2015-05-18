@@ -11,23 +11,18 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Johnny_Punch
 {
-    class Watermelon : Item
+    class JungleTree : Environment
     {
-
-        public Watermelon(Texture2D tex, Vector2 pos) : base(tex, pos)
+        public JungleTree(Texture2D tex, Vector2 pos)
+            : base(pos, tex)
         {
 
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureManager.playerShadow, new Vector2(pos.X + width / 2, pos.Y + height), null, new Color(0, 0, 0, 120), 0f, new Vector2(width / 2, height - height / 1.3f), 0.65f, SpriteEffects.None, 0.1f);
-            base.Draw(spriteBatch);
+            spriteBatch.Draw(tex, pos, null, Color.White, 0, Vector2.Zero, 1, SpriteEffects.None, 1);
         }
     }
 }
+
