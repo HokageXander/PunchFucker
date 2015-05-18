@@ -64,8 +64,10 @@ namespace Johnny_Punch
             {
                 ready = true; // för att spelet ska hinna ladda in före kameran går igång. Kameran annars ledsen :(
                 loadingTime = 0;
+                gameManager.digitSeconds = 0;
             }
-            gameManager.Update(gameTime);
+
+            gameManager.Update(gameTime, GraphicsDevice, Content);
 
             base.Update(gameTime);
             if (gameManager.gameState == GameManager.GameState.Play && ready || gameManager.gameState == GameManager.GameState.Pause)

@@ -11,7 +11,7 @@ namespace Johnny_Punch
     class Player2 : Movables
     {
         //public int lifePoints;
-        public Vector2 speed, playerLeftPos, playerRightPos;
+        public Vector2 playerLeftPos, playerRightPos;
         public Rectangle playerLeftBox, playerRightBox;
         public KeyboardState keyBoardState, oldKeyBoardState;
         float shadowScale;

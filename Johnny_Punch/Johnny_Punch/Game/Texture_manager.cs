@@ -51,6 +51,9 @@ namespace Johnny_Punch
         public static Texture2D startMenuTex { get; private set; }
         public static Texture2D smallPlantTex { get; private set; }
         public static Texture2D jungleEntranceTex { get; private set; }
+        public static Texture2D jungleBackgroundTex { get; private set; }
+        public static Texture2D jungleRoadTex { get; private set; }
+        public static Texture2D templeRoadTex { get; private set; }
         #endregion
 
         #region Player graphics
@@ -62,7 +65,8 @@ namespace Johnny_Punch
         #endregion
 
         #region Enemy graphics
-        public static Texture2D Tiny_tim { get; private set; }
+        public static Texture2D OctopimpTex { get; private set; }
+        public static Texture2D tentacleTex { get; private set; }
         public static Texture2D standardEnemyTex { get; private set; }
         #endregion
 
@@ -117,6 +121,9 @@ namespace Johnny_Punch
             startMenuTex = Content.Load<Texture2D>(@"Images\startmenu");
             smallPlantTex = Content.Load<Texture2D>(@"Images\plant");
             jungleEntranceTex = Content.Load<Texture2D>(@"Images\jungleEntrance");
+            jungleBackgroundTex = Content.Load<Texture2D>(@"Images\junglebackground1");
+            jungleRoadTex = Content.Load<Texture2D>(@"Images\jungleroad");
+            templeRoadTex = Content.Load<Texture2D>(@"Images\templeroad");
 
             #endregion
 
@@ -127,7 +134,8 @@ namespace Johnny_Punch
             #endregion
 
             #region Enemy graphics
-            Tiny_tim = Content.Load<Texture2D>(@"Images\tinytim");
+            OctopimpTex = Content.Load<Texture2D>(@"Images\octopussy(nowater)");
+            tentacleTex = Content.Load<Texture2D>(@"Images\tentacle");
             standardEnemyTex = Content.Load<Texture2D>(@"images\standardenemy");
             #endregion
 

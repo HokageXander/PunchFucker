@@ -23,7 +23,7 @@ namespace Johnny_Punch
         public double deathTimer1, deathTimer2; //Två tider, en när han dör och en som gör att han blinkar vit
         public bool moving, onGround = true, fight, punch, block, stunned, dead, whiteNdead, hasHit; /*,blocking;*/
 
-        public Vector2 posJump;
+        public Vector2 posJump, speed;
 
         public Movables(Texture2D tex, Vector2 pos) : base(tex, pos)
         {

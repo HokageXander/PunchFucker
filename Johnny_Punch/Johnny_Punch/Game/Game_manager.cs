@@ -38,7 +38,7 @@ namespace Johnny_Punch
             gameState = GameState.Menu;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(GameTime gameTime, GraphicsDevice GraphicsDevice, ContentManager Content)
         {
             oldKeyBoardState = keyBoardState;
             keyBoardState = Keyboard.GetState();
@@ -50,6 +50,11 @@ namespace Johnny_Punch
                     if (menu.play == true)
                     {
                         gameState = GameState.Play;
+                        enemyManager = new EnemyManager(GraphicsDevice); //allt under resettar och laddar in allt på nytt ifall man valt quit i pausmenyn
+                        playerManager = new PlayerManager();
+                        levelManager = new LevelManager(Content);
+                        ResetTime();
+                        Game1.ready = false;
                     }
                     break;
 
@@ -73,6 +78,7 @@ namespace Johnny_Punch
                     enemyManager.FightPlayer(playerManager);
                     enemyManager.IsBlocked(playerManager, gameTime);
                     enemyManager.SpawnEnemy(playerManager);
+                    enemyManager.BossAggro(playerManager);
 
                     CheckIsDead();
 
@@ -86,9 +92,10 @@ namespace Johnny_Punch
                     menu.Update(gameTime);
 
                     if (menu.play == true)
-                    {
                         gameState = GameState.Play;
-                    }
+
+                    if (menu.menuState == Menu.MenuState.MainMenu)
+                        gameState = GameState.Menu;
                     break;
 
                 case GameState.End:
@@ -171,7 +178,6 @@ namespace Johnny_Punch
             }
         }
 
-
         public static void CheckIsDead()
         {
             foreach (ParticleExplosion e in ParticleExplosion.explosionList)
@@ -181,7 +187,6 @@ namespace Johnny_Punch
                 break;
             }
         }
-
 
         public void TotalPlayTime(GameTime gameTime)
         {
@@ -217,6 +222,18 @@ namespace Johnny_Punch
                 firstDigitHours = 0;
             }
             #endregion
+        }
+
+        public void ResetTime()
+        {
+            firstDigitSeconds = 0;
+            secondDigitSeconds = 0;
+            firstDigitMinutes = 0;
+            secondDigitMinutes = 0;
+            firstDigitHours = 0;
+            secondDigitHours = 0;
+
+            digitSeconds = 0;
         }
     }
 }

@@ -46,7 +46,7 @@ namespace Johnny_Punch
                 {
                     menuNumber = 3;
                 }
-                if (menuNumber == 0 && menuState == MenuState.NewGame || menuState == MenuState.Pause)
+                if (menuNumber == 0 && menuState == MenuState.NewGame || menuState == MenuState.PauseQuit)
                 {
                     menuNumber = 2;
                 }
@@ -64,7 +64,7 @@ namespace Johnny_Punch
                 {
                     menuNumber = 1;
                 }
-                if (menuNumber == 3 && menuState == MenuState.NewGame || menuState == MenuState.Pause)
+                if (menuNumber == 3 && menuState == MenuState.NewGame || menuState == MenuState.PauseQuit)
                 {
                     menuNumber = 1;
                 }

@@ -13,7 +13,8 @@ namespace Johnny_Punch
         protected int aggroRadius;
         protected Vector2 velocity, direction;
         public int damageToPlayer;
-        protected float enemySpeed;
+        protected float enemySpeed, scale;
+
         public Enemy(Texture2D tex, Vector2 pos)
             : base(tex, pos)
         {
@@ -42,13 +43,13 @@ namespace Johnny_Punch
         {
             spriteBatch.Draw(TextureManager.playerShadow, new Vector2(pos.X, pos.Y + (height / 2)), null, new Color(0, 0, 0, 120), 0f, new Vector2(width / 2, height - height / 1.3f), 1, SpriteEffects.None, 0.1f);
             if (whiteNdead) // om han är död blir han vit
-                spriteBatch.Draw(tex, pos, animationBox, new Color(255, 255, 255, 0), 0f, offset, 1f, spriteEffect, floatLayerNr);
+                spriteBatch.Draw(tex, pos, animationBox, new Color(255, 255, 255, 0), 0f, offset, scale, spriteEffect, floatLayerNr);
             else // om han inte är död är han färggrann
-                spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, offset, 1f, spriteEffect, floatLayerNr);
-            spriteBatch.Draw(tex, feetBox, Color.Red);
+                spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, offset, scale, spriteEffect, floatLayerNr);
+            spriteBatch.Draw(tex, feetBox, null, Color.Red, 0f, offset, spriteEffect, 0.8f);
             spriteBatch.Draw(tex, punchBox, Color.PaleGoldenrod);
             //spriteBatch.Draw(tex, boundingBox, Color.Red);
-            
+
         }
 
         public void AnimationTypes(GameTime gameTime)
@@ -114,7 +115,7 @@ namespace Johnny_Punch
                 spriteEffect = SpriteEffects.FlipHorizontally;
             else if (feetBox.Intersects(player.playerLeftBox))
                 spriteEffect = SpriteEffects.None;
-        }  
+        }
 
         public void SpawnAggro(Player player) // aggrofunktionen när dom spawnar och inte är i aggrozonen
         {
@@ -140,7 +141,7 @@ namespace Johnny_Punch
                 else
                     spriteEffect = SpriteEffects.None;
             }
-        } 
+        }
 
         public void Fight(GameTime gameTime, Player player)
         {
@@ -228,6 +229,33 @@ namespace Johnny_Punch
         public void FloatLayerCalculator()
         {
             floatLayerNr = 0 + pos.Y * 0.0010f; //numret blir mellan 0.335 och 0.583, vilket placerar en i rätt ordning(ritas först 0, ritas sist 1(?))
+        }
+
+        public void BossFight()
+        {
+            Vector2 shootingStartPos = new Vector2(LevelManager.levelEndPosX, 335);
+            direction = shootingStartPos - pos;
+            direction.Normalize();
+            velocity.X = 4 * direction.X;
+            velocity.Y = 5 * direction.Y;
+
+            pos += velocity;
+
+            if (direction.X < 0)
+                spriteEffect = SpriteEffects.FlipHorizontally;
+            else
+                spriteEffect = SpriteEffects.None;
+            if (pos.X >= direction.X)
+            {
+                Vector2 shootingEndPos = new Vector2(LevelManager.levelEndPosX, 583);
+                direction = shootingStartPos - pos;
+                direction.Normalize();
+                velocity.X = 2 * direction.X;
+                velocity.Y = 2 * direction.Y;
+
+                pos += velocity;
+            }
+
         }
     }
 }
