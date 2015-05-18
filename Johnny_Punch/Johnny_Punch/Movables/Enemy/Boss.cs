@@ -10,7 +10,7 @@ namespace Johnny_Punch
 {
     class Boss : Enemy
     {
-        public static bool bossEngaged, shootLeft, shootRight;
+        public static bool bossEngaged, shootLeft, shootRight, dropBomb, died;
         public bool firstWalk = true;
         Rectangle topLeft, bottomLeft, topRight, bottomRight;
 
@@ -22,7 +22,7 @@ namespace Johnny_Punch
             height /= 9;
             aggroRadius = 350;
             damageToPlayer -= 1;
-            life = 20;
+            life = 12;
             enemySpeed = 1.5f;
             scale = 1.2f;
             offset = new Vector2(width / 2, height / 2);
@@ -31,11 +31,6 @@ namespace Johnny_Punch
 
         public override void Update(GameTime gameTime)
         {
-            if (!onGround || dead)
-                speed.Y += 0.14f;
-            else
-                speed.Y = 0;
-
             topLeft = new Rectangle(LevelManager.levelEndPosX - 1260, 335, 50, 50);
             bottomLeft = new Rectangle(LevelManager.levelEndPosX - 1240, 563, 50, 50);
             topRight = new Rectangle(LevelManager.levelEndPosX + 2, 335, 50, 50);
@@ -43,8 +38,21 @@ namespace Johnny_Punch
 
             if (bossEngaged)
                 BossMovement();
+            if (dead)
+            {
+                velocity = new Vector2(0,0);
+                shootLeft = false;
+                shootRight = false;
+                dropBomb = false;
+            }
+            if (life <= 0)
+            {
+                died = true; //gör så att man kan gå vidare till level 3
+            }
+
             pos += velocity;
             moving = true;
+            animationBox.Y = 0;
 
             boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width - 15, height - 10);
             feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (122 - 4) - (int)offset.Y, width - 10, height - (height - 4));
@@ -54,10 +62,6 @@ namespace Johnny_Punch
         public override void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.Draw(tex, boundingBox, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
-            spriteBatch.Draw(tex, topRight, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
-            spriteBatch.Draw(tex, topLeft, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
-            spriteBatch.Draw(tex, bottomRight, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
-            spriteBatch.Draw(tex, bottomLeft, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
             base.Draw(spriteBatch);
         }
 
@@ -92,6 +96,7 @@ namespace Johnny_Punch
                 velocity.Y = 1.5f * direction.Y;
                 spriteEffect = SpriteEffects.FlipHorizontally;
                 shootRight = true;
+                dropBomb = false;
             }
             else
                 shootRight = false;
@@ -103,7 +108,9 @@ namespace Johnny_Punch
                 velocity.X = 6 * direction.X;
                 velocity.Y = 6 * direction.Y;
                 spriteEffect = SpriteEffects.FlipHorizontally;
+                dropBomb = true;
             }
+
             if (boundingBox.Intersects(topLeft))
             {
                 direction = new Vector2(bottomLeft.X + 50, bottomLeft.Y) - pos;
@@ -113,6 +120,7 @@ namespace Johnny_Punch
                 velocity.Y = 1.5f * direction.Y;
                 spriteEffect = SpriteEffects.None;
                 shootLeft = true;
+                dropBomb = false;
             }
             else
                 shootLeft = false;
@@ -124,6 +132,7 @@ namespace Johnny_Punch
                 velocity.X = 6 * direction.X;
                 velocity.Y = 6 * direction.Y;
                 spriteEffect = SpriteEffects.None;
+                dropBomb = true;
             }
         }
     }
