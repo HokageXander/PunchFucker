@@ -32,6 +32,7 @@ namespace Johnny_Punch
 
 
         public static Texture2D endScreenTex { get; private set; }
+        public static Texture2D gameOverScreenTex { get; private set; }
 
         #endregion
 
@@ -55,6 +56,7 @@ namespace Johnny_Punch
         public static Texture2D jungleRoadTex { get; private set; }
         public static Texture2D jungleRoadThornTex { get; private set; }
         public static Texture2D templeRoadTex { get; private set; }
+
         #endregion
 
         #region Player graphics
@@ -106,7 +108,7 @@ namespace Johnny_Punch
             pauseResume = Content.Load<Texture2D>(@"Images\MenuImages\MenuResume");
             pauseQuest = Content.Load<Texture2D>(@"Images\MenuImages\PauseQuest");
             endScreenTex = Content.Load<Texture2D>(@"Images\endScreen");
-
+            gameOverScreenTex = Content.Load<Texture2D>(@"Images\gameover");
             #endregion
              
             #region StatusBar graphics
