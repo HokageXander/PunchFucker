@@ -139,6 +139,9 @@ namespace Johnny_Punch
                 if (playerList[i].pos.Y <= 300 && Boss.bossEngaged)
                 {
                     playerList[i].life -= 0.012f;
+                    
+                    particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].feetBox.X + 50, playerList[0].feetBox.Y), Color.DarkRed);
+
                 }
             }
         }

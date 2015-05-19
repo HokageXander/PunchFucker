@@ -230,6 +230,7 @@ namespace Johnny_Punch
                         if (Ydistance < 0)
                         {
                             Ydistance *= -1;
+
                         }
 
                         if (bossAttackList[j].boundingBox.Intersects(playerManager.playerList[i].boundingBox) && Ydistance <= 15)

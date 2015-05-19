@@ -31,8 +31,8 @@ namespace Johnny_Punch
 
         public override void Update(GameTime gameTime)
         {
-            topLeft = new Rectangle(LevelManager.levelEndPosX - 1285, 280, 50, 50);
-            bottomLeft = new Rectangle(LevelManager.levelEndPosX - 1240, 573, 50, 50);
+            topLeft = new Rectangle(LevelManager.levelEndPosX - 1292, 280, 50, 50);
+            bottomLeft = new Rectangle(LevelManager.levelEndPosX - 1247, 573, 50, 50);
             topRight = new Rectangle(LevelManager.levelEndPosX + 2, 280, 50, 50);
             bottomRight = new Rectangle(LevelManager.levelEndPosX - 10, 573, 50, 50);
 

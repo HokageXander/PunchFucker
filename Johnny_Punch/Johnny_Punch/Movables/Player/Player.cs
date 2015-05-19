@@ -16,6 +16,7 @@ namespace Johnny_Punch
         public KeyboardState keyBoardState, oldKeyBoardState;
         float shadowScale;
         int yLimitUp = 335, yLimitDown = 583;
+        public double gameOverDelay;
 
         public Player(Texture2D tex, Vector2 pos)
             : base(tex, pos)
@@ -133,10 +134,15 @@ namespace Johnny_Punch
                 dead = true;
                 animationBox.Y = 1020;
                 animationBox.X = 0;
-                animationBox.Width = 125;
-                deathTimer1 += gameTime.ElapsedGameTime.TotalMilliseconds;
+                animationBox.Width = 125; 
                 boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, 0, 0);
+                gameOverDelay += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                if (gameOverDelay >= 2000)
+                    LevelManager.end = true;
+
             }
+
         }
 
         public void Moving(GameTime gameTime)
