@@ -23,6 +23,7 @@ namespace Johnny_Punch
         public void Update(GameTime gameTime)
         {
             AddPlayer();
+            ThornDamage();
 
             foreach (ParticleExplosion e in ParticleExplosion.explosionList.ToList())//updaterar alla partikeleffekter 
             {
@@ -131,5 +132,15 @@ namespace Johnny_Punch
             }
         }
 
+        public void ThornDamage()
+        {
+            for (int i = 0; i < playerList.Count; i++)
+            {
+                if (playerList[i].pos.Y <= 300 && Boss.bossEngaged)
+                {
+                    playerList[i].life -= 0.012f;
+                }
+            }
+        }
     }
 }

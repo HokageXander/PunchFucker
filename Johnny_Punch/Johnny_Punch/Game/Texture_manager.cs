@@ -54,6 +54,7 @@ namespace Johnny_Punch
         public static Texture2D jungleEntranceTex { get; private set; }
         public static Texture2D jungleBackgroundTex { get; private set; }
         public static Texture2D jungleRoadTex { get; private set; }
+        public static Texture2D jungleRoadThornTex { get; private set; }
         public static Texture2D templeRoadTex { get; private set; }
         #endregion
 
@@ -127,6 +128,7 @@ namespace Johnny_Punch
             jungleEntranceTex = Content.Load<Texture2D>(@"Images\jungleEntrance");
             jungleBackgroundTex = Content.Load<Texture2D>(@"Images\junglebackground1");
             jungleRoadTex = Content.Load<Texture2D>(@"Images\jungleroad");
+            jungleRoadThornTex = Content.Load<Texture2D>(@"Images\jungleroadThorn");
             templeRoadTex = Content.Load<Texture2D>(@"Images\templeroad");
 
             #endregion

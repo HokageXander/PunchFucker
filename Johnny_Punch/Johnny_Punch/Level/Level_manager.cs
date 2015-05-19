@@ -104,6 +104,10 @@ namespace Johnny_Punch
                     {
                         enviromentList.Add(new Road(TextureManager.jungleRoadTex, new Vector2(j * 82, 10 + i * 82)));
                     }
+                    if (strings[i][j] == 'k')
+                    {
+                        enviromentList.Add(new Road(TextureManager.jungleRoadThornTex, new Vector2(j * 82, 10 + i * 82)));
+                    }
                     if (strings[i][j] == 't')
                     {
                         enviromentList.Add(new Road(TextureManager.templeRoadTex, new Vector2(j * 82, 10 + i * 82)));

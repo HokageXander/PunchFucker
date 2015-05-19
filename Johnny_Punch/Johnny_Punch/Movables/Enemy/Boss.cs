@@ -31,9 +31,9 @@ namespace Johnny_Punch
 
         public override void Update(GameTime gameTime)
         {
-            topLeft = new Rectangle(LevelManager.levelEndPosX - 1260, 335, 50, 50);
+            topLeft = new Rectangle(LevelManager.levelEndPosX - 1285, 280, 50, 50);
             bottomLeft = new Rectangle(LevelManager.levelEndPosX - 1240, 573, 50, 50);
-            topRight = new Rectangle(LevelManager.levelEndPosX + 2, 335, 50, 50);
+            topRight = new Rectangle(LevelManager.levelEndPosX + 2, 280, 50, 50);
             bottomRight = new Rectangle(LevelManager.levelEndPosX - 10, 573, 50, 50);
 
             if (bossEngaged)
@@ -111,8 +111,6 @@ namespace Johnny_Punch
                 shootRight = true;
                 dropBomb = false;
             }
-            else
-                shootRight = false;
             #endregion
             #region När han når nedre högra hörnet
             if (boundingBox.Intersects(bottomRight))
@@ -124,6 +122,7 @@ namespace Johnny_Punch
                 velocity.Y = 6 * direction.Y;
                 spriteEffect = SpriteEffects.FlipHorizontally;
                 dropBomb = true;
+                shootRight = false;
             }
             #endregion
             #region När han når övre vänstra hörnet
@@ -138,8 +137,7 @@ namespace Johnny_Punch
                 shootLeft = true;
                 dropBomb = false;
             }
-            else
-                shootLeft = false;
+
             #endregion
             #region När han når nedre vänstra hörnet
             if (boundingBox.Intersects(bottomLeft))
@@ -151,6 +149,7 @@ namespace Johnny_Punch
                 velocity.Y = 6 * direction.Y;
                 spriteEffect = SpriteEffects.None;
                 dropBomb = true;
+                shootLeft = false;
             }
             #endregion
         }
