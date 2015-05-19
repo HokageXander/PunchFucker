@@ -14,17 +14,10 @@
       <FileName>Effects\Particle_engine.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Johnny_Punch.AudioManager" Collapsed="true">
-    <Position X="16.75" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Game\Audio_manager.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Johnny_Punch.GameManager" Collapsed="true">
     <Position X="18.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQBAEIAIAAIAgABAAAIBAggAACAgAAAEAAgQAAAAAQ=</HashCode>
+      <HashCode>AAQBAEIAAAAKAwABAAAIBAggAACAgAAAEAAgQAQAAAQ=</HashCode>
       <FileName>Game\Game_manager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -42,17 +35,18 @@
       <FileName>Game\Menu.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Johnny_Punch.TextureManager" Collapsed="true">
+  <Class Name="Johnny_Punch.AudioManager" Collapsed="true">
     <Position X="18.5" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CgEgAAASQIAoQAAAAkAAAAQAAQACgIBIIAAAZMAgARQ=</HashCode>
-      <FileName>Game\Texture_manager.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAQ=</HashCode>
+      <FileName>Game\Audio_manager.cs</FileName>
+      <NewMemberFileName>Game\Texture_manager.cs</NewMemberFileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Johnny_Punch.Game1" Collapsed="true">
     <Position X="16.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEQAEEAABwAAAwAAAAAAAAAAAAAAAAgAAAAAAAAAAAQ=</HashCode>
+      <HashCode>AkQAEEAABwAAAwAAAAAAAAAAAAAAAAgAAAAAAAAAAAQ=</HashCode>
       <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -73,7 +67,7 @@
   <Class Name="Johnny_Punch.CityBackground" Collapsed="true">
     <Position X="7.25" Y="7.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Level\CityBackground.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -87,7 +81,7 @@
   <Class Name="Johnny_Punch.LevelManager" Collapsed="true">
     <Position X="22" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAABCEAAAAgCAAAAAAAAAAAJAAAAAAAAkAAAAAAA=</HashCode>
+      <HashCode>AASAAABGEAAAAgCAAAAAAAAAAAJAAAAAAAAkAAAQAAA=</HashCode>
       <FileName>Level\Level_manager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -108,14 +102,14 @@
   <Class Name="Johnny_Punch.Enemy" Collapsed="true">
     <Position X="8.75" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AASAABAQAAAIIgARAAAAAAAAAAAAgAAgAAQAAAAAAAA=</HashCode>
+      <HashCode>AAaAABAQIAAIKgARAAAAAAACCAAAgAAgAAQAAAAAAAA=</HashCode>
       <FileName>Movables\Enemy\Enemy.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Johnny_Punch.EnemyManager" Collapsed="true">
     <Position X="22" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gASAAAAABAAAAgAAAAAAQAAAAAAAAgAAAAgAAAAQIAA=</HashCode>
+      <HashCode>gASAAgBABAQAAgAAAAAAQAABAAAAAgAAAAgAAAARIAA=</HashCode>
       <FileName>Movables\Enemy\EnemyManager.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -136,35 +130,35 @@
   <Class Name="Johnny_Punch.Movables" Collapsed="true">
     <Position X="8.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAUgBgRAQACAAgQgiCAAYgUkACAgAjAIAEAAQAAABIA=</HashCode>
+      <HashCode>AAUgBgRAQACAAgQgiCAAYgUkACAgAzAIAEAAQAAABIA=</HashCode>
       <FileName>Movables\Movables.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Johnny_Punch.Player" Collapsed="true">
     <Position X="5.25" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAQEAAAAAAQKAgAACAAAAAgCAAAAkQAgAAAAgBQAIAA=</HashCode>
+      <HashCode>CAQEAAAAAAQKAgAACAAAAAgCAAAAkAAgAAAAghQAIAA=</HashCode>
       <FileName>Movables\Player\Player.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Johnny_Punch.PlayerManager" Collapsed="true">
     <Position X="22" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAQABAAAAgAAAAAAAAAgAAIAAAAAIAgEAAAAAAA=</HashCode>
+      <HashCode>EAQAAAQABAAAAgAAAAAAAAAgAAIAAAAAIAgEAAAAAAA=</HashCode>
       <FileName>Movables\Player\Player_manager.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Johnny_Punch.Player2" Collapsed="true">
     <Position X="12" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAQAAAAAAAQKAgAACAAAAAgCAAAAkQAAAAAAgBQAIAA=</HashCode>
+      <HashCode>CAQAAAAAAAQKAgAACAAAAAgCAAAAkAAAAAAAgBQAIAA=</HashCode>
       <FileName>Movables\Player\Player2.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Johnny_Punch.Camera" Collapsed="true">
     <Position X="20.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAEQAAEAAAAAAABAAAAAAAAEAAAAAQAAAAAAAAA=</HashCode>
+      <HashCode>AAQAAAEQAAEAQAAAAABAAAAAAAAEAAAAAQAAAAAAAAA=</HashCode>
       <FileName>Other\Camera.cs</FileName>
     </TypeIdentifier>
   </Class>
