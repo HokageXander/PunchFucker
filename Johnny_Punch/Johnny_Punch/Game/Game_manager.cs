@@ -177,7 +177,13 @@ namespace Johnny_Punch
                     break;
 
                 case GameState.End:
-                    spriteBatch.Draw(TextureManager.endScreenTex, Vector2.Zero, Color.White);
+
+                    if (Boss.died)
+                        spriteBatch.Draw(TextureManager.endScreenTex, Vector2.Zero, Color.White);
+
+                    else
+                        spriteBatch.Draw(TextureManager.gameOverScreenTex, Vector2.Zero, Color.White);
+
                     break;
             }
         }
