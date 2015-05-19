@@ -87,6 +87,18 @@ namespace Johnny_Punch
                     enemyList.Add(new Boss(TextureManager.standardEnemyTex, new Vector2(2600, 450)));
 
                 }
+                for (int i = 0; i < enemyList.Count; i++) //spawnar fiender under bossfighten
+                {
+                    if (enemyList[i].life <= 6 && enemyList[i] is Boss && !spawn1)
+                    {
+                        enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2600, 450)));
+                        enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2000, 800)));
+                        enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(1500, 300)));
+                        enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2600, 800)));
+                        enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(1000, 300)));
+                        spawn1 = true;
+                    }
+                }
             }
         }
 
@@ -107,13 +119,16 @@ namespace Johnny_Punch
             {
                 for (int j = 0; j < playerManager.playerList.Count; j++)
                 {
-                    if (!enemyList[i].dead && !enemyList[i].stunned && !(enemyList[i] is Boss))
+                    if (!(enemyList[i] is Boss))
                     {
-                        enemyList[i].Aggro(playerManager.playerList[j]);
-                        enemyList[i].Fight(gameTime, playerManager.playerList[j]);
+                        if (!enemyList[i].dead && !enemyList[i].stunned)
+                        {
+                            enemyList[i].Aggro(playerManager.playerList[j]);
+                            enemyList[i].Fight(gameTime, playerManager.playerList[j]);
+                        }
+                        if (spawn1 || spawn2) // när fiender spawnas så aggrar dom på spelaren direkt
+                            enemyList[i].SpawnAggro(playerManager.playerList[j]);
                     }
-                    if (spawn1 || spawn2 && !(enemyList[i] is Boss)) // när fiender spawnas så aggrar dom på spelaren direkt
-                        enemyList[i].SpawnAggro(playerManager.playerList[j]);
                 }
             }
         }
@@ -191,7 +206,7 @@ namespace Johnny_Punch
             #region Remove Boss Attacks
             for (int j = 0; j < bossAttackList.Count; j++)
             {
-                if (bossAttackList[j].bulletTimer >= 3 && bossAttackList[j] is Bullet)
+                if (bossAttackList[j].bulletTimer >= 3.5f && bossAttackList[j] is Bullet)
                 {
                     bossAttackList.RemoveAt(j);
                 }

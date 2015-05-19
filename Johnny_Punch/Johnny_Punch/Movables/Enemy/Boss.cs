@@ -32,15 +32,15 @@ namespace Johnny_Punch
         public override void Update(GameTime gameTime)
         {
             topLeft = new Rectangle(LevelManager.levelEndPosX - 1260, 335, 50, 50);
-            bottomLeft = new Rectangle(LevelManager.levelEndPosX - 1240, 563, 50, 50);
+            bottomLeft = new Rectangle(LevelManager.levelEndPosX - 1240, 573, 50, 50);
             topRight = new Rectangle(LevelManager.levelEndPosX + 2, 335, 50, 50);
-            bottomRight = new Rectangle(LevelManager.levelEndPosX - 10, 563, 50, 50);
+            bottomRight = new Rectangle(LevelManager.levelEndPosX - 10, 573, 50, 50);
 
             if (bossEngaged)
                 BossMovement();
             if (dead)
             {
-                velocity = new Vector2(0,0);
+                velocity = new Vector2(0, 0);
                 shootLeft = false;
                 shootRight = false;
                 dropBomb = false;
@@ -53,8 +53,11 @@ namespace Johnny_Punch
             pos += velocity;
             moving = true;
             animationBox.Y = 0;
+            if (!firstWalk)
+                boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width - 15, height - 10);
+            else
+                boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, 0, 0);
 
-            boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width - 15, height - 10);
             feetBox = new Rectangle((int)pos.X - (int)49, (int)pos.Y + (122 - 4) - (int)offset.Y, width - 10, height - (height - 4));
             base.Update(gameTime);
         }
@@ -62,11 +65,18 @@ namespace Johnny_Punch
         public override void Draw(SpriteBatch spriteBatch)
         {
             //spriteBatch.Draw(tex, boundingBox, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
+
+            //spriteBatch.Draw(tex, topLeft, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
+            //spriteBatch.Draw(tex, topRight, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
+            //spriteBatch.Draw(tex, bottomLeft, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
+            //spriteBatch.Draw(tex, bottomRight, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
+
             base.Draw(spriteBatch);
         }
 
         public void BossMovement()
         {
+            #region När han RP-går
             if (firstWalk)
             {
                 direction = new Vector2(1900, 450) - pos;
@@ -76,6 +86,8 @@ namespace Johnny_Punch
                 velocity.Y = 1 * direction.Y;
                 spriteEffect = SpriteEffects.FlipHorizontally;
             }
+            #endregion
+            #region När han spurtar iväg första gången
             if (pos.X <= 2200 && firstWalk)
             {
                 firstWalk = false;
@@ -86,20 +98,23 @@ namespace Johnny_Punch
                 velocity.Y = 6 * direction.Y;
                 spriteEffect = SpriteEffects.None;
             }
-
+            #endregion
+            #region När han når övre högra hörnet
             if (boundingBox.Intersects(topRight))
             {
                 direction = new Vector2(bottomRight.X, bottomRight.Y) - pos;
                 direction.Normalize();
 
-                velocity.X = 1.5f * direction.X;
-                velocity.Y = 1.5f * direction.Y;
+                velocity.X = 1.2f * direction.X;
+                velocity.Y = 1.2f * direction.Y;
                 spriteEffect = SpriteEffects.FlipHorizontally;
                 shootRight = true;
                 dropBomb = false;
             }
             else
                 shootRight = false;
+            #endregion
+            #region När han når nedre högra hörnet
             if (boundingBox.Intersects(bottomRight))
             {
                 direction = new Vector2(topLeft.X + 50, topLeft.Y) - pos;
@@ -110,20 +125,23 @@ namespace Johnny_Punch
                 spriteEffect = SpriteEffects.FlipHorizontally;
                 dropBomb = true;
             }
-
+            #endregion
+            #region När han når övre vänstra hörnet
             if (boundingBox.Intersects(topLeft))
             {
                 direction = new Vector2(bottomLeft.X + 50, bottomLeft.Y) - pos;
                 direction.Normalize();
 
-                velocity.X = 1.5f * direction.X;
-                velocity.Y = 1.5f * direction.Y;
+                velocity.X = 1.2f * direction.X;
+                velocity.Y = 1.2f * direction.Y;
                 spriteEffect = SpriteEffects.None;
                 shootLeft = true;
                 dropBomb = false;
             }
             else
                 shootLeft = false;
+            #endregion
+            #region När han når nedre vänstra hörnet
             if (boundingBox.Intersects(bottomLeft))
             {
                 direction = new Vector2(topRight.X, topRight.Y) - pos;
@@ -134,6 +152,7 @@ namespace Johnny_Punch
                 spriteEffect = SpriteEffects.None;
                 dropBomb = true;
             }
+            #endregion
         }
     }
 }

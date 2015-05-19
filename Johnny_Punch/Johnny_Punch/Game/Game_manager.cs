@@ -86,6 +86,9 @@ namespace Johnny_Punch
 
 
                     time += gameTime.ElapsedGameTime.TotalSeconds;
+
+                    if (LevelManager.end)
+                        gameState = GameState.End;
                     break;
 
                 case GameState.Pause:
@@ -174,7 +177,7 @@ namespace Johnny_Punch
                     break;
 
                 case GameState.End:
-
+                    spriteBatch.Draw(TextureManager.endScreenTex, Vector2.Zero, Color.White);
                     break;
             }
         }

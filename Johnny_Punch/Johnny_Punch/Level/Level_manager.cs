@@ -20,6 +20,7 @@ namespace Johnny_Punch
         public List<Item> itemList = new List<Item>();
         public static int levelNr = 1, levelEndPosX;
         public Rectangle nextLevelBox;
+        public static bool end;
 
         public LevelManager(ContentManager Content)
         {
@@ -150,7 +151,7 @@ namespace Johnny_Punch
         {
             for (int i = 0; i < playerManager.playerList.Count; i++)
             {
-                if (playerManager.playerList[i].boundingBox.Intersects(nextLevelBox))
+                if (playerManager.playerList[i].boundingBox.Intersects(nextLevelBox) && levelNr == 1)
                 {
                     playerManager.playerList[i].pos = new Vector2(800, 400);
                     Camera.prevCentre.X = 0; //resettar så att kameran hamnar på spelaren igen
@@ -161,6 +162,11 @@ namespace Johnny_Punch
                     MapReader(streamReaderEnvironment); //läser om den nya textfilen i level 2
                     ItemReader(streamReaderItems);
                     Game1.ready = false; //fet loadingscreen
+                }
+
+                else if (playerManager.playerList[i].boundingBox.Intersects(nextLevelBox) && levelNr == 2)
+                {
+                    end = true;
                 }
             }
         }

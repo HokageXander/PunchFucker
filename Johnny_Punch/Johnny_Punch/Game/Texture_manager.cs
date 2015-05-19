@@ -31,7 +31,7 @@ namespace Johnny_Punch
         public static Texture2D pauseQuest { get; private set; }
 
 
-
+        public static Texture2D endScreenTex { get; private set; }
 
         #endregion
 
@@ -104,6 +104,7 @@ namespace Johnny_Punch
             pauseYes = Content.Load<Texture2D>(@"Images\MenuImages\MenuYes");
             pauseResume = Content.Load<Texture2D>(@"Images\MenuImages\MenuResume");
             pauseQuest = Content.Load<Texture2D>(@"Images\MenuImages\PauseQuest");
+            endScreenTex = Content.Load<Texture2D>(@"Images\endScreen");
 
             #endregion
 
