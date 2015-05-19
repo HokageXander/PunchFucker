@@ -10,6 +10,12 @@ namespace Johnny_Punch
 {
     public static class TextureManager
     {
+        #region Intro
+        public static Texture2D introScreen1 { get; private set; }
+        public static Texture2D introScreen2 { get; private set; }
+        public static Texture2D introScreen3 { get; private set; }
+        public static Texture2D introScreen4 { get; private set; }
+        #endregion
 
         #region Menu
         public static Texture2D loadingScreen { get; private set; }
@@ -90,6 +96,13 @@ namespace Johnny_Punch
 
         public static void LoadContent(ContentManager Content)
         {
+            #region Intro
+            introScreen1 = Content.Load<Texture2D>(@"images\introScreen1");
+            introScreen2 = Content.Load<Texture2D>(@"images\introScreen2");
+            introScreen3 = Content.Load<Texture2D>(@"images\introScreen3");
+            introScreen4 = Content.Load<Texture2D>(@"images\introScreen4");
+            #endregion
+
             #region Menu
             loadingScreen = Content.Load<Texture2D>(@"images\loadingScreen");
             loadingCircle = Content.Load<Texture2D>(@"images\loadingCircle");

@@ -13,18 +13,21 @@ namespace Johnny_Punch
 {
     class GameManager
     {
+
         public Menu menu;
         public PlayerManager playerManager;
         EnemyManager enemyManager;
         LevelManager levelManager;
         KeyboardState keyBoardState, oldKeyBoardState;
-
         public int firstDigitSeconds, secondDigitSeconds, firstDigitMinutes, secondDigitMinutes, firstDigitHours, secondDigitHours;
         public double time, digitSeconds;
+        public int intro = 0;
+        public double introTimer = 2f;
+        public TimeSpan introSwitch;
 
         public enum GameState
         {
-            Intro,Menu, Play, Pause, End
+            Intro, Menu, Play, Pause, End
         }
         public GameState gameState;
 
@@ -35,16 +38,34 @@ namespace Johnny_Punch
             enemyManager = new EnemyManager(GraphicsDevice);
             playerManager = new PlayerManager();
             levelManager = new LevelManager(Content);
-            gameState = GameState.Menu;
+            gameState = GameState.Intro;
+ 
+            introSwitch = TimeSpan.FromSeconds(introTimer);
         }
 
         public void Update(GameTime gameTime, GraphicsDevice GraphicsDevice, ContentManager Content)
         {
             oldKeyBoardState = keyBoardState;
             keyBoardState = Keyboard.GetState();
-
+            Console.WriteLine(introSwitch);
             switch (gameState)
             {
+                case GameState.Intro:
+
+
+                    if (introSwitch.TotalSeconds > 0)
+                        introSwitch = introSwitch.Subtract(gameTime.ElapsedGameTime);
+                    else
+                    {
+                        introSwitch = TimeSpan.FromSeconds(introTimer);
+                        intro++;
+                    }
+
+                    if (intro == 5)
+                        gameState = GameState.Menu;
+                    break;
+
+
                 case GameState.Menu:
                     menu.Update(gameTime);
                     if (menu.play == true)
@@ -66,13 +87,13 @@ namespace Johnny_Punch
                         menu.menuState = Menu.MenuState.Pause;
                     }
 
- 
+
                     levelManager.Update(gameTime);
                     levelManager.NextLevel(playerManager, enemyManager);
 
                     playerManager.Update(gameTime);
                     playerManager.LandingPunches(enemyManager);
-                    playerManager.CollectItems(levelManager);                    
+                    playerManager.CollectItems(levelManager);
 
                     enemyManager.Update(gameTime);
                     enemyManager.AggroPlayer(playerManager, gameTime);
@@ -145,7 +166,7 @@ namespace Johnny_Punch
             {
                 case GameState.Pause:
 
-                    menu.Draw(spriteBatch);                    
+                    menu.Draw(spriteBatch);
 
                     break;
             }
@@ -159,6 +180,24 @@ namespace Johnny_Punch
         {
             switch (gameState)
             {
+                case GameState.Intro:
+
+
+                    if (intro == 0)                  
+                        spriteBatch.Draw(TextureManager.introScreen1, Vector2.Zero, Color.Red);
+                    if (intro == 1)
+                    {
+                        spriteBatch.Draw(TextureManager.introScreen2, Vector2.Zero, Color.Blue);
+                        
+                    }
+                    if(intro == 2)
+                        spriteBatch.Draw(TextureManager.introScreen3, Vector2.Zero, Color.Green);
+                    if(intro ==3)
+                        spriteBatch.Draw(TextureManager.introScreen4, Vector2.Zero, Color.Pink);
+           
+                    break;
+
+
                 case GameState.Menu:
                     menu.Draw(spriteBatch);
                     break;
@@ -168,7 +207,7 @@ namespace Johnny_Punch
                     levelManager.Draw(spriteBatch);
                     enemyManager.Draw(spriteBatch);
                     playerManager.Draw(spriteBatch);
-                   
+
                     break;
 
                 case GameState.Pause:
