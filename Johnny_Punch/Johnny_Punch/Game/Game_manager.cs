@@ -24,7 +24,7 @@ namespace Johnny_Punch
 
         public enum GameState
         {
-            Menu, Play, Pause, End
+            Intro,Menu, Play, Pause, End
         }
         public GameState gameState;
 
@@ -66,6 +66,7 @@ namespace Johnny_Punch
                         menu.menuState = Menu.MenuState.Pause;
                     }
 
+ 
                     levelManager.Update(gameTime);
                     levelManager.NextLevel(playerManager, enemyManager);
 

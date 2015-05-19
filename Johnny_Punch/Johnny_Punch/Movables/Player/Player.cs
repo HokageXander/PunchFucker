@@ -49,6 +49,8 @@ namespace Johnny_Punch
             posJump.X = pos.X;
             shadowScale = 1f - ((posJump.Y - pos.Y) * -0.01f);
             speed.X = 0;
+            
+
             if (!onGround || dead)
                 speed.Y += 0.14f;
             else
