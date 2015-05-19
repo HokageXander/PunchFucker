@@ -17,11 +17,12 @@ namespace Johnny_Punch
         float shadowScale;
         int yLimitUp = 335, yLimitDown = 583;
         public double gameOverDelay;
+        public PlayerIndex playerIndex;
 
-        public Player(Texture2D tex, Vector2 pos)
+        public Player(Texture2D tex, Vector2 pos, PlayerIndex playerIndex)
             : base(tex, pos)
         {
-
+            this.playerIndex = playerIndex;
             posJump = pos;
             animationBox = new Rectangle(0, 0, 75, 116);
             width /= 9;
@@ -49,7 +50,7 @@ namespace Johnny_Punch
             posJump.X = pos.X;
             shadowScale = 1f - ((posJump.Y - pos.Y) * -0.01f);
             speed.X = 0;
-            
+
 
             if (!onGround || dead)
                 speed.Y += 0.14f;
@@ -59,7 +60,7 @@ namespace Johnny_Punch
             if (!dead)
             {
                 boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width - 20, height);
-                playerLeftPos = new Vector2(feetBox.X - 55, feetBox.Y); //positionen som fienden ska gå till vänster om spelaren
+                playerLeftPos = new Vector2(feetBox.X - 45, feetBox.Y); //positionen som fienden ska gå till vänster om spelaren
                 playerRightPos = new Vector2(feetBox.X + width - 30, feetBox.Y);
 
                 if (onGround) //Om vi är på marken så är Y = pos.Y
@@ -100,6 +101,7 @@ namespace Johnny_Punch
                 {
                     animationBox.X = 0;
                 }
+
             }
         }
 
@@ -122,8 +124,8 @@ namespace Johnny_Punch
             spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, floatLayerNr);
 
             //spriteBatch.Draw(tex, feetBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            //spriteBatch.Draw(tex, playerRightBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            //spriteBatch.Draw(tex, playerLeftBox, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(tex, playerRightBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            spriteBatch.Draw(tex, playerLeftBox, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(tex, punchBox, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(tex, boundingBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
             spriteBatch.Draw(tex, blockBox, null, Color.Aquamarine, 0, Vector2.Zero, SpriteEffects.None, 1);
@@ -136,7 +138,7 @@ namespace Johnny_Punch
                 dead = true;
                 animationBox.Y = 1020;
                 animationBox.X = 0;
-                animationBox.Width = 125; 
+                animationBox.Width = 125;
                 boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, 0, 0);
                 gameOverDelay += gameTime.ElapsedGameTime.TotalMilliseconds;
 
@@ -152,46 +154,46 @@ namespace Johnny_Punch
             if (!fight)
             {
                 #region Walk Right
-                if (keyBoardState.IsKeyDown(Keys.D) && !block && pos.X < LevelManager.levelEndPosX)
+                if ((keyBoardState.IsKeyDown(Keys.D) || GamePad.GetState(playerIndex).DPad.Right == ButtonState.Pressed) && !block && pos.X < LevelManager.levelEndPosX)
                 {
                     speed.X = 3;
                     moving = true;
                     spriteEffect = SpriteEffects.None;
-                    if (keyBoardState.IsKeyDown(Keys.W) || keyBoardState.IsKeyDown(Keys.S))
+                    if ((keyBoardState.IsKeyDown(Keys.W) || GamePad.GetState(playerIndex).DPad.Up == ButtonState.Pressed) || (keyBoardState.IsKeyDown(Keys.S) || GamePad.GetState(playerIndex).DPad.Down == ButtonState.Pressed))
                         speed.X = 2f;
                 }
                 #endregion
                 #region Walk Left
-                if (keyBoardState.IsKeyDown(Keys.A) && pos.X >= Camera.prevCentre.X + 45 && !block)
+                if ((keyBoardState.IsKeyDown(Keys.A) || GamePad.GetState(playerIndex).DPad.Left == ButtonState.Pressed) && pos.X >= Camera.prevCentre.X + 45 && !block)
                 {
                     speed.X = -3;
                     moving = true;
                     spriteEffect = SpriteEffects.FlipHorizontally;
-                    if (keyBoardState.IsKeyDown(Keys.W) || keyBoardState.IsKeyDown(Keys.S))
+                    if ((keyBoardState.IsKeyDown(Keys.W) || GamePad.GetState(playerIndex).DPad.Up == ButtonState.Pressed) || (keyBoardState.IsKeyDown(Keys.S) || GamePad.GetState(playerIndex).DPad.Down == ButtonState.Pressed))
                         speed.X = -2f;
                 }
                 #endregion
                 #region Walk Up
-                if (keyBoardState.IsKeyDown(Keys.W) && feetBox.Y >= yLimitUp && onGround && !block)
+                if ((keyBoardState.IsKeyDown(Keys.W) || GamePad.GetState(playerIndex).DPad.Up == ButtonState.Pressed) && feetBox.Y >= yLimitUp && onGround && !block)
                 {
                     speed.Y = -3;
                     moving = true;
-                    if (keyBoardState.IsKeyDown(Keys.A) || keyBoardState.IsKeyDown(Keys.D))
+                    if ((keyBoardState.IsKeyDown(Keys.A) || GamePad.GetState(playerIndex).DPad.Left == ButtonState.Pressed) || (keyBoardState.IsKeyDown(Keys.D) || GamePad.GetState(playerIndex).DPad.Right == ButtonState.Pressed))
                         speed.Y = -2f;
                 }
                 #endregion
                 #region Walk Down
-                if (keyBoardState.IsKeyDown(Keys.S) && feetBox.Y <= yLimitDown && onGround && !block)
+                if ((keyBoardState.IsKeyDown(Keys.S) || GamePad.GetState(playerIndex).DPad.Down == ButtonState.Pressed) && feetBox.Y <= yLimitDown && onGround && !block)
                 {
                     speed.Y = 3;
                     moving = true;
-                    if (keyBoardState.IsKeyDown(Keys.A) || keyBoardState.IsKeyDown(Keys.D))
+                    if ((keyBoardState.IsKeyDown(Keys.A) || GamePad.GetState(playerIndex).DPad.Left == ButtonState.Pressed) || (keyBoardState.IsKeyDown(Keys.D) || GamePad.GetState(playerIndex).DPad.Right == ButtonState.Pressed))
                         speed.Y = 2f;
                 }
                 #endregion
                 #region Moving Bool
-                if (!(keyBoardState.IsKeyDown(Keys.A)) && !(keyBoardState.IsKeyDown(Keys.D)) &&
-                    !(keyBoardState.IsKeyDown(Keys.W)) && !(keyBoardState.IsKeyDown(Keys.S)))
+                if (!((keyBoardState.IsKeyDown(Keys.A) || GamePad.GetState(playerIndex).DPad.Left == ButtonState.Pressed)) && !((keyBoardState.IsKeyDown(Keys.D) || GamePad.GetState(playerIndex).DPad.Right == ButtonState.Pressed)) &&
+                    !((keyBoardState.IsKeyDown(Keys.W) || GamePad.GetState(playerIndex).DPad.Up == ButtonState.Pressed)) && !((keyBoardState.IsKeyDown(Keys.S) || GamePad.GetState(playerIndex).DPad.Down == ButtonState.Pressed)))
                 {
                     moving = false;
                 }
@@ -218,12 +220,12 @@ namespace Johnny_Punch
                     animationBox.Y = 116;
                     animationBox.X = 0;
                     //Animation(120, 1, 75, gameTime);
-                    if (keyBoardState.IsKeyDown(Keys.W) && feetBox.Y >= yLimitUp)
+                    if ((keyBoardState.IsKeyDown(Keys.W) || GamePad.GetState(playerIndex).DPad.Up == ButtonState.Pressed) && feetBox.Y >= yLimitUp)
                     {
                         pos.Y += -1.5f;
                         posJump.Y += -1.5f;
                     }
-                    if (keyBoardState.IsKeyDown(Keys.S) && feetBox.Y <= yLimitDown && posJump.Y <= yLimitDown - 50)
+                    if ((keyBoardState.IsKeyDown(Keys.S) || GamePad.GetState(playerIndex).DPad.Down == ButtonState.Pressed) && feetBox.Y <= yLimitDown && posJump.Y <= yLimitDown - 50)
                     {
                         pos.Y += 1.5f;
                         posJump.Y += 1.5f;
@@ -235,8 +237,10 @@ namespace Johnny_Punch
                         speed.Y = 0;
                     }
                 }
-                if (keyBoardState.IsKeyDown(Keys.Space) && oldKeyBoardState.IsKeyDown(Keys.Space) && onGround && !block) // här hoppar man
-                {
+
+                if ((keyBoardState.IsKeyDown(Keys.Space) && oldKeyBoardState.IsKeyDown(Keys.Space) || GamePad.GetState(playerIndex).Buttons.A == ButtonState.Pressed) && onGround && !block) // här hoppar man
+                
+                {                    
                     posJump.Y = pos.Y; //när man hoppar svaras punkten man hoppade från i y-led. Man landar på den punkten i y-led sen
                     speed.Y = -3.2f;
                     onGround = false;
@@ -258,7 +262,7 @@ namespace Johnny_Punch
                 fightingCooldown += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
             #region StandardHit
-            if (fightingCooldown >= 300 && keyBoardState.IsKeyDown(Keys.T) && !fight && onGround && !block)
+            if (fightingCooldown >= 300 && (keyBoardState.IsKeyDown(Keys.T) || GamePad.GetState(playerIndex).Buttons.X == ButtonState.Pressed) && !fight && onGround && !block)
             {
                 frameTime = 120;
                 walkFrame = 0;
@@ -297,12 +301,12 @@ namespace Johnny_Punch
 
         public void Block(GameTime gameTime)
         {
-            if (fightingCooldown >= 300 && keyBoardState.IsKeyDown(Keys.G) && !fight && !block && onGround)
+            if (fightingCooldown >= 300 && (keyBoardState.IsKeyDown(Keys.T) || GamePad.GetState(playerIndex).Buttons.B == ButtonState.Pressed) && !fight && !block && onGround)
             {
                 block = true;
                 animationBox.Width = 75;
                 animationBox.X = 0;
-                animationBox.Y = 0;
+                animationBox.Y = 645;
                 fightingCooldown = 0;
             }
 
@@ -331,7 +335,6 @@ namespace Johnny_Punch
         {
 
             if (spriteEffect == SpriteEffects.None)
-
             {
                 floatLayerNr = 0 + posJump.Y * 0.0010f; //numret blir mellan 0.335 och 0.583, vilket placerar en i rätt ordning(ritas först 0, ritas sist 1(?))
             }

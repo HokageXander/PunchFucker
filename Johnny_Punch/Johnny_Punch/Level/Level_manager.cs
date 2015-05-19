@@ -154,9 +154,11 @@ namespace Johnny_Punch
         {
             for (int i = 0; i < playerManager.playerList.Count; i++)
             {
-                if (playerManager.playerList[i].boundingBox.Intersects(nextLevelBox) && levelNr == 1)
+                if (playerManager.playerList[0].boundingBox.Intersects(nextLevelBox) && levelNr == 1)
                 {
-                    playerManager.playerList[i].pos = new Vector2(800, 400);
+                    playerManager.playerList[0].pos = new Vector2(800, 400);
+                    if (PlayerManager.players == 2)
+                        playerManager.playerList[1].pos = new Vector2(800, 450);
                     Camera.prevCentre.X = 0; //resettar så att kameran hamnar på spelaren igen
                     enemyManager.enemyList.Clear(); //raderar alla gamla fiender
                     enviromentList.Clear();

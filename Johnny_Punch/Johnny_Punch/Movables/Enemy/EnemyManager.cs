@@ -120,19 +120,17 @@ namespace Johnny_Punch
         {
             for (int i = 0; i < enemyList.Count; i++)
             {
-                for (int j = 0; j < playerManager.playerList.Count; j++)
+                if (!(enemyList[i] is Boss))
                 {
-                    if (!(enemyList[i] is Boss))
+                    if (!enemyList[i].dead && !enemyList[i].stunned)
                     {
-                        if (!enemyList[i].dead && !enemyList[i].stunned)
-                        {
-                            enemyList[i].Aggro(playerManager.playerList[j]);
-                            enemyList[i].Fight(gameTime, playerManager.playerList[j]);
-                        }
-                        if (spawn1 || spawn2) // när fiender spawnas så aggrar dom på spelaren direkt
-                            enemyList[i].SpawnAggro(playerManager.playerList[j]);
+                        enemyList[i].Aggro(playerManager.playerList);
+                        enemyList[i].Fight(gameTime, playerManager.playerList);
                     }
+                    if (spawn1 || spawn2) // när fiender spawnas så aggrar dom på spelaren direkt
+                        enemyList[i].SpawnAggro(playerManager.playerList);
                 }
+
             }
         }
 
@@ -254,7 +252,7 @@ namespace Johnny_Punch
                             && bossAttackList[j].exploded && !bossAttackList[j].explosionHit)
                         {
                             bossAttackList[j].explosionHit = true;
-                            playerManager.playerList[i].life -= 1;
+                            playerManager.playerList[i].life -= 6;
                         }
 
                     }
@@ -277,7 +275,7 @@ namespace Johnny_Punch
                         enemyList[j].fightingCooldown = -200;
                         enemyList[j].punchBox = new Rectangle((int)enemyList[j].pos.X - 44, (int)enemyList[j].pos.Y - 65, 0, 0); //resettar slaget hitbox ovanför gubben igen
 
-                        particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerManager.playerList[0].blockBox.X, playerManager.playerList[0].blockBox.Y + 50), Color.Blue);
+                        particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerManager.playerList[i].blockBox.X, playerManager.playerList[i].blockBox.Y + 50), Color.Blue);
 
                     }
                 }
@@ -290,13 +288,13 @@ namespace Johnny_Punch
             {
                 LevelManager.levelEndPosX = 1400;
             }
-                
+
             if (!spawn1 && !spawn2 && enemyList.Count <= 1)
             {
                 LevelManager.levelEndPosX = 2450;
                 Camera.smooth = true;
             }
-            if (spawn1 && !spawn2 && enemyList.Count <= 0)
+            if (spawn1 && !spawn2 && enemyList.Count <= 0 && LevelManager.levelNr == 1)
             {
                 LevelManager.levelEndPosX = 3800;
                 Camera.smooth = true;

@@ -11,7 +11,6 @@ namespace Johnny_Punch
     class PlayerManager
     {
         public List<Player> playerList = new List<Player>();
-        public List<Player2> playerList2 = new List<Player2>();
         public static int players = 1;
         public ParticleExplosion particleExplosion;
 
@@ -40,19 +39,11 @@ namespace Johnny_Punch
             {
                 player.Update(gameTime);
             }
-            foreach (Player2 player in playerList2)
-            {
-                player.Update(gameTime);
-            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             foreach (Player player in playerList)
-            {
-                player.Draw(spriteBatch);
-            }
-            foreach (Player2 player in playerList2)
             {
                 player.Draw(spriteBatch);
             }
@@ -66,12 +57,12 @@ namespace Johnny_Punch
         {
             if (playerList.Count <= 0 && players == 1)
             {
-                playerList.Add(new Player(TextureManager.Player1tex, new Vector2(800, 400)));
+                playerList.Add(new Player(TextureManager.Player1tex, new Vector2(800, 400), PlayerIndex.One));
             }
             if (playerList.Count <= 0 && players == 2)
             {
-                playerList.Add(new Player(TextureManager.Player1tex, new Vector2(800, 400)));
-                playerList2.Add(new Player2(TextureManager.Player2tex, new Vector2(900, 400)));
+                playerList.Add(new Player(TextureManager.Player1tex, new Vector2(800, 400), PlayerIndex.One));
+                playerList.Add(new Player(TextureManager.Player2tex, new Vector2(900, 400), PlayerIndex.Two));
             }
         }
 
@@ -97,14 +88,14 @@ namespace Johnny_Punch
                         {
                             //enemyManager.enemyList[j].pos.X -= 2;
                             enemyManager.enemyList[j].life -= 1;
-                            particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].punchBox.X, playerList[0].punchBox.Y), Color.Red);
+                            particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[i].punchBox.X, playerList[i].punchBox.Y), Color.Red);
                             break;
 
                         }
                         else
                         {
                             //enemyManager.enemyList[j].pos.X += 2;
-                            particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].punchBox.X + playerList[0].punchBox.Width, playerList[0].punchBox.Y), Color.Red);
+                            particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[i].punchBox.X + playerList[i].punchBox.Width, playerList[i].punchBox.Y), Color.Red);
 
                             enemyManager.enemyList[j].life -= 1;
                         }
