@@ -345,15 +345,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\gameover.png">
-      <Name>gameover</Name>
+    <Compile Include="Images\jungleroadThorn.png">
+      <Name>jungleroadThorn</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\jungleroadThorn.png">
-      <Name>jungleroadThorn</Name>
+    <Compile Include="Images\gameover.png">
+      <Name>gameover</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
