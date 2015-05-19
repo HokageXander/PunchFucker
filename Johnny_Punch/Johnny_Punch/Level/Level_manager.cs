@@ -35,16 +35,15 @@ namespace Johnny_Punch
         {
             if (levelNr == 1)
             {
-                levelEndPosX = 5000; //man kan inte gå förbi detta i X-led (player.Movement)
-                nextLevelBox = new Rectangle(levelEndPosX, (int)335, 40, 300); //tar man i denna går man över till level 2
+                nextLevelBox = new Rectangle(5000, (int)335, 40, 300); //tar man i denna går man över till level 2
             }
             if (levelNr == 2)
             {
-                levelEndPosX = 2500;
+                //levelEndPosX = 2500;
                 if (Boss.died)
                 nextLevelBox = new Rectangle(levelEndPosX, (int)335, 40, 300);
-                //else
-                //    nextLevelBox = new Rectangle(levelEndPosX, (int)335, 0, 0);
+                else
+                    nextLevelBox = new Rectangle(levelEndPosX, (int)335, 0, 0);
                     
             }
 
