@@ -140,6 +140,8 @@ namespace Johnny_Punch
                 animationBox.X = 0;
                 animationBox.Width = 125;
                 boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, 0, 0);
+                playerRightBox = new Rectangle((int)pos.X + 5, (int)pos.Y + 35, 0, 0);
+                playerLeftBox = new Rectangle((int)pos.X - 30, (int)pos.Y + 35, 0, 0);
             }
             else
                 dead = false;
@@ -153,7 +155,7 @@ namespace Johnny_Punch
                 #region Walk Right
                 if ((keyBoardState.IsKeyDown(Keys.D) || GamePad.GetState(playerIndex).DPad.Right == ButtonState.Pressed) && !block && pos.X - 1267 < (Camera.prevCentre.X) && ableToMoveRight)
                 {
-                    speed.X = 15;
+                    speed.X = 3;
                     moving = true;
                     spriteEffect = SpriteEffects.None;
                     if ((keyBoardState.IsKeyDown(Keys.W) || GamePad.GetState(playerIndex).DPad.Up == ButtonState.Pressed) || (keyBoardState.IsKeyDown(Keys.S) || GamePad.GetState(playerIndex).DPad.Down == ButtonState.Pressed))

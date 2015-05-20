@@ -175,16 +175,11 @@ namespace Johnny_Punch
 
         public void BossFightStart(PlayerManager playerManager)
         {
-            for (int i = 0; i < playerManager.playerList.Count; i++)
+            if (playerManager.playerList[0].pos.X >= 1870 && LevelManager.levelNr == 2)
             {
-                for (int j = 0; j < enemyList.Count; j++)
-                {
-                    if (playerManager.playerList[i].pos.X >= 1870 && LevelManager.levelNr == 2)
-                    {
-                        Boss.bossEngaged = true;
-                    }
-                }
+                Boss.bossEngaged = true;
             }
+
         }
 
         public void BossAttacks(GameTime gameTime)
