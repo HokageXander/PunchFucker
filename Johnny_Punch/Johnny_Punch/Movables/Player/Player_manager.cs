@@ -13,7 +13,7 @@ namespace Johnny_Punch
         public List<Player> playerList = new List<Player>();
         public static int players = 1;
         public ParticleExplosion particleExplosion;
-
+        double gameOverDelay;
         public PlayerManager()
         {
 
@@ -39,6 +39,37 @@ namespace Johnny_Punch
             {
                 player.Update(gameTime);
             }
+
+            if (players == 2) //gör att spelare två inte kan försvinna från skärmen
+                if (playerList[0].pos.X >= playerList[1].pos.X + 735)
+                {
+                    playerList[0].ableToMoveRight = false;
+                }
+                else
+                    playerList[0].ableToMoveRight = true;
+
+            #region if Players Die
+            if (players == 1)
+            {
+                if (playerList[0].dead)
+                {
+                    gameOverDelay += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                    if (gameOverDelay >= 2000)
+                        LevelManager.end = true;
+                }
+            }
+            else if (players == 2)
+            {
+                if (playerList[0].dead && playerList[1].dead)
+                {
+                    gameOverDelay += gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                    if (gameOverDelay >= 2000)
+                        LevelManager.end = true;
+                }
+            }
+#endregion
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -130,7 +161,7 @@ namespace Johnny_Punch
                 if (playerList[i].pos.Y <= 300 && Boss.bossEngaged)
                 {
                     playerList[i].life -= 0.012f;
-                    
+
                     particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].feetBox.X + 50, playerList[0].feetBox.Y), Color.DarkRed);
 
                 }

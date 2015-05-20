@@ -16,8 +16,8 @@ namespace Johnny_Punch
         public KeyboardState keyBoardState, oldKeyBoardState;
         float shadowScale;
         int yLimitUp = 335, yLimitDown = 583;
-        public double gameOverDelay;
         public PlayerIndex playerIndex;
+        public bool ableToMoveRight = true;
 
         public Player(Texture2D tex, Vector2 pos, PlayerIndex playerIndex)
             : base(tex, pos)
@@ -124,11 +124,11 @@ namespace Johnny_Punch
             spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, new Vector2(49, 59.5f), 1f, spriteEffect, floatLayerNr);
 
             //spriteBatch.Draw(tex, feetBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(tex, playerRightBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(tex, playerLeftBox, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
+            //spriteBatch.Draw(tex, playerRightBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            //spriteBatch.Draw(tex, playerLeftBox, null, Color.White, 0, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(tex, punchBox, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 1);
             //spriteBatch.Draw(tex, boundingBox, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            spriteBatch.Draw(tex, blockBox, null, Color.Aquamarine, 0, Vector2.Zero, SpriteEffects.None, 1);
+            //spriteBatch.Draw(tex, blockBox, null, Color.Aquamarine, 0, Vector2.Zero, SpriteEffects.None, 1);
         }
 
         public void Death(GameTime gameTime)
@@ -140,12 +140,9 @@ namespace Johnny_Punch
                 animationBox.X = 0;
                 animationBox.Width = 125;
                 boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, 0, 0);
-                gameOverDelay += gameTime.ElapsedGameTime.TotalMilliseconds;
-
-                if (gameOverDelay >= 2000)
-                    LevelManager.end = true;
-
             }
+            else
+                dead = false;
 
         }
 
@@ -154,7 +151,7 @@ namespace Johnny_Punch
             if (!fight)
             {
                 #region Walk Right
-                if ((keyBoardState.IsKeyDown(Keys.D) || GamePad.GetState(playerIndex).DPad.Right == ButtonState.Pressed) && !block && pos.X < LevelManager.levelEndPosX)
+                if ((keyBoardState.IsKeyDown(Keys.D) || GamePad.GetState(playerIndex).DPad.Right == ButtonState.Pressed) && !block && pos.X - 1267 < (Camera.prevCentre.X) && ableToMoveRight)
                 {
                     speed.X = 3;
                     moving = true;
@@ -204,7 +201,7 @@ namespace Johnny_Punch
                     animationBox.Y = 0;
                     Animation(120, 4, 75, gameTime);
                 }
-                else if (!moving && onGround && !fight)
+                else if (!moving && onGround && !fight && !block)
                 {
                     animationBox.Width = 75;
                     animationBox.X = 0;
@@ -301,7 +298,7 @@ namespace Johnny_Punch
 
         public void Block(GameTime gameTime)
         {
-            if (fightingCooldown >= 300 && (keyBoardState.IsKeyDown(Keys.T) || GamePad.GetState(playerIndex).Buttons.B == ButtonState.Pressed) && !fight && !block && onGround)
+            if (fightingCooldown >= 150 && (keyBoardState.IsKeyDown(Keys.T) || GamePad.GetState(playerIndex).Buttons.B == ButtonState.Pressed) && !fight && !block && onGround)
             {
                 block = true;
                 animationBox.Width = 75;
@@ -323,7 +320,7 @@ namespace Johnny_Punch
 
 
             }
-            if (block && blockTimer >= 700)
+            if (block && blockTimer >= 500)
             {
                 block = false;
                 blockTimer = 0;

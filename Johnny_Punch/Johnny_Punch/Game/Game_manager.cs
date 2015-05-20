@@ -18,13 +18,14 @@ namespace Johnny_Punch
         EnemyManager enemyManager;
         LevelManager levelManager;
         KeyboardState keyBoardState, oldKeyBoardState;
+        GamePadState gamePadState, oldGamePadState;
 
         public int firstDigitSeconds, secondDigitSeconds, firstDigitMinutes, secondDigitMinutes, firstDigitHours, secondDigitHours;
         public double time, digitSeconds;
 
         public enum GameState
         {
-            Intro,Menu, Play, Pause, End
+            Intro, Menu, Play, Pause, End
         }
         public GameState gameState;
 
@@ -42,7 +43,8 @@ namespace Johnny_Punch
         {
             oldKeyBoardState = keyBoardState;
             keyBoardState = Keyboard.GetState();
-
+            oldGamePadState = gamePadState;
+            gamePadState = GamePad.GetState(PlayerIndex.One);
             switch (gameState)
             {
                 case GameState.Menu:
@@ -59,7 +61,7 @@ namespace Johnny_Punch
                     break;
 
                 case GameState.Play:
-                    if (keyBoardState.IsKeyDown(Keys.B) && oldKeyBoardState.IsKeyUp(Keys.B))
+                    if ((keyBoardState.IsKeyDown(Keys.B) && oldKeyBoardState.IsKeyUp(Keys.B) || gamePadState.Buttons.Start == ButtonState.Pressed && oldGamePadState.Buttons.Start == ButtonState.Released))
                     {
                         gameState = GameState.Pause;
                         menu.play = false;
@@ -145,7 +147,7 @@ namespace Johnny_Punch
             {
                 case GameState.Pause:
 
-                    menu.Draw(spriteBatch);                    
+                    menu.Draw(spriteBatch);
 
                     break;
             }
@@ -168,7 +170,7 @@ namespace Johnny_Punch
                     levelManager.Draw(spriteBatch);
                     enemyManager.Draw(spriteBatch);
                     playerManager.Draw(spriteBatch);
-                   
+
                     break;
 
                 case GameState.Pause:
@@ -182,7 +184,6 @@ namespace Johnny_Punch
 
                     if (Boss.died)
                         spriteBatch.Draw(TextureManager.endScreenTex, Vector2.Zero, Color.White);
-
                     else
                         spriteBatch.Draw(TextureManager.gameOverScreenTex, Vector2.Zero, Color.White);
 

@@ -52,8 +52,8 @@ namespace Johnny_Punch
                 spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, offset, scale, spriteEffect, floatLayerNr);
             else if (enraged)
                 spriteBatch.Draw(tex, pos, animationBox, color, 0f, offset, scale, spriteEffect, floatLayerNr);
-            spriteBatch.Draw(tex, feetBox, null, Color.Red, 0f, offset, spriteEffect, 0.8f);
-            spriteBatch.Draw(tex, punchBox, null, Color.Red, 0f, offset, spriteEffect, 0.8f);
+            //spriteBatch.Draw(tex, feetBox, null, Color.Red, 0f, offset, spriteEffect, 0.8f);
+            //spriteBatch.Draw(tex, punchBox, null, Color.Red, 0f, offset, spriteEffect, 0.8f);
             //spriteBatch.Draw(tex, boundingBox, null, Color.Red, 0f, offset, spriteEffect, 0.8f);
 
         }
@@ -100,81 +100,89 @@ namespace Johnny_Punch
                 if (dist1 > dist2)
                     i = 1;
             }
-                
 
 
-                Vector2 playerfeetPos = new Vector2(player[i].feetBox.X, player[i].feetBox.Y);
-                if (Vector2.Distance(feetPos, playerfeetPos) < aggroRadius && !(feetBox.Intersects(player[i].playerRightBox) || feetBox.Intersects(player[i].playerLeftBox)))
+
+            Vector2 playerfeetPos = new Vector2(player[i].feetBox.X, player[i].feetBox.Y);
+            if (Vector2.Distance(feetPos, playerfeetPos) < aggroRadius && !(feetBox.Intersects(player[i].playerRightBox) || feetBox.Intersects(player[i].playerLeftBox)))
+            {
+                moving = true;
+
+
+
+                if (feetPos.X + feetBox.Width / 2 < playerfeetPos.X)
                 {
-                    moving = true;
-
-                    
-
-                    if (feetPos.X + feetBox.Width/2 < playerfeetPos.X)
-                    {
-                        direction.X = player[i].playerLeftPos.X - feetPos.X;
-                        direction.Y = player[i].playerLeftPos.Y - feetPos.Y;
-                    }
-                    else
-                    {
-                        direction.X = player[i].playerRightPos.X - 3 - feetPos.X;
-                        direction.Y = player[i].playerRightPos.Y - 3 - feetPos.Y;
-                    }
-                        
-
-
-
-                    direction.Normalize();
-                    velocity.X = enemySpeed * direction.X;
-                    velocity.Y = enemySpeed * direction.Y;
-                    if ((velocity.X < 5 && velocity.X > -5) && (velocity.Y < 5 && velocity.Y > -5))
-                        pos += velocity;
-
-                    if (direction.X < 0)
-                        spriteEffect = SpriteEffects.FlipHorizontally;
-                    else
-                        spriteEffect = SpriteEffects.None;
+                    direction.X = player[i].playerLeftPos.X - feetPos.X;
+                    direction.Y = player[i].playerLeftPos.Y - feetPos.Y;
                 }
                 else
-                    moving = false;
+                {
+                    direction.X = player[i].playerRightPos.X - 3 - feetPos.X;
+                    direction.Y = player[i].playerRightPos.Y - 3 - feetPos.Y;
+                }
 
-                if (Vector2.Distance(feetPos, playerfeetPos) < aggroRadius && !(feetBox.Intersects(player[i].playerRightBox) || feetBox.Intersects(player[i].playerLeftBox))
-                    && fightFrame >= 1) //om fienden är mitt i ett slag och hamnar ur range från spelaren så resettas animationen till animation.X = 0;
-                    animationBox.X = 0;
 
-                if (feetBox.Intersects(player[i].playerRightBox))
+
+
+                direction.Normalize();
+                velocity.X = enemySpeed * direction.X;
+                velocity.Y = enemySpeed * direction.Y;
+                if ((velocity.X < 5 && velocity.X > -5) && (velocity.Y < 5 && velocity.Y > -5))
+                    pos += velocity;
+
+                if (direction.X < 0)
                     spriteEffect = SpriteEffects.FlipHorizontally;
-                else if (feetBox.Intersects(player[i].playerLeftBox))
+                else
                     spriteEffect = SpriteEffects.None;
-            
+            }
+            else
+                moving = false;
+
+            if (Vector2.Distance(feetPos, playerfeetPos) < aggroRadius && !(feetBox.Intersects(player[i].playerRightBox) || feetBox.Intersects(player[i].playerLeftBox))
+                && fightFrame >= 1) //om fienden är mitt i ett slag och hamnar ur range från spelaren så resettas animationen till animation.X = 0;
+                animationBox.X = 0;
+
+            if (feetBox.Intersects(player[i].playerRightBox))
+                spriteEffect = SpriteEffects.FlipHorizontally;
+            else if (feetBox.Intersects(player[i].playerLeftBox))
+                spriteEffect = SpriteEffects.None;
+
         }
 
         public void SpawnAggro(List<Player> player) // aggrofunktionen när dom spawnar och inte är i aggrozonen
         {
-            for (int i = 0; i < player.Count; i++)
+            int i = 0;
+            if (PlayerManager.players == 2)
             {
-                Vector2 feetPos = new Vector2(feetBox.X, feetBox.Y);
-                Vector2 playerfeetPos = new Vector2(player[i].feetBox.X, player[i].feetBox.Y);
-                if (Vector2.Distance(feetPos, playerfeetPos) > aggroRadius)
+                float dist1 = Vector2.Distance(pos, player[0].pos);
+                float dist2 = Vector2.Distance(pos, player[1].pos);
+
+                if (dist1 > dist2)
+                    i = 1;
+            }
+
+            Vector2 feetPos = new Vector2(feetBox.X, feetBox.Y);
+            Vector2 playerfeetPos = new Vector2(player[i].feetBox.X, player[i].feetBox.Y);
+            if (Vector2.Distance(feetPos, playerfeetPos) > aggroRadius)
+            {
+                moving = true;
+                if (feetPos.X < playerfeetPos.X)
                 {
-                    moving = true;
-                    if (feetPos.X < playerfeetPos.X)
-                    {
-                        direction = player[i].playerLeftPos - feetPos;
-                    }
-                    else
-                        direction = player[i].playerRightPos - feetPos;
-
-                    direction.Normalize();
-                    velocity.X = enemySpeed * direction.X;
-                    velocity.Y = enemySpeed * direction.Y;
-                    pos += velocity;
-
-                    if (direction.X < 0)
-                        spriteEffect = SpriteEffects.FlipHorizontally;
-                    else
-                        spriteEffect = SpriteEffects.None;
+                    direction = player[i].playerLeftPos - feetPos;
                 }
+                else
+                    direction = player[i].playerRightPos - feetPos;
+
+                direction.Normalize();
+                velocity.X = enemySpeed * direction.X;
+                velocity.Y = enemySpeed * direction.Y;
+                pos += velocity;
+
+                if (direction.X < 0)
+                    spriteEffect = SpriteEffects.FlipHorizontally;
+                else
+                    spriteEffect = SpriteEffects.None;
+
             }
         }
 
@@ -183,7 +191,6 @@ namespace Johnny_Punch
             int pcount = 0;
             for (int i = 0; i < player.Count; i++)
             {
-                
                 if (feetBox.Intersects(player[i].playerLeftBox) || feetBox.Intersects(player[i].playerRightBox) && !stunned)
                 {
                     pcount++;

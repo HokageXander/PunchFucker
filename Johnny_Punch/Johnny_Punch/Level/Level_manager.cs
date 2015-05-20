@@ -28,7 +28,7 @@ namespace Johnny_Punch
             streamReaderItems = new StreamReader(@"lvl" + LevelManager.levelNr + "items.txt");
             MapReader(streamReaderEnvironment);
             ItemReader(streamReaderItems);
-            
+
         }
 
         public void Update(GameTime gameTime)
@@ -41,10 +41,10 @@ namespace Johnny_Punch
             {
                 //levelEndPosX = 2500;
                 if (Boss.died)
-                nextLevelBox = new Rectangle(levelEndPosX, (int)335, 40, 300);
+                    nextLevelBox = new Rectangle(levelEndPosX, (int)335, 40, 300);
                 else
                     nextLevelBox = new Rectangle(levelEndPosX, (int)335, 0, 0);
-                    
+
             }
 
             foreach (Item item in itemList)
@@ -154,11 +154,17 @@ namespace Johnny_Punch
         {
             for (int i = 0; i < playerManager.playerList.Count; i++)
             {
-                if (playerManager.playerList[0].boundingBox.Intersects(nextLevelBox) && levelNr == 1)
+                if (playerManager.playerList[i].boundingBox.Intersects(nextLevelBox) && levelNr == 1)
                 {
                     playerManager.playerList[0].pos = new Vector2(800, 400);
                     if (PlayerManager.players == 2)
                         playerManager.playerList[1].pos = new Vector2(800, 450);
+
+                    if (playerManager.playerList[0].life <= 9)
+                        playerManager.playerList[0].life++;
+                    if (playerManager.playerList[1].life <= 9)
+                        playerManager.playerList[1].life++;
+
                     Camera.prevCentre.X = 0; //resettar så att kameran hamnar på spelaren igen
                     enemyManager.enemyList.Clear(); //raderar alla gamla fiender
                     enviromentList.Clear();

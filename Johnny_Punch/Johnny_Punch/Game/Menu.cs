@@ -16,6 +16,7 @@ namespace Johnny_Punch
     {
         int menuNumber = 1;
         KeyboardState keyBoardState, oldKeyBoardState;
+        GamePadState gamePadState, oldGamePadState;
         public bool play, quit, sound = true;
 
 
@@ -37,9 +38,11 @@ namespace Johnny_Punch
             oldKeyBoardState = keyBoardState;
             keyBoardState = Keyboard.GetState();
 
-
+            oldGamePadState = gamePadState;
+            gamePadState = GamePad.GetState(PlayerIndex.One);
             #region Key Up
-            if (keyBoardState.IsKeyDown(Keys.Up) && oldKeyBoardState.IsKeyUp(Keys.Up)) // väljer vilken "knapp" man vill till i menyn
+            if ((keyBoardState.IsKeyDown(Keys.Up) && oldKeyBoardState.IsKeyUp(Keys.Up)) ||
+                (gamePadState.DPad.Up == ButtonState.Pressed && oldGamePadState.DPad.Up == ButtonState.Released)) // väljer vilken "knapp" man vill till i menyn
             {
                 menuNumber--;
                 if (menuNumber == 0 && menuState == MenuState.MainMenu || menuNumber == 0 && menuState == MenuState.Pause) // om man trycker upp vid toppen går man till botten
@@ -57,7 +60,8 @@ namespace Johnny_Punch
             }
             #endregion
             #region Key Down
-            if (keyBoardState.IsKeyDown(Keys.Down) && oldKeyBoardState.IsKeyUp(Keys.Down))
+            if ((keyBoardState.IsKeyDown(Keys.Down) && oldKeyBoardState.IsKeyUp(Keys.Down)) ||
+                (gamePadState.DPad.Down == ButtonState.Pressed && oldGamePadState.DPad.Down == ButtonState.Released))
             {
                 menuNumber++;
                 if (menuNumber == 4 && menuState == MenuState.MainMenu || menuNumber == 4 && menuState == MenuState.Pause)
@@ -80,17 +84,20 @@ namespace Johnny_Punch
             {
                 #region Main Menu
                 case MenuState.MainMenu:
-                    if (menuNumber == 1 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) // om man är på 1 som är markerad röd går man dit
+                    if (menuNumber == 1 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
+                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released))) // om man är på 1 som är markerad röd går man dit
                     {
                         menuState = MenuState.NewGame;
                         menuNumber = 1;
                     }
-                    if (menuNumber == 2 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
+                    if (menuNumber == 2 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
+                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)))
                     {
                         menuState = MenuState.Options;
                         menuNumber = 1;
                     }
-                    if (menuNumber == 3 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
+                    if (menuNumber == 3 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
+                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)))
                     {
                         quit = true;
                     }
@@ -98,20 +105,23 @@ namespace Johnny_Punch
                 #endregion
                 #region NewGame
                 case MenuState.NewGame:
-                    if (menuNumber == 1 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
+                    if (menuNumber == 1 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
+                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)))
                     {
                         PlayerManager.players = 1;
                         play = true;
                         menuNumber = 1;
                     }
-                    if (menuNumber == 2 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
+                    if (menuNumber == 2 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
+                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)))
                     {
                         PlayerManager.players = 2;
                         play = true;
                         menuNumber = 1;
 
                     }
-                    if (keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back))
+                    if ((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) ||
+                        (gamePadState.Buttons.B == ButtonState.Pressed && oldGamePadState.Buttons.B == ButtonState.Released))
                     {
                         menuState = MenuState.MainMenu;
                         menuNumber = 1;
@@ -120,15 +130,18 @@ namespace Johnny_Punch
                 #endregion
                 #region Options
                 case MenuState.Options:
-                    if (menuNumber == 1 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter) && sound)
+                    if (menuNumber == 1 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
+                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)) && sound)
                     {
                         sound = false;
                     }
-                    else if (menuNumber == 1 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter) && !sound)
+                    else if (menuNumber == 1 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
+                        || (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)) && !sound)
                     {
                         sound = true;
                     }
-                    if (keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back))
+                    if ((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) ||
+                        (gamePadState.Buttons.B == ButtonState.Pressed && oldGamePadState.Buttons.B == ButtonState.Released))
                     {
                         menuState = MenuState.MainMenu;
                         menuNumber = 1;
@@ -137,16 +150,19 @@ namespace Johnny_Punch
                 #endregion
                 #region Pause
                 case MenuState.Pause:
-                    if (menuNumber == 1 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
+                    if (menuNumber == 1 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
+                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)))
                     {
                         play = true;
                     }
-                    if (menuNumber == 2 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
+                    if (menuNumber == 2 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
+                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)))
                     {
                         menuState = MenuState.PauseOptions;
                         menuNumber = 1;
                     }
-                    if (menuNumber == 3 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
+                    if (menuNumber == 3 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
+                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)))
                     {
                         menuNumber = 2;
                         menuState = MenuState.PauseQuit;
@@ -155,16 +171,19 @@ namespace Johnny_Punch
                 #endregion
                 #region Pause Options
                 case MenuState.PauseOptions:
-                       if (menuNumber == 1 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter) && sound)
+                    if (menuNumber == 1 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
+                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)) && sound)
                     {
                         sound = false;
                     }
-                    else if (menuNumber == 1 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter) && !sound)
+                       else if (menuNumber == 1 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
+                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)) && !sound)
                     {
                         sound = true;
                         menuNumber = 1;
                     }
-                    if (keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back))
+                    if ((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) ||
+                        (gamePadState.Buttons.B == ButtonState.Pressed && oldGamePadState.Buttons.B == ButtonState.Released))
                     {
                         menuState = MenuState.Pause;
                         menuNumber = 2;
@@ -173,12 +192,20 @@ namespace Johnny_Punch
                 #endregion
                 #region Pause Quit
                 case MenuState.PauseQuit:
-                    if (menuNumber == 1 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
+                    if (menuNumber == 1 && (keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter) ||
+                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)))
                     {
                         menuState = MenuState.MainMenu;
                         
                     }
-                    else if (menuNumber == 2 && keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
+                    else if (menuNumber == 2 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
+                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)))
+                    {
+                        menuState = MenuState.Pause;
+                        menuNumber = 3;
+                    }
+                    if ((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) ||
+                        (gamePadState.Buttons.B == ButtonState.Pressed && oldGamePadState.Buttons.B == ButtonState.Released))
                     {
                         menuState = MenuState.Pause;
                         menuNumber = 3;

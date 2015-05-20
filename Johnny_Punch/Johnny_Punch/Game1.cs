@@ -30,12 +30,12 @@ namespace Johnny_Punch
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
-        
+
         protected override void Initialize()
         {
             base.Initialize();
         }
-        
+
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -44,16 +44,17 @@ namespace Johnny_Punch
             gameManager.LoadContent(Content, GraphicsDevice, spriteBatch);
             camera = new Camera(GraphicsDevice.Viewport);
         }
-        
+
         protected override void UnloadContent()
         {
 
         }
-        
+
         protected override void Update(GameTime gameTime)
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape) || gameManager.menu.quit == true)
                 this.Exit();
+            Window.Title = "Johnny Punch-Fucker";
             if (!ready && gameManager.gameState == GameManager.GameState.Play)
             {
                 loadingRotation *= 1.008f; //gör att cirkeln roterar vid loadingScreen
@@ -70,13 +71,26 @@ namespace Johnny_Punch
             gameManager.Update(gameTime, GraphicsDevice, Content);
 
             base.Update(gameTime);
+            #region Camera Update
             if (gameManager.gameState == GameManager.GameState.Play && ready || gameManager.gameState == GameManager.GameState.Pause)
             {
-                camera.Update(gameManager.playerManager.playerList[0].GetPos, gameManager.playerManager.playerList[0].GetRec, Window);
-            Window.Title = gameManager.playerManager.playerList[0].playerLeftPos.ToString() + " : " + Camera.centre.X.ToString();
+                if (PlayerManager.players == 1)
+                {
+                    camera.Update(gameManager.playerManager.playerList[0].GetPos, gameManager.playerManager.playerList[0].GetRec, Window);
+                }
+                else if (PlayerManager.players == 2)
+                {
+                    if (!gameManager.playerManager.playerList[0].dead)
+                    {
+                        camera.Update(gameManager.playerManager.playerList[0].GetPos, gameManager.playerManager.playerList[0].GetRec, Window);
+                    }
+                    else if(gameManager.playerManager.playerList[0].dead)
+                        camera.Update(gameManager.playerManager.playerList[1].GetPos, gameManager.playerManager.playerList[1].GetRec, Window);
+                }
             }
+            #endregion
         }
-        
+
         protected override void Draw(GameTime gameTime)
         {
             if (gameManager.gameState == GameManager.GameState.Play || gameManager.gameState == GameManager.GameState.Pause)
@@ -91,7 +105,7 @@ namespace Johnny_Punch
                 if (!ready)
                 {
                     spriteBatch.Draw(TextureManager.loadingScreen, Vector2.Zero, Color.White);
-                    spriteBatch.Draw(TextureManager.loadingCircle, new Vector2(640, 450), null, Color.White, loadingRotation, new Vector2(50, 50), 1,SpriteEffects.None, 1);
+                    spriteBatch.Draw(TextureManager.loadingCircle, new Vector2(640, 450), null, Color.White, loadingRotation, new Vector2(50, 50), 1, SpriteEffects.None, 1);
                 }
                 spriteBatch.End();
             }
