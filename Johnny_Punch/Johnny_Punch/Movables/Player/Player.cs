@@ -148,7 +148,7 @@ namespace Johnny_Punch
 
         public void Moving(GameTime gameTime)
         {
-            if (!fight)
+            if (!fight && Game1.ready)
             {
                 #region Walk Right
                 if ((keyBoardState.IsKeyDown(Keys.D) || GamePad.GetState(playerIndex).DPad.Right == ButtonState.Pressed) && !block && pos.X - 1267 < (Camera.prevCentre.X) && ableToMoveRight)
@@ -259,7 +259,7 @@ namespace Johnny_Punch
                 fightingCooldown += gameTime.ElapsedGameTime.TotalMilliseconds;
             }
             #region StandardHit
-            if (fightingCooldown >= 300 && (keyBoardState.IsKeyDown(Keys.T) || GamePad.GetState(playerIndex).Buttons.X == ButtonState.Pressed) && !fight && onGround && !block)
+            if (fightingCooldown >= 300 && (keyBoardState.IsKeyDown(Keys.J) || GamePad.GetState(playerIndex).Buttons.X == ButtonState.Pressed) && !fight && onGround && !block)
             {
                 frameTime = 120;
                 walkFrame = 0;
@@ -298,7 +298,7 @@ namespace Johnny_Punch
 
         public void Block(GameTime gameTime)
         {
-            if (fightingCooldown >= 150 && (keyBoardState.IsKeyDown(Keys.T) || GamePad.GetState(playerIndex).Buttons.B == ButtonState.Pressed) && !fight && !block && onGround)
+            if (fightingCooldown >= 150 && (keyBoardState.IsKeyDown(Keys.K) || GamePad.GetState(playerIndex).Buttons.B == ButtonState.Pressed) && !fight && !block && onGround)
             {
                 block = true;
                 animationBox.Width = 75;

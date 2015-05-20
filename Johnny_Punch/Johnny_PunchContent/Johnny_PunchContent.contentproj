@@ -147,13 +147,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Images\AlexSheet2.png">
-      <Name>AlexSheet2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Images\loadingScreen.png">
       <Name>loadingScreen</Name>
       <Importer>TextureImporter</Importer>

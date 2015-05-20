@@ -120,7 +120,7 @@ namespace Johnny_Punch
             {
                 if (!(enemyList[i] is Boss))
                 {
-                    if (!enemyList[i].dead && !enemyList[i].stunned)
+                    if (!enemyList[i].dead && !enemyList[i].stunned && Game1.ready)
                     {
                         enemyList[i].Aggro(playerManager.playerList);
                         enemyList[i].Fight(gameTime, playerManager.playerList);

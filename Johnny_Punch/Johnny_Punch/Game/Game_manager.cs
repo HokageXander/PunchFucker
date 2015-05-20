@@ -87,7 +87,7 @@ namespace Johnny_Punch
                     break;
 
                 case GameState.Play:
-                    if (Game1.ready && (keyBoardState.IsKeyDown(Keys.B) && oldKeyBoardState.IsKeyUp(Keys.B) ||
+                    if (Game1.ready && (keyBoardState.IsKeyDown(Keys.P) && oldKeyBoardState.IsKeyUp(Keys.P) ||
                         gamePadState.Buttons.Start == ButtonState.Pressed && oldGamePadState.Buttons.Start == ButtonState.Released))
                     {
                         gameState = GameState.Pause;
@@ -154,9 +154,9 @@ namespace Johnny_Punch
                     {
                         spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(254, 620, 155, 35), Color.Red);
                     }
-                    int healthPos = (int)(playerManager.playerList[1].maxLife - playerManager.playerList[1].life);
-                    spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle(254 + (int)(15.5f * healthPos), 620, (int)(155 * playerManager.playerList[1].percentLife), 35), Color.Green);
-
+                    float healthPos = (float)(playerManager.playerList[1].maxLife - playerManager.playerList[1].life);
+                    spriteBatch.Draw(TextureManager.lifeBarTex, new Rectangle((int)(254 + (15.5f * healthPos)), 620, (int)(155 * playerManager.playerList[1].percentLife), 35), Color.Green);
+                    Console.WriteLine(healthPos);
                 }
             }
             if (PlayerManager.players == 1)
