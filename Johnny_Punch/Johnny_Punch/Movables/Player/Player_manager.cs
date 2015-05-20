@@ -41,7 +41,7 @@ namespace Johnny_Punch
             }
 
             if (players == 2) //gör att spelare två inte kan försvinna från skärmen
-                if (playerList[0].pos.X >= playerList[1].pos.X + 735)
+                if (playerList[0].pos.X >= playerList[1].pos.X + 712)
                 {
                     playerList[0].ableToMoveRight = false;
                 }

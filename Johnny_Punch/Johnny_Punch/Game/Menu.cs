@@ -49,7 +49,7 @@ namespace Johnny_Punch
                 {
                     menuNumber = 3;
                 }
-                if (menuNumber == 0 && menuState == MenuState.NewGame || menuState == MenuState.PauseQuit)
+                if (menuNumber == 0 && (menuState == MenuState.NewGame || menuState == MenuState.PauseQuit))
                 {
                     menuNumber = 2;
                 }
@@ -68,7 +68,7 @@ namespace Johnny_Punch
                 {
                     menuNumber = 1;
                 }
-                if (menuNumber == 3 && menuState == MenuState.NewGame || menuState == MenuState.PauseQuit)
+                if (menuNumber == 3 && (menuState == MenuState.NewGame || menuState == MenuState.PauseQuit))
                 {
                     menuNumber = 1;
                 }
@@ -164,7 +164,7 @@ namespace Johnny_Punch
                     if (menuNumber == 3 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
                         (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)))
                     {
-                        menuNumber = 2;
+                        menuNumber = 1;
                         menuState = MenuState.PauseQuit;
                     }                    
                     break;
@@ -192,13 +192,13 @@ namespace Johnny_Punch
                 #endregion
                 #region Pause Quit
                 case MenuState.PauseQuit:
-                    if (menuNumber == 1 && (keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter) ||
+                    if (menuNumber == 2 && (keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter) ||
                         (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)))
                     {
                         menuState = MenuState.MainMenu;
                         
                     }
-                    else if (menuNumber == 2 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
+                    else if (menuNumber == 1 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
                         (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)))
                     {
                         menuState = MenuState.Pause;
@@ -332,13 +332,13 @@ namespace Johnny_Punch
                 #region Pause Quit
                 case MenuState.PauseQuit:
                     spriteBatch.Draw(TextureManager.pauseQuest, new Vector2(345, 250), Color.Yellow);
-                        if (menuNumber == 1)
+                        if (menuNumber == 2)
                         {
                             spriteBatch.Draw(TextureManager.pauseYes, new Vector2(425, 405), Color.Red);
                         }
                         else
                             spriteBatch.Draw(TextureManager.pauseYes, new Vector2(425, 405), Color.Yellow);
-                        if (menuNumber == 2)
+                        if (menuNumber == 1)
                         {
                             spriteBatch.Draw(TextureManager.pauseNo, new Vector2(700, 403), Color.Red);
                         }

@@ -19,11 +19,8 @@ namespace Johnny_Punch
         EnemyManager enemyManager;
         LevelManager levelManager;
         KeyboardState keyBoardState, oldKeyBoardState;
-<<<<<<< HEAD
         GamePadState gamePadState, oldGamePadState;
 
-=======
->>>>>>> origin/master
         public int firstDigitSeconds, secondDigitSeconds, firstDigitMinutes, secondDigitMinutes, firstDigitHours, secondDigitHours;
         public double time, digitSeconds;
         public int intro = 0;
@@ -43,7 +40,7 @@ namespace Johnny_Punch
             enemyManager = new EnemyManager(GraphicsDevice);
             playerManager = new PlayerManager();
             levelManager = new LevelManager(Content);
-            gameState = GameState.Intro;
+            gameState = GameState.Menu;
  
             introSwitch = TimeSpan.FromSeconds(introTimer);
         }
@@ -52,12 +49,12 @@ namespace Johnny_Punch
         {
             oldKeyBoardState = keyBoardState;
             keyBoardState = Keyboard.GetState();
-<<<<<<< HEAD
+
             oldGamePadState = gamePadState;
             gamePadState = GamePad.GetState(PlayerIndex.One);
-=======
+
             Console.WriteLine(introSwitch);
->>>>>>> origin/master
+
             switch (gameState)
             {
                 case GameState.Intro:
@@ -90,7 +87,8 @@ namespace Johnny_Punch
                     break;
 
                 case GameState.Play:
-                    if ((keyBoardState.IsKeyDown(Keys.B) && oldKeyBoardState.IsKeyUp(Keys.B) || gamePadState.Buttons.Start == ButtonState.Pressed && oldGamePadState.Buttons.Start == ButtonState.Released))
+                    if (Game1.ready && (keyBoardState.IsKeyDown(Keys.B) && oldKeyBoardState.IsKeyUp(Keys.B) ||
+                        gamePadState.Buttons.Start == ButtonState.Pressed && oldGamePadState.Buttons.Start == ButtonState.Released))
                     {
                         gameState = GameState.Pause;
                         menu.play = false;
