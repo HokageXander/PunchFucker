@@ -15,7 +15,7 @@ namespace Johnny_Punch
     {
         public static Song Bla { get; private set; }
         public static SoundEffect Ble { get; private set; }
-
+        
         public static void LoadContent(ContentManager Content)
         {
             Bla = Content.Load<Song>(@"Audio\Bla");

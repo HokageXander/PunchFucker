@@ -153,7 +153,7 @@ namespace Johnny_Punch
                 #region Walk Right
                 if ((keyBoardState.IsKeyDown(Keys.D) || GamePad.GetState(playerIndex).DPad.Right == ButtonState.Pressed) && !block && pos.X - 1267 < (Camera.prevCentre.X) && ableToMoveRight)
                 {
-                    speed.X = 3;
+                    speed.X = 15;
                     moving = true;
                     spriteEffect = SpriteEffects.None;
                     if ((keyBoardState.IsKeyDown(Keys.W) || GamePad.GetState(playerIndex).DPad.Up == ButtonState.Pressed) || (keyBoardState.IsKeyDown(Keys.S) || GamePad.GetState(playerIndex).DPad.Down == ButtonState.Pressed))

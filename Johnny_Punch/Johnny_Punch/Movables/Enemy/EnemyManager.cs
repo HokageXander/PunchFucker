@@ -152,7 +152,11 @@ namespace Johnny_Punch
                         if (enemyList[j].spriteEffect == SpriteEffects.FlipHorizontally)
                         {
                             //playerManager.playerList[i].pos.X -= 2;
-                            playerManager.playerList[i].life -= 1;
+                            if (playerManager.playerList[i].life > 0)
+                            {
+                                playerManager.playerList[i].life -= 1;
+                            }
+                            //playerManager.playerList[i].life -= 1;
                             particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(enemyList[j].punchBox.X, enemyList[j].punchBox.Y), Color.DarkRed);
 
                             break;
@@ -236,6 +240,8 @@ namespace Johnny_Punch
                         {
                             bossAttackList.RemoveAt(j);
                             playerManager.playerList[i].life -= 2;
+                            particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerManager.playerList[i].pos.X, playerManager.playerList[i].pos.Y), Color.DarkRed);
+
                         }
                     }
                     else if (bossAttackList[j] is Bomb)
@@ -251,6 +257,8 @@ namespace Johnny_Punch
                         {
                             bossAttackList[j].explosionHit = true;
                             playerManager.playerList[i].life -= 6;
+                            particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerManager.playerList[i].pos.X, playerManager.playerList[i].pos.Y), Color.DarkRed);
+
                         }
 
                     }

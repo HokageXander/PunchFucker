@@ -10,7 +10,7 @@ namespace Johnny_Punch
     class Camera
     {
         public static Vector2 prevCentre;
-        public Matrix transform;
+        public static Matrix transform;
         Viewport view;
         public static Vector2 centre;
         public static bool smooth;

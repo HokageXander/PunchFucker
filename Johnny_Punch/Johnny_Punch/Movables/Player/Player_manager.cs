@@ -158,11 +158,11 @@ namespace Johnny_Punch
         {
             for (int i = 0; i < playerList.Count; i++)
             {
-                if (playerList[i].pos.Y <= 300 && Boss.bossEngaged)
+                if (playerList[i].posJump.Y <= 300 && playerList[i].onGround)
                 {
                     playerList[i].life -= 0.012f;
 
-                    particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].feetBox.X + 50, playerList[0].feetBox.Y), Color.DarkRed);
+                    particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[i].feetBox.X + 40, playerList[i].feetBox.Y), Color.DarkRed);
 
                 }
             }

@@ -68,6 +68,11 @@ namespace Johnny_Punch
                 gameManager.digitSeconds = 0;
             }
 
+            //if (gameManager.gameState == GameManager.GameState.Play && ready == false && loadingTime >= 0.8f)
+            //{
+            //    Camera.prevCentre = Camera.centre;
+            //    //gameManager.menu.play = false;
+            //}
             gameManager.Update(gameTime, GraphicsDevice, Content);
 
             base.Update(gameTime);

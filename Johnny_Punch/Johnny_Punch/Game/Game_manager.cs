@@ -23,8 +23,8 @@ namespace Johnny_Punch
 
         public int firstDigitSeconds, secondDigitSeconds, firstDigitMinutes, secondDigitMinutes, firstDigitHours, secondDigitHours;
         public double time, digitSeconds;
-        public int intro = 0;
-        public double introTimer = 2f;
+        public int intro = 0; // vilket intro det är
+        public double introTimer = 5f; // introTimer bestämmer tiden för de olika introbilderna
         public TimeSpan introSwitch;
 
         public enum GameState
@@ -41,7 +41,7 @@ namespace Johnny_Punch
             playerManager = new PlayerManager();
             levelManager = new LevelManager(Content);
             gameState = GameState.Menu;
- 
+
             introSwitch = TimeSpan.FromSeconds(introTimer);
         }
 
@@ -60,24 +60,31 @@ namespace Johnny_Punch
                 case GameState.Intro:
 
 
-                    if (introSwitch.TotalSeconds > 0)
+                    if (introSwitch.TotalSeconds > 0) // sköter om hur många sekunder varje intro ska vara
                         introSwitch = introSwitch.Subtract(gameTime.ElapsedGameTime);
                     else
                     {
-                        introSwitch = TimeSpan.FromSeconds(introTimer);
+                        if (intro == 0)
+                            introSwitch = TimeSpan.FromSeconds(2);
+                        if (intro == 1)
+                            introSwitch = TimeSpan.FromSeconds(3);
+                        if (intro == 2)
+                            introSwitch = TimeSpan.FromSeconds(4);
+                        if (intro == 3)
+                            introSwitch = TimeSpan.FromSeconds(5);
                         intro++;
                     }
 
-                    if (intro == 5)
+                    if (intro == 4)
                         gameState = GameState.Menu;
                     break;
-
 
                 case GameState.Menu:
                     menu.Update(gameTime);
                     if (menu.play == true)
                     {
                         gameState = GameState.Play;
+                        LevelManager.levelNr = 1;
                         enemyManager = new EnemyManager(GraphicsDevice); //allt under resettar och laddar in allt på nytt ifall man valt quit i pausmenyn
                         playerManager = new PlayerManager();
                         levelManager = new LevelManager(Content);
@@ -95,7 +102,6 @@ namespace Johnny_Punch
                         menu.menuState = Menu.MenuState.Pause;
                     }
 
-
                     levelManager.Update(gameTime);
                     levelManager.NextLevel(playerManager, enemyManager);
 
@@ -111,7 +117,6 @@ namespace Johnny_Punch
                     enemyManager.BossFightStart(playerManager);
                     enemyManager.BossDamage(playerManager);
                     enemyManager.CameraStopWhenEnemySpawn(playerManager, gameTime);
-
 
                     TotalPlayTime(gameTime);
 
@@ -129,10 +134,30 @@ namespace Johnny_Punch
                         gameState = GameState.Play;
 
                     if (menu.menuState == Menu.MenuState.MainMenu)
+                    {
                         gameState = GameState.Menu;
+                        Camera.centre = new Vector2(34, 0);
+                        Camera.prevCentre = Camera.centre;
+                        Camera.transform = Matrix.CreateScale(new Vector3(1, 1, 0))
+                * Matrix.CreateTranslation(new Vector3(-Camera.centre.X, -Camera.centre.Y, 0));
+                    }
                     break;
 
                 case GameState.End:
+
+                    menu.play = false;
+
+                    if ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter) ||
+                        gamePadState.Buttons.Start == ButtonState.Pressed && oldGamePadState.Buttons.Start == ButtonState.Released))
+                    {
+                        LevelManager.end = false;
+                        gameState = GameState.Menu;
+                        menu.menuState = Menu.MenuState.MainMenu;
+                        Camera.centre = new Vector2(34, 0);
+                        Camera.prevCentre = Camera.centre;
+                        Camera.transform = Matrix.CreateScale(new Vector3(1, 1, 0))
+                * Matrix.CreateTranslation(new Vector3(-Camera.centre.X, -Camera.centre.Y, 0));
+                    }
                     break;
             }
         }
@@ -191,18 +216,15 @@ namespace Johnny_Punch
                 case GameState.Intro:
 
 
-                    if (intro == 0)                  
+                    if (intro == 0)                                                           // vilket intro som ska visas
                         spriteBatch.Draw(TextureManager.introScreen1, Vector2.Zero, Color.Red);
                     if (intro == 1)
-                    {
                         spriteBatch.Draw(TextureManager.introScreen2, Vector2.Zero, Color.Blue);
-                        
-                    }
-                    if(intro == 2)
+                    if (intro == 2)
                         spriteBatch.Draw(TextureManager.introScreen3, Vector2.Zero, Color.Green);
-                    if(intro ==3)
+                    if (intro == 3)
                         spriteBatch.Draw(TextureManager.introScreen4, Vector2.Zero, Color.Pink);
-           
+
                     break;
 
 
