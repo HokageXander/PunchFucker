@@ -23,6 +23,12 @@ namespace Johnny_Punch
         public static Texture2D menuBackground { get; private set; }
         public static Texture2D menuNewGame { get; private set; }
         public static Texture2D menuOptions { get; private set; }
+        public static Texture2D menuHow { get; private set; }
+        public static Texture2D menuMoves { get; private set; }
+        
+
+
+
         public static Texture2D menuQuit { get; private set; }
         public static Texture2D menuOnePlayer { get; private set; }
         public static Texture2D menuTwoPlayer { get; private set; }
@@ -35,6 +41,7 @@ namespace Johnny_Punch
         public static Texture2D pauseResume { get; private set; }
         public static Texture2D pauseMenu { get; private set; }
         public static Texture2D pauseQuest { get; private set; }
+        public static Texture2D pauseMenuHow { get; private set; }
 
 
         public static Texture2D endScreenTex { get; private set; }
@@ -115,7 +122,11 @@ namespace Johnny_Punch
             menuSound = Content.Load<Texture2D>(@"Images\MenuImages\MenuSound");
             menuSoundOn = Content.Load<Texture2D>(@"Images\MenuImages\MenuSoundOn");
             menuSoundOff = Content.Load<Texture2D>(@"Images\MenuImages\MenuSoundOff");
+            menuHow = Content.Load<Texture2D>(@"Images\MenuImages\MenuHow");
+            menuMoves = Content.Load<Texture2D>(@"Images\MenuImages\Moves");
             pauseMenu = Content.Load<Texture2D>(@"Images\MenuImages\pauseMenu");
+            pauseMenuHow = Content.Load<Texture2D>(@"Images\MenuImages\pauseMenuHow");
+
             pauseNo = Content.Load<Texture2D>(@"Images\MenuImages\MenuNo");
             pauseYes = Content.Load<Texture2D>(@"Images\MenuImages\MenuYes");
             pauseResume = Content.Load<Texture2D>(@"Images\MenuImages\MenuResume");

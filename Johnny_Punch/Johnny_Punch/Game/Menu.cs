@@ -17,13 +17,13 @@ namespace Johnny_Punch
         int menuNumber = 1;
         KeyboardState keyBoardState, oldKeyBoardState;
         GamePadState gamePadState, oldGamePadState;
-        public bool play, quit, sound = true;
+        public bool play, quit, howTo, sound = true;
 
 
 
         public enum MenuState
         {
-            MainMenu, NewGame, Options, Pause, PauseOptions, PauseQuit
+            MainMenu, NewGame, Options, HowToPlay, Pause, PauseOptions, PauseQuit
         }
         public MenuState menuState;
         public Menu(ContentManager Content)
@@ -55,7 +55,7 @@ namespace Johnny_Punch
                 }
                 if (menuNumber == 0 && menuState == MenuState.Options || menuNumber == 0 && menuState == MenuState.PauseOptions)
                 {
-                    menuNumber = 1;
+                    menuNumber = 2;
                 }
             }
             #endregion
@@ -72,10 +72,11 @@ namespace Johnny_Punch
                 {
                     menuNumber = 1;
                 }
-                if (menuNumber == 2 && menuState == MenuState.Options || menuNumber == 2 && menuState == MenuState.PauseOptions)
+                if (menuNumber == 3 && menuState == MenuState.Options || menuNumber == 3 && menuState == MenuState.PauseOptions)
                 {
                     menuNumber = 1;
                 }
+           
             }
             #endregion
 
@@ -140,12 +141,29 @@ namespace Johnny_Punch
                     {
                         sound = true;
                     }
+                    if (menuNumber == 2 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
+                        || (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)))
+                    {
+                        menuState = MenuState.HowToPlay;
+                    }
                     if ((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) ||
                         (gamePadState.Buttons.B == ButtonState.Pressed && oldGamePadState.Buttons.B == ButtonState.Released))
                     {
                         menuState = MenuState.MainMenu;
                         menuNumber = 1;
                     }
+                    
+                    break;
+                    #endregion
+                #region How To Play
+                case MenuState.HowToPlay:
+                    if ((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) ||
+                       (gamePadState.Buttons.B == ButtonState.Pressed && oldGamePadState.Buttons.B == ButtonState.Released))
+                    {
+                        menuState = MenuState.Options;
+                        menuNumber = 2;
+                    }
+
                     break;
                 #endregion
                 #region Pause
@@ -188,6 +206,20 @@ namespace Johnny_Punch
                         menuState = MenuState.Pause;
                         menuNumber = 2;
                     }
+
+                    if (menuNumber == 2 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
+                       (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)) && !howTo)
+                    {
+                        howTo = true;
+                    }
+                    if ((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) && howTo ||
+                        (gamePadState.Buttons.B == ButtonState.Pressed && oldGamePadState.Buttons.B == ButtonState.Released) )
+                    {
+                        howTo = false;
+                        menuState = MenuState.PauseOptions;
+                        menuNumber = 2;
+                    }
+
                     break;
                 #endregion
                 #region Pause Quit
@@ -272,17 +304,29 @@ namespace Johnny_Punch
                 case MenuState.Options:
                     if (menuNumber == 1)
                     {
-                        spriteBatch.Draw(TextureManager.menuSound, new Vector2(0, 200), Color.Red);
+                        spriteBatch.Draw(TextureManager.menuSound, new Vector2(252, 200), Color.Red);
                     }
                     else
-                        spriteBatch.Draw(TextureManager.menuSound, new Vector2(0, 200), Color.Yellow);
+                        spriteBatch.Draw(TextureManager.menuSound, new Vector2(252, 200), Color.Yellow);
 
                     if (sound)
                     {
-                        spriteBatch.Draw(TextureManager.menuSoundOn, new Vector2(900, 230), Color.Yellow);
+                        spriteBatch.Draw(TextureManager.menuSoundOn, new Vector2(1020, 230), Color.Yellow);
                     }
                     else
-                        spriteBatch.Draw(TextureManager.menuSoundOff, new Vector2(903, 227), Color.Yellow);
+                        spriteBatch.Draw(TextureManager.menuSoundOff, new Vector2(1023, 227), Color.Yellow);
+
+                    if (menuNumber == 2)
+                    {
+                        spriteBatch.Draw(TextureManager.menuHow, new Vector2(310, 350), Color.Red);
+                    }
+                    else
+                        spriteBatch.Draw(TextureManager.menuHow, new Vector2(310, 350), Color.Yellow);
+                    break;
+                #endregion
+                #region How To Play
+                case MenuState.HowToPlay:
+                    spriteBatch.Draw(TextureManager.menuMoves, new Vector2(290, 260), Color.White);
                     break;
                 #endregion
                 #region Pause
@@ -320,14 +364,26 @@ namespace Johnny_Punch
                     }
                     else
                         spriteBatch.Draw(TextureManager.menuSound, new Vector2(290, 200), Color.Yellow);
-
+                    
                     if (sound)
                     {
                         spriteBatch.Draw(TextureManager.menuSoundOn, new Vector2(800, 230), Color.Yellow);
                     }
                     else
                         spriteBatch.Draw(TextureManager.menuSoundOff, new Vector2(800, 227), Color.Yellow);                        
-                    break;
+                    
+                     if (menuNumber == 2)
+                     {
+                         spriteBatch.Draw(TextureManager.menuHow, new Vector2(335, 350), Color.Red);
+                     }
+                     else
+                         spriteBatch.Draw(TextureManager.menuHow, new Vector2(335, 350), Color.Yellow);
+                     if (howTo)
+                     {
+                         spriteBatch.Draw(TextureManager.pauseMenuHow, new Vector2(20, 25), Color.White);
+                     }
+                     
+                         break;
                 #endregion
                 #region Pause Quit
                 case MenuState.PauseQuit:
