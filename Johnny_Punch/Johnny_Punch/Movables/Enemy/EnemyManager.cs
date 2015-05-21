@@ -155,24 +155,24 @@ namespace Johnny_Punch
                         enemyList[j].hasHit = true;
                         if (enemyList[j].spriteEffect == SpriteEffects.FlipHorizontally)
                         {
-                            //playerManager.playerList[i].pos.X -= 2;
                             if (playerManager.playerList[i].life > 0)
                             {
                                 playerManager.playerList[i].life -= 1;
+                                AudioManager.Johnny_Aouch.Play();
+                                particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(enemyList[j].punchBox.X, enemyList[j].punchBox.Y), Color.DarkRed);
+                                break;
                             }
-                            //playerManager.playerList[i].life -= 1;
-                            AudioManager.Johnny_Aouch.Play();
-                            particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(enemyList[j].punchBox.X, enemyList[j].punchBox.Y), Color.DarkRed);
-
-                            break;
-
                         }
                         else
-                            //playerManager.playerList[i].pos.X += 2;
-                            playerManager.playerList[i].life -= 1;
-                        particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(enemyList[j].punchBox.X + enemyList[j].punchBox.Width, enemyList[j].punchBox.Y), Color.DarkRed);
-
-                        break;
+                        {
+                            if (playerManager.playerList[i].life > 0)
+                            {
+                                playerManager.playerList[i].life -= 1;
+                                particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(enemyList[j].punchBox.X + enemyList[j].punchBox.Width, enemyList[j].punchBox.Y), Color.DarkRed);
+                                AudioManager.Johnny_Aouch.Play();
+                                break;
+                            }
+                        }
                     }
                 }
             }
