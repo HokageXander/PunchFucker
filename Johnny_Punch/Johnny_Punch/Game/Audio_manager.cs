@@ -86,6 +86,13 @@ namespace Johnny_Punch
         
         #endregion
 
+        #region
+        public static SoundEffect Explosion { get; private set; }
+        public static SoundEffect Punch1 { get; private set; }
+        public static SoundEffect Punch2 { get; private set; }
+        public static SoundEffect Punch3 { get; private set; }
+        #endregion
+
 
         public static void LoadContent(ContentManager Content)
         {
@@ -158,6 +165,13 @@ namespace Johnny_Punch
             Tommy_Toodiloo = Content.Load<SoundEffect>(@"Audio\Tommy\Toodiloo");
             Tommy_WienerStrike = Content.Load<SoundEffect>(@"Audio\Tommy\WienerStrike");
             Tommy_YMCA = Content.Load<SoundEffect>(@"Audio\Tommy\YMCA");  
+            #endregion
+
+            #region
+            Explosion = Content.Load<SoundEffect>(@"Audio\SoundEffects\Explosion6");
+            Punch1 = Content.Load<SoundEffect>(@"Audio\SoundEffects\Punch1");
+            Punch2 = Content.Load<SoundEffect>(@"Audio\SoundEffects\Punch2");
+            Punch3 = Content.Load<SoundEffect>(@"Audio\SoundEffects\Punch3");
             #endregion
         }
     }

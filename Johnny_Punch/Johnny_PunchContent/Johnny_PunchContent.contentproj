@@ -394,7 +394,13 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Compile Include="Audio\SoundEffects\Explosion6.mp3">
+      <Name>Explosion6</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio\Intro\INTRO.mp3">
       <Name>INTRO</Name>
@@ -706,6 +712,23 @@
     </Compile>
     <Compile Include="Audio\Tommy\YMCA.mp3">
       <Name>YMCA</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio\SoundEffects\Punch1.mp3">
+      <Name>Punch1</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Audio\SoundEffects\Punch2.mp3">
+      <Name>Punch2</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+    <Compile Include="Audio\SoundEffects\Punch3.mp3">
+      <Name>Punch3</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>

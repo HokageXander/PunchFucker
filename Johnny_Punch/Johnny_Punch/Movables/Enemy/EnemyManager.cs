@@ -211,6 +211,7 @@ namespace Johnny_Punch
                 }
                 if (bossAttackList[j].frame >= 13 && bossAttackList[j] is Bomb)
                 {
+                    
                     bossAttackList.RemoveAt(j);
                 }
             }
@@ -238,6 +239,14 @@ namespace Johnny_Punch
                             playerManager.playerList[i].life -= 2;
                             particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerManager.playerList[i].pos.X, playerManager.playerList[i].pos.Y), Color.DarkRed);
 
+                            if ((playerManager.playerList[i] == playerManager.playerList[0]) && playerManager.playerList[0].life >= 1)
+                            {
+                                playerManager.playerList[0].PlayerOneHurt();
+                            }
+                            if (PlayerManager.players == 2 && (playerManager.playerList[i] == playerManager.playerList[1]) && playerManager.playerList[1].life >= 1)
+                            {
+                                playerManager.playerList[1].PlayerTwoHurt();
+                            }
                         }
                     }
                     else if (bossAttackList[j] is Bomb)
@@ -251,12 +260,20 @@ namespace Johnny_Punch
                         if (bossAttackList[j].boundingBox.Intersects(playerManager.playerList[i].boundingBox) && Ydistance <= 36
                             && bossAttackList[j].exploded && !bossAttackList[j].explosionHit)
                         {
+
                             bossAttackList[j].explosionHit = true;
                             playerManager.playerList[i].life -= 6;
                             particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerManager.playerList[i].pos.X, playerManager.playerList[i].pos.Y), Color.DarkRed);
 
+                            if ((playerManager.playerList[i] == playerManager.playerList[0]) && playerManager.playerList[0].life >= 1)
+                            {
+                                playerManager.playerList[0].PlayerOneHurt();
+                            }
+                            if (PlayerManager.players == 2 && (playerManager.playerList[i] == playerManager.playerList[1]) && playerManager.playerList[1].life >= 1)
+                            {
+                                playerManager.playerList[1].PlayerTwoHurt();
+                            }
                         }
-
                     }
                 }
             }
@@ -278,7 +295,6 @@ namespace Johnny_Punch
                         enemyList[j].punchBox = new Rectangle((int)enemyList[j].pos.X - 44, (int)enemyList[j].pos.Y - 65, 0, 0); //resettar slaget hitbox ovanför gubben igen
 
                         particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerManager.playerList[i].blockBox.X, playerManager.playerList[i].blockBox.Y + 50), Color.Blue);
-
                     }
                 }
             }

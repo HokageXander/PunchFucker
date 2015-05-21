@@ -78,6 +78,11 @@ namespace Johnny_Punch
 
                     if (intro == 5)
                         gameState = GameState.Menu;
+                    if ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter) ||
+                        gamePadState.Buttons.Start == ButtonState.Pressed && oldGamePadState.Buttons.Start == ButtonState.Released))
+                    {
+
+                    }
                     break;
 
                 case GameState.Menu:
