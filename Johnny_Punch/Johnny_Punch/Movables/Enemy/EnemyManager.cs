@@ -18,6 +18,7 @@ namespace Johnny_Punch
         public List<BossAttacks> bossAttackList = new List<BossAttacks>();
         public ParticleExplosion particleExplosion;
         bool spawn1, spawn2;
+        int waveNr = 1;
 
         public EnemyManager(GraphicsDevice graphicsDevice)
         {
@@ -153,33 +154,22 @@ namespace Johnny_Punch
                         && !(enemyList[j].punchBox.Intersects(playerManager.playerList[i].blockBox))) // om vi intersectar och vi står i samma y-led och vi inte har träffat än och vi är vid slutet av animationen
                     {
                         enemyList[j].hasHit = true;
-                        if (enemyList[j].spriteEffect == SpriteEffects.FlipHorizontally)
+                        if (playerManager.playerList[i].life > 0)
                         {
-                            if (playerManager.playerList[i].life > 0)
+                            playerManager.playerList[i].life -= 1;
+                            particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(enemyList[j].punchBox.X, enemyList[j].punchBox.Y), Color.DarkRed);
+                            if ((playerManager.playerList[i] == playerManager.playerList[0]) && playerManager.playerList[0].life >= 1)
                             {
-                                playerManager.playerList[i].life -= 1;                                
-                                particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(enemyList[j].punchBox.X, enemyList[j].punchBox.Y), Color.DarkRed);
-                                if (playerManager.playerList[i] == playerManager.playerList[0])
-                                {
-                                    playerManager.playerList[0].PlayerOneHurt();
-                                }
-                                break;
+                                playerManager.playerList[0].PlayerOneHurt();
                             }
-                        }
-                        else
-                        {
-                            if (playerManager.playerList[i].life > 0)
+                            if (PlayerManager.players == 2 && (playerManager.playerList[i] == playerManager.playerList[1]) && playerManager.playerList[1].life >= 1)
                             {
-                                playerManager.playerList[i].life -= 1;
-                                particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(enemyList[j].punchBox.X + enemyList[j].punchBox.Width, enemyList[j].punchBox.Y), Color.DarkRed);
-                                if (playerManager.playerList[i] == playerManager.playerList[0])
-                                {
-                                    playerManager.playerList[0].PlayerOneHurt();
-                                }
-                                break;
+                                playerManager.playerList[1].PlayerTwoHurt();
                             }
+                            break;
                         }
                     }
+
                 }
             }
         }
@@ -305,16 +295,37 @@ namespace Johnny_Punch
             {
                 LevelManager.levelEndPosX = 2450;
                 Camera.smooth = true;
+                if (waveNr == 1)
+                {
+                    AudioManager.Johnny_ICouldDoItAllNight.Play();
+                    waveNr++;
+                }
             }
             if (spawn1 && !spawn2 && enemyList.Count <= 0 && LevelManager.levelNr == 1)
             {
                 LevelManager.levelEndPosX = 3800;
                 Camera.smooth = true;
+                if (waveNr == 2)
+                {
+                    if (PlayerManager.players == 1)
+                        AudioManager.Johnny_FasterThenTheSpeedOfFight.Play();
+                    else
+                        AudioManager.Tommy_ImGonnaBeAnAngel.Play();
+                    waveNr++;
+                }
             }
             if (spawn1 && spawn2 && enemyList.Count <= 0)
             {
                 LevelManager.levelEndPosX = 5000;
                 Camera.smooth = true;
+                if (waveNr == 3)
+                {
+                    if (PlayerManager.players == 1)
+                        AudioManager.Johnny_FasterThenTheSpeedOfFight.Play();
+                    else
+                        AudioManager.Tommy_ImGonnaBeAnAngel.Play();
+                    waveNr++;
+                }
             }
             if (!spawn1 && !spawn2 && LevelManager.levelNr == 2)
             {

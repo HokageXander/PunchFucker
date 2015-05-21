@@ -151,6 +151,7 @@ namespace Johnny_Punch
                 animationBox.X = 0;
                 animationBox.Width = 125;
                 boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, 0, 0);
+                //feetBox = new Rectangle((int)pos.X - (int)49, (int)posJump.Y + (113 - 4) - (int)offset.Y, 0, 0);
                 playerRightBox = new Rectangle((int)pos.X + 5, (int)pos.Y + 35, 0, 0);
                 playerLeftBox = new Rectangle((int)pos.X - 30, (int)pos.Y + 35, 0, 0);
             }
@@ -388,9 +389,38 @@ namespace Johnny_Punch
 
             
         }
+
         public void PlayerTwoHurt()
         {
+            hurtSound = Game1.random.Next(1, 6);
 
+            if (!hurtTalk)
+            {
+                hurtTalk = true;
+                switch (hurtSound)
+                {
+                    case 1:
+                        AudioManager.Tommy_AH.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_AH.Duration.TotalMilliseconds);
+                        break;
+                    case 2:
+                        AudioManager.Tommy_Aooii.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_Aooii.Duration.TotalMilliseconds);
+                        break;
+                    case 3:
+                        AudioManager.Tommy_Ao.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_Ao.Duration.TotalMilliseconds);
+                        break;
+                    case 4:
+                        AudioManager.Tommy_Ouch.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_Ouch.Duration.TotalMilliseconds);
+                        break;
+                    case 5:
+                        AudioManager.Tommy_Ouh.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_Ouh.Duration.TotalMilliseconds);
+                        break;
+                }
+            }
         }
 
         public Vector2 GetPos

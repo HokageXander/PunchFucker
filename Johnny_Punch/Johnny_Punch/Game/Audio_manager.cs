@@ -139,7 +139,7 @@ namespace Johnny_Punch
             Tommy_AH = Content.Load<SoundEffect>(@"Audio\Tommy\AH");
             Tommy_Ahuuu = Content.Load<SoundEffect>(@"Audio\Tommy\Ahuuu");
             Tommy_Ao = Content.Load<SoundEffect>(@"Audio\Tommy\Ao");
-            Tommy_Ao = Content.Load<SoundEffect>(@"Audio\Tommy\Aoa");
+            Tommy_Aoa = Content.Load<SoundEffect>(@"Audio\Tommy\Aoa");
             Tommy_Aooii = Content.Load<SoundEffect>(@"Audio\Tommy\Aooii");
             Tommy_Auh = Content.Load<SoundEffect>(@"Audio\Tommy\Auh");
             Tommy_DirtyHands = Content.Load<SoundEffect>(@"Audio\Tommy\DirtyHands");

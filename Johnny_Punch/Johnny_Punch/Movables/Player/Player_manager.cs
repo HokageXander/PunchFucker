@@ -14,6 +14,7 @@ namespace Johnny_Punch
         public static int players = 1;
         public ParticleExplosion particleExplosion;
         double gameOverDelay;
+        public bool deathSound1, deathSound2;
         public PlayerManager()
         {
 
@@ -40,6 +41,21 @@ namespace Johnny_Punch
                 player.Update(gameTime);
             }
 
+            #region Om spelarna dör gör dom ljud
+            if (playerList[0].life <= 0 && !deathSound1)
+            {
+                AudioManager.Johnny_Oaaooooa.Play();
+                deathSound1 = true;
+            }
+            if (players == 2 && playerList[1].life <= 0 && !deathSound2)
+            {
+                AudioManager.Tommy_Aoa.Play();
+                deathSound2 = true;
+            }
+            //if(players == 2 && playerList[0].life <= 0 && playerList[1].life >= 1)
+            //    Camera.smooth = true;
+            #endregion
+            #region Spelare två kan inte försvinna från skärmen
             if (players == 2) //gör att spelare två inte kan försvinna från skärmen
                 if (playerList[0].pos.X >= playerList[1].pos.X + 712)
                 {
@@ -47,7 +63,7 @@ namespace Johnny_Punch
                 }
                 else
                     playerList[0].ableToMoveRight = true;
-
+            #endregion
             #region if Players Die
             if (players == 1)
             {

@@ -92,7 +92,7 @@ namespace Johnny_Punch
 
 
             int i = 0;
-            if (PlayerManager.players == 2)
+            if (PlayerManager.players == 2) //kollar avståndet mellan spelarna. Den med minst avstånd går fienden till
             {
                 float dist1 = Vector2.Distance(pos, player[0].pos);
                 float dist2 = Vector2.Distance(pos, player[1].pos);
@@ -100,15 +100,14 @@ namespace Johnny_Punch
                 if (dist1 > dist2)
                     i = 1;
             }
-
+            if (PlayerManager.players == 2 && player[0].dead) //om spelare ett dör går han direkt till spelare 2
+                    i = 1;
 
 
             Vector2 playerfeetPos = new Vector2(player[i].feetBox.X, player[i].feetBox.Y);
             if (Vector2.Distance(feetPos, playerfeetPos) < aggroRadius && !(feetBox.Intersects(player[i].playerRightBox) || feetBox.Intersects(player[i].playerLeftBox)))
             {
                 moving = true;
-
-
 
                 if (feetPos.X + feetBox.Width / 2 < playerfeetPos.X)
                 {
@@ -120,9 +119,6 @@ namespace Johnny_Punch
                     direction.X = player[i].playerRightPos.X - 3 - feetPos.X;
                     direction.Y = player[i].playerRightPos.Y - 3 - feetPos.Y;
                 }
-
-
-
 
                 direction.Normalize();
                 velocity.X = enemySpeed * direction.X;
