@@ -131,6 +131,16 @@ namespace Johnny_Punch
                         playerList[i].hasHit = true;
                         enemyManager.enemyList[j].stunned = true;
 
+                        #region Spelare gör ljud vid slag
+                        if ((playerList[i] == playerList[0]) && playerList[0].life >= 1 && enemyManager.enemyList[j].life <= 1)
+                        {
+                            playerList[0].PlayerOneKillHit();
+                        }
+                        if (PlayerManager.players == 2 && (playerList[i] == playerList[1]) && playerList[1].life >= 1 && enemyManager.enemyList[j].life <= 1)
+                        {
+                            playerList[1].PlayerTwoKillHit();
+                        }
+                        #endregion
                         if (playerList[i].spriteEffect == SpriteEffects.FlipHorizontally)
                         {
                             //enemyManager.enemyList[j].pos.X -= 2;

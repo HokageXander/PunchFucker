@@ -83,13 +83,14 @@ namespace Johnny_Punch
                 }
                 if (playerManager.playerList[j].pos.X > 3000 && !spawn2 && LevelManager.levelNr == 1)
                 {
-                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3300, 800)));
-                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2400, 450)));
-                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3200, 300)));
-                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3550, 550)));
-                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2800, 800)));
-                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3000, 800)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3300, 800)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2400, 450)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3200, 300)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3550, 550)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2800, 800)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3000, 800)));
                     spawn2 = true;
+                    if(!playerManager.playerList[0].dead)
                     AudioManager.Johnny_OhMommy.Play();
                 }
                 if (LevelManager.levelNr == 2 && spawn1 && spawn2)
