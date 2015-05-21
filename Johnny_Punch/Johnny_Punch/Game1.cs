@@ -18,6 +18,7 @@ namespace Johnny_Punch
         SpriteBatch spriteBatch;
         GameManager gameManager;
         Camera camera;
+        public static Random random;
         public static bool ready;
         float loadingRotation = 1;
         double loadingTime;
@@ -43,6 +44,7 @@ namespace Johnny_Punch
 
             gameManager.LoadContent(Content, GraphicsDevice, spriteBatch);
             camera = new Camera(GraphicsDevice.Viewport);
+            Game1.random = new Random();
         }
 
         protected override void UnloadContent()

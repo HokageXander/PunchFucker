@@ -157,9 +157,12 @@ namespace Johnny_Punch
                         {
                             if (playerManager.playerList[i].life > 0)
                             {
-                                playerManager.playerList[i].life -= 1;
-                                AudioManager.Johnny_Aouch.Play();
+                                playerManager.playerList[i].life -= 1;                                
                                 particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(enemyList[j].punchBox.X, enemyList[j].punchBox.Y), Color.DarkRed);
+                                if (playerManager.playerList[i] == playerManager.playerList[0])
+                                {
+                                    playerManager.playerList[0].PlayerOneHurt();
+                                }
                                 break;
                             }
                         }
@@ -169,7 +172,10 @@ namespace Johnny_Punch
                             {
                                 playerManager.playerList[i].life -= 1;
                                 particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(enemyList[j].punchBox.X + enemyList[j].punchBox.Width, enemyList[j].punchBox.Y), Color.DarkRed);
-                                AudioManager.Johnny_Aouch.Play();
+                                if (playerManager.playerList[i] == playerManager.playerList[0])
+                                {
+                                    playerManager.playerList[0].PlayerOneHurt();
+                                }
                                 break;
                             }
                         }

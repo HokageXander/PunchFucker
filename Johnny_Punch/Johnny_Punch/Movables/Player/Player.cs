@@ -15,9 +15,10 @@ namespace Johnny_Punch
         public Rectangle playerLeftBox, playerRightBox;
         public KeyboardState keyBoardState, oldKeyBoardState;
         float shadowScale;
-        int yLimitUp = 335, yLimitDown = 583;
+        int yLimitUp = 335, yLimitDown = 583, hurtSound;
         public PlayerIndex playerIndex;
-        public bool ableToMoveRight = true;
+        public bool ableToMoveRight = true, hurtTalk;
+        TimeSpan hurtTalkTimer;
 
         public Player(Texture2D tex, Vector2 pos, PlayerIndex playerIndex)
             : base(tex, pos)
@@ -51,6 +52,16 @@ namespace Johnny_Punch
             shadowScale = 1f - ((posJump.Y - pos.Y) * -0.01f);
             speed.X = 0;
 
+            if (hurtTalk)
+            {
+                if (hurtTalkTimer.TotalSeconds > 0)
+                    hurtTalkTimer = hurtTalkTimer.Subtract(gameTime.ElapsedGameTime);
+                else
+                {
+                    hurtTalk = false;
+                }
+
+            }
 
             if (!onGround || dead)
                 speed.Y += 0.14f;
@@ -238,8 +249,7 @@ namespace Johnny_Punch
                 }
 
                 if ((keyBoardState.IsKeyDown(Keys.Space) && oldKeyBoardState.IsKeyDown(Keys.Space) || GamePad.GetState(playerIndex).Buttons.A == ButtonState.Pressed) && onGround && !block) // här hoppar man
-                
-                {                    
+                {
                     posJump.Y = pos.Y; //när man hoppar svaras punkten man hoppade från i y-led. Man landar på den punkten i y-led sen
                     speed.Y = -3.2f;
                     onGround = false;
@@ -339,6 +349,48 @@ namespace Johnny_Punch
             }
             else
                 floatLayerNr = 0 + pos.Y * 0.0010f;
+        }
+
+        public void PlayerOneHurt()
+        {
+            hurtSound = Game1.random.Next(1, 6);
+
+            if (!hurtTalk) 
+            {
+                hurtTalk = true;
+                switch (hurtSound)
+                {
+                    case 1:
+                        AudioManager.Johnny_Aouch.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_Aouch.Duration.TotalMilliseconds);
+                        break;
+                    case 2:
+                        AudioManager.Johnny_cheater.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_cheater.Duration.TotalMilliseconds);
+                        break;
+                    case 3:
+                        AudioManager.Johnny_Eh.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_Eh.Duration.TotalMilliseconds);
+                        break;
+                    case 4:
+                        AudioManager.Johnny_Hmmmh.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_Hmmmh.Duration.TotalMilliseconds);
+                        break;
+                    case 5:
+                        AudioManager.Johnny_Wheiiii.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_Wheiiii.Duration.TotalMilliseconds);
+                        break;
+                }
+            }
+
+
+                
+
+            
+        }
+        public void PlayerTwoHurt()
+        {
+
         }
 
         public Vector2 GetPos

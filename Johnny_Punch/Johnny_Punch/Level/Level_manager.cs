@@ -179,9 +179,10 @@ namespace Johnny_Punch
                     Game1.ready = false; //fet loadingscreen
                 }
 
-                else if (playerManager.playerList[i].boundingBox.Intersects(nextLevelBox) && levelNr == 2)
+                else if (playerManager.playerList[i].boundingBox.Intersects(nextLevelBox) && levelNr == 2 && Boss.died)
                 {
                     end = true;
+                    enemyManager.bossAttackList.Clear();
                 }
             }
         }
