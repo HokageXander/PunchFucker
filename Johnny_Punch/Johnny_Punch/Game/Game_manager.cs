@@ -61,10 +61,10 @@ namespace Johnny_Punch
                     if (intro == 0)
                         MediaPlayer.Play(AudioManager.intro);
 
-                    if (introSwitch.TotalSeconds > 0) // sköter om hur många sekunder varje intro ska vara
+                    if (introSwitch.TotalSeconds > 0) 
                         introSwitch = introSwitch.Subtract(gameTime.ElapsedGameTime);
                     else
-                    { 
+                    {                                   // sköter om hur många sekunder varje intro ska vara
                         if (intro == 0)
                             introSwitch = TimeSpan.FromSeconds(20);
                         if (intro == 1)

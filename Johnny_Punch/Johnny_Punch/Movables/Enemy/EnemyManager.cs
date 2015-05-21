@@ -99,8 +99,8 @@ namespace Johnny_Punch
                         enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2600, 450)));
                         enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2000, 800)));
                         enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(1500, 300)));
-                        //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2600, 800)));
-                        //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(1000, 300)));
+                        enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2600, 800)));
+                        enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(1000, 300)));
                         spawn1 = true;
                     }
                 }
