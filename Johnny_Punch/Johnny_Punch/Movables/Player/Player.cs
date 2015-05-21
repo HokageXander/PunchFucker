@@ -369,7 +369,7 @@ namespace Johnny_Punch
         {
             hurtSound = Game1.random.Next(1, 6);
 
-            if (!hurtTalk) 
+            if (!hurtTalk)
             {
                 hurtTalk = true;
                 switch (hurtSound)
@@ -395,7 +395,7 @@ namespace Johnny_Punch
                         hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_Wheiiii.Duration.TotalMilliseconds);
                         break;
                 }
-            } 
+            }
         }
 
         public void PlayerTwoHurt()
@@ -435,33 +435,23 @@ namespace Johnny_Punch
             }
         }
 
-        public void PlayerOneHit()
+        public void Hit()
         {
-            hitSound = Game1.random.Next(1, 5);
+            hitSound = Game1.random.Next(1, 4);
 
-            if (!hitTalk)
+            switch (hitSound)
             {
-                hitTalk = true;
-                switch (hitSound)
-                {
-                    case 1:
-                        AudioManager.Johnny_LightsOut.Play();
-                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_LightsOut.Duration.TotalMilliseconds);
-                        break;
-                    case 2:
-                        AudioManager.Johnny_screamForMe.Play();
-                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_screamForMe.Duration.TotalMilliseconds);
-                        break;
-                    case 3:
-                        AudioManager.Johnny_takeThis.Play();
-                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_takeThis.Duration.TotalMilliseconds);
-                        break;
-                    case 4:
-                        AudioManager.Johnny_hurtMe.Play();
-                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_hurtMe.Duration.TotalMilliseconds);
-                        break;
-                }
-            } 
+                case 1:
+                    AudioManager.Punch1.Play();
+
+                    break;
+                case 2:
+                    AudioManager.Punch2.Play();
+                    break;
+                case 3:
+                    AudioManager.Punch3.Play();
+                    break;
+            }
         }
 
         public void PlayerOneKillHit()
@@ -489,38 +479,7 @@ namespace Johnny_Punch
             }
         }
 
-        public void PlayerTwoHit()
-        {
-            hitSound = Game1.random.Next(1, 6);
-
-            if (!hitTalk)
-            {
-                hitTalk = true;
-                switch (hitSound)
-                {
-                    case 1:
-                        AudioManager.Tommy_DirtyHands.Play();
-                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_DirtyHands.Duration.TotalMilliseconds);
-                        break;
-                    case 2:
-                        AudioManager.Tommy_WienerStrike.Play();
-                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_WienerStrike.Duration.TotalMilliseconds);
-                        break;
-                    case 3:
-                        AudioManager.Tommy_Nonononono.Play();
-                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_Nonononono.Duration.TotalMilliseconds);
-                        break;
-                    case 4:
-                        AudioManager.Tommy_LeaveMeAlone.Play();
-                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_LeaveMeAlone.Duration.TotalMilliseconds);
-                        break;
-                    case 5:
-                        AudioManager.Tommy_OhPlease.Play();
-                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_OhPlease.Duration.TotalMilliseconds);
-                        break;
-                }
-            } 
-        }
+        
 
         public void PlayerTwoKillHit()
         {

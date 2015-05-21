@@ -717,19 +717,26 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audio\SoundEffects\Punch1.mp3">
+    <Compile Include="Audio\SoundEffects\Punch1.wav">
       <Name>Punch1</Name>
-      <Importer>Mp3Importer</Importer>
+      <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Audio\SoundEffects\Punch2.mp3">
+    <Compile Include="Audio\SoundEffects\Punch2.wav">
       <Name>Punch2</Name>
-      <Importer>Mp3Importer</Importer>
+      <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Audio\SoundEffects\Punch3.mp3">
+    <Compile Include="Audio\SoundEffects\Punch3.wav">
       <Name>Punch3</Name>
-      <Importer>Mp3Importer</Importer>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio\Backgroundmusic\level.wav">
+      <Name>level</Name>
+      <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>

@@ -91,6 +91,7 @@ namespace Johnny_Punch
         public static SoundEffect Punch1 { get; private set; }
         public static SoundEffect Punch2 { get; private set; }
         public static SoundEffect Punch3 { get; private set; }
+        public static SoundEffect Level { get; private set; }
         #endregion
 
 
@@ -173,6 +174,8 @@ namespace Johnny_Punch
             Punch2 = Content.Load<SoundEffect>(@"Audio\SoundEffects\Punch2");
             Punch3 = Content.Load<SoundEffect>(@"Audio\SoundEffects\Punch3");
             #endregion
+
+            Level = Content.Load<SoundEffect>(@"Audio\backgroundmusic\level");
         }
     }
 }

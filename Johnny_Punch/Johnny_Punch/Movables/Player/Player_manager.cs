@@ -143,6 +143,7 @@ namespace Johnny_Punch
                         #endregion
                         if (playerList[i].spriteEffect == SpriteEffects.FlipHorizontally)
                         {
+                            playerList[0].Hit();
                             //enemyManager.enemyList[j].pos.X -= 2;
                             enemyManager.enemyList[j].life -= 1;
 
@@ -157,6 +158,7 @@ namespace Johnny_Punch
                         }
                         else
                         {
+                            playerList[0].Hit();
                             //enemyManager.enemyList[j].pos.X += 2;
                             particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[i].punchBox.X + playerList[i].punchBox.Width, playerList[i].punchBox.Y), Color.Red);
                             if (enemyManager.enemyList[j] is Boss)

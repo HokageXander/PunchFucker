@@ -13,14 +13,14 @@ namespace Johnny_Punch
 {
     class GameManager
     {
-
+        SoundEffectInstance LevelMusic;
         public Menu menu;
         public PlayerManager playerManager;
         EnemyManager enemyManager;
+        float musicVolume = 1f;
         LevelManager levelManager;
         KeyboardState keyBoardState, oldKeyBoardState;
         GamePadState gamePadState, oldGamePadState;
-
         public int firstDigitSeconds, secondDigitSeconds, firstDigitMinutes, secondDigitMinutes, firstDigitHours, secondDigitHours;
         public double time, digitSeconds;
         public int intro = 0; // vilket intro det är
@@ -36,12 +36,13 @@ namespace Johnny_Punch
         public void LoadContent(ContentManager Content, GraphicsDevice GraphicsDevice, SpriteBatch spriteBatch)
         {
             AudioManager.LoadContent(Content);
+            LevelMusic = AudioManager.Level.CreateInstance();
             TextureManager.LoadContent(Content);
             menu = new Menu(Content);
             enemyManager = new EnemyManager(GraphicsDevice);
             playerManager = new PlayerManager();
             levelManager = new LevelManager(Content);
-            gameState = GameState.Menu;
+            gameState = GameState.Intro;
             
             
         }
@@ -89,6 +90,10 @@ namespace Johnny_Punch
                     menu.Update(gameTime);
                     if (menu.play == true)
                     {
+                        LevelMusic.IsLooped = true;
+                        LevelMusic.Volume = musicVolume;
+                        LevelMusic.Play();
+                        
                         gameState = GameState.Play;
                         LevelManager.levelNr = 1;
                         enemyManager = new EnemyManager(GraphicsDevice); //allt under resettar och laddar in allt på nytt ifall man valt quit i pausmenyn
@@ -126,7 +131,19 @@ namespace Johnny_Punch
 
                     TotalPlayTime(gameTime);
 
-
+                    if (keyBoardState.IsKeyDown(Keys.NumPad8))
+                    {
+                        musicVolume += 0.02f;
+                        if (musicVolume > 1)
+                            musicVolume = 1;
+                    }
+                    else if (keyBoardState.IsKeyDown(Keys.NumPad2))
+                    {
+                       musicVolume -= 0.02f;
+                        if (musicVolume < 0)
+                            musicVolume = 0;
+                    }
+                    LevelMusic.Volume = musicVolume;
                     time += gameTime.ElapsedGameTime.TotalSeconds;
 
                     if (LevelManager.end)

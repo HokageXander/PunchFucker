@@ -170,10 +170,12 @@ namespace Johnny_Punch
                             if ((playerManager.playerList[i] == playerManager.playerList[0]) && playerManager.playerList[0].life >= 1)
                             {
                                 playerManager.playerList[0].PlayerOneHurt();
+                                playerManager.playerList[0].Hit();
                             }
                             if (PlayerManager.players == 2 && (playerManager.playerList[i] == playerManager.playerList[1]) && playerManager.playerList[1].life >= 1)
                             {
                                 playerManager.playerList[1].PlayerTwoHurt();
+                                playerManager.playerList[0].Hit();
                             }
                             break;
                         }
