@@ -15,10 +15,10 @@ namespace Johnny_Punch
         public Rectangle playerLeftBox, playerRightBox;
         public KeyboardState keyBoardState, oldKeyBoardState;
         float shadowScale;
-        int yLimitUp = 335, yLimitDown = 583, hurtSound;
+        int yLimitUp = 335, yLimitDown = 583, hurtSound, hitSound;
         public PlayerIndex playerIndex;
-        public bool ableToMoveRight = true, hurtTalk;
-        TimeSpan hurtTalkTimer;
+        public bool ableToMoveRight = true, hurtTalk, hitTalk;
+        TimeSpan hurtTalkTimer, hitTalkTimer;
 
         public Player(Texture2D tex, Vector2 pos, PlayerIndex playerIndex)
             : base(tex, pos)
@@ -52,6 +52,7 @@ namespace Johnny_Punch
             shadowScale = 1f - ((posJump.Y - pos.Y) * -0.01f);
             speed.X = 0;
 
+            #region Sound Timers & Bools
             if (hurtTalk)
             {
                 if (hurtTalkTimer.TotalSeconds > 0)
@@ -60,8 +61,18 @@ namespace Johnny_Punch
                 {
                     hurtTalk = false;
                 }
-
             }
+
+            if (hitTalk)
+            {
+                if (hitTalkTimer.TotalSeconds > 0)
+                    hitTalkTimer = hitTalkTimer.Subtract(gameTime.ElapsedGameTime);
+                else
+                {
+                    hitTalk = false;
+                }
+            }
+            #endregion
 
             if (!onGround || dead)
                 speed.Y += 0.14f;
@@ -382,17 +393,12 @@ namespace Johnny_Punch
                         hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_Wheiiii.Duration.TotalMilliseconds);
                         break;
                 }
-            }
-
-
-                
-
-            
+            } 
         }
 
         public void PlayerTwoHurt()
         {
-            hurtSound = Game1.random.Next(1, 6);
+            hurtSound = Game1.random.Next(1, 7);
 
             if (!hurtTalk)
             {
@@ -419,8 +425,73 @@ namespace Johnny_Punch
                         AudioManager.Tommy_Ouh.Play();
                         hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_Ouh.Duration.TotalMilliseconds);
                         break;
+                    case 6:
+                        AudioManager.Tommy_PleaseDont.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_PleaseDont.Duration.TotalMilliseconds);
+                        break;
                 }
             }
+        }
+
+        public void PlayerOneHit()
+        {
+            hitSound = Game1.random.Next(1, 15);
+
+            if (!hitTalk)
+            {
+                hitTalk = true;
+                switch (hitSound)
+                {
+                    case 1:
+                        AudioManager.Johnny_Aouch.Play();
+                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_LightsOut.Duration.TotalMilliseconds);
+                        break;
+                    case 2:
+                        AudioManager.Johnny_cheater.Play();
+                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_screamForMe.Duration.TotalMilliseconds);
+                        break;
+                    case 3:
+                        AudioManager.Johnny_Eh.Play();
+                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_takeThis.Duration.TotalMilliseconds);
+                        break;
+                    case 4:
+                        AudioManager.Johnny_Eh.Play();
+                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_hurtMe.Duration.TotalMilliseconds);
+                        break;
+                }
+            } 
+        }
+        public void PlayerTwoHit()
+        {
+            hitSound = Game1.random.Next(1, 17);
+
+            if (!hitTalk)
+            {
+                hitTalk = true;
+                switch (hitSound)
+                {
+                    case 1:
+                        AudioManager.Tommy_DirtyHands.Play();
+                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_DirtyHands.Duration.TotalMilliseconds);
+                        break;
+                    case 2:
+                        AudioManager.Tommy_WienerStrike.Play();
+                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_WienerStrike.Duration.TotalMilliseconds);
+                        break;
+                    case 3:
+                        AudioManager.Tommy_Nonononono.Play();
+                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_Nonononono.Duration.TotalMilliseconds);
+                        break;
+                    case 4:
+                        AudioManager.Tommy_LeaveMeAlone.Play();
+                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_LeaveMeAlone.Duration.TotalMilliseconds);
+                        break;
+                    case 5:
+                        AudioManager.Tommy_OhPlease.Play();
+                        hitTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Tommy_OhPlease.Duration.TotalMilliseconds);
+                        break;
+                }
+            } 
         }
 
         public Vector2 GetPos

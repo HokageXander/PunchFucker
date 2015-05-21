@@ -75,6 +75,11 @@ namespace Johnny_Punch
                     enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2000, 800)));
                     enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2650, 450)));
                     spawn1 = true; // måste göra boolen true, så går fienderna till en, och så spawnas det inte mer än vad som står åvan
+                    if (PlayerManager.players == 1)
+                        AudioManager.Johnny_screamForMe.Play();
+                    else
+                        AudioManager.Tommy_LickMyPeePee.Play();
+
                 }
                 if (playerManager.playerList[j].pos.X > 3000 && !spawn2 && LevelManager.levelNr == 1)
                 {
@@ -85,6 +90,7 @@ namespace Johnny_Punch
                     //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2800, 800)));
                     //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3000, 800)));
                     spawn2 = true;
+                    AudioManager.Johnny_OhMommy.Play();
                 }
                 if (LevelManager.levelNr == 2 && spawn1 && spawn2)
                 {
@@ -100,9 +106,11 @@ namespace Johnny_Punch
                         enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2600, 450)));
                         enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2000, 800)));
                         enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(1500, 300)));
-                        enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2600, 800)));
-                        enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(1000, 300)));
+                        //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2600, 800)));
+                        //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(1000, 300)));
                         spawn1 = true;
+                        if (PlayerManager.players == 2)
+                            AudioManager.Tommy_YMCA.Play();
                     }
                 }
             }
@@ -321,9 +329,9 @@ namespace Johnny_Punch
                 if (waveNr == 3)
                 {
                     if (PlayerManager.players == 1)
-                        AudioManager.Johnny_FasterThenTheSpeedOfFight.Play();
+                        AudioManager.Johnny_NoTimeForButt.Play();
                     else
-                        AudioManager.Tommy_ImGonnaBeAnAngel.Play();
+                        AudioManager.Tommy_Toodiloo.Play();
                     waveNr++;
                 }
             }
