@@ -14,7 +14,7 @@ namespace Johnny_Punch
         protected Vector2 velocity, direction;
         public int damageToPlayer;
         protected float enemySpeed, scale;
-        Color color;
+        public Color color;
         public double bossShootTimer, bossDropBombTimer;
         bool enraged = false;
 

@@ -24,7 +24,7 @@ namespace Johnny_Punch
         public int firstDigitSeconds, secondDigitSeconds, firstDigitMinutes, secondDigitMinutes, firstDigitHours, secondDigitHours;
         public double time, digitSeconds;
         public int intro = 0; // vilket intro det är
-        public double introTimer = 5f; // introTimer bestämmer tiden för de olika introbilderna
+         
         public TimeSpan introSwitch;
 
         public enum GameState
@@ -35,47 +35,48 @@ namespace Johnny_Punch
 
         public void LoadContent(ContentManager Content, GraphicsDevice GraphicsDevice, SpriteBatch spriteBatch)
         {
+            AudioManager.LoadContent(Content);
             TextureManager.LoadContent(Content);
             menu = new Menu(Content);
             enemyManager = new EnemyManager(GraphicsDevice);
             playerManager = new PlayerManager();
             levelManager = new LevelManager(Content);
             gameState = GameState.Menu;
-
-            introSwitch = TimeSpan.FromSeconds(introTimer);
+            
+            
         }
 
         public void Update(GameTime gameTime, GraphicsDevice GraphicsDevice, ContentManager Content)
         {
             oldKeyBoardState = keyBoardState;
             keyBoardState = Keyboard.GetState();
-
             oldGamePadState = gamePadState;
             gamePadState = GamePad.GetState(PlayerIndex.One);
-
             Console.WriteLine(introSwitch);
 
             switch (gameState)
             {
                 case GameState.Intro:
 
+                    if (intro == 0)
+                        MediaPlayer.Play(AudioManager.intro);
 
                     if (introSwitch.TotalSeconds > 0) // sköter om hur många sekunder varje intro ska vara
                         introSwitch = introSwitch.Subtract(gameTime.ElapsedGameTime);
                     else
-                    {
+                    { 
                         if (intro == 0)
-                            introSwitch = TimeSpan.FromSeconds(2);
+                            introSwitch = TimeSpan.FromSeconds(20);
                         if (intro == 1)
-                            introSwitch = TimeSpan.FromSeconds(3);
+                            introSwitch = TimeSpan.FromSeconds(13);
                         if (intro == 2)
-                            introSwitch = TimeSpan.FromSeconds(4);
-                        if (intro == 3)
                             introSwitch = TimeSpan.FromSeconds(5);
+                        if (intro == 3)
+                            introSwitch = TimeSpan.FromSeconds(14);
                         intro++;
                     }
 
-                    if (intro == 4)
+                    if (intro == 5)
                         gameState = GameState.Menu;
                     break;
 
@@ -215,14 +216,13 @@ namespace Johnny_Punch
             {
                 case GameState.Intro:
 
-
-                    if (intro == 0)                                                           // vilket intro som ska visas
+                    if (intro == 1)                                                           // vilket intro som ska visas
                         spriteBatch.Draw(TextureManager.introScreen1, Vector2.Zero, Color.Red);
-                    if (intro == 1)
-                        spriteBatch.Draw(TextureManager.introScreen2, Vector2.Zero, Color.Blue);
                     if (intro == 2)
-                        spriteBatch.Draw(TextureManager.introScreen3, Vector2.Zero, Color.Green);
+                        spriteBatch.Draw(TextureManager.introScreen2, Vector2.Zero, Color.Blue);
                     if (intro == 3)
+                        spriteBatch.Draw(TextureManager.introScreen3, Vector2.Zero, Color.Green);
+                    if (intro == 4)
                         spriteBatch.Draw(TextureManager.introScreen4, Vector2.Zero, Color.Pink);
 
                     break;

@@ -69,7 +69,7 @@ namespace Johnny_Punch
                         LevelManager.end = true;
                 }
             }
-#endregion
+            #endregion
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -160,7 +160,7 @@ namespace Johnny_Punch
         {
             for (int i = 0; i < playerList.Count; i++)
             {
-                if (playerList[i].posJump.Y <= 300 && playerList[i].onGround)
+                if (playerList[i].posJump.Y <= 300 && playerList[i].onGround && LevelManager.levelNr == 2)
                 {
                     playerList[i].life -= 0.012f;
 
