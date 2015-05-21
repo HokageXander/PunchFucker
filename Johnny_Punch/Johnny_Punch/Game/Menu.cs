@@ -200,8 +200,8 @@ namespace Johnny_Punch
                         sound = true;
                         menuNumber = 1;
                     }
-                    if ((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) ||
-                        (gamePadState.Buttons.B == ButtonState.Pressed && oldGamePadState.Buttons.B == ButtonState.Released))
+                    if (((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) ||
+                        (gamePadState.Buttons.B == ButtonState.Pressed && oldGamePadState.Buttons.B == ButtonState.Released)) && !howTo)
                     {
                         menuState = MenuState.Pause;
                         menuNumber = 2;
@@ -212,8 +212,8 @@ namespace Johnny_Punch
                     {
                         howTo = true;
                     }
-                    if ((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) && howTo ||
-                        (gamePadState.Buttons.B == ButtonState.Pressed && oldGamePadState.Buttons.B == ButtonState.Released) )
+                    if (((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) ||
+                        (gamePadState.Buttons.B == ButtonState.Pressed && oldGamePadState.Buttons.B == ButtonState.Released)) && howTo)
                     {
                         howTo = false;
                         menuState = MenuState.PauseOptions;
