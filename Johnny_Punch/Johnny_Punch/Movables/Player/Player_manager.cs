@@ -135,7 +135,12 @@ namespace Johnny_Punch
                         {
                             //enemyManager.enemyList[j].pos.X -= 2;
                             enemyManager.enemyList[j].life -= 1;
+
+                            if (enemyManager.enemyList[j] is Boss)
+                                enemyManager.enemyList[j].BossHurt();
+
                             particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[i].punchBox.X, playerList[i].punchBox.Y), Color.Red);
+                            
                             break;
 
                         }
@@ -143,7 +148,8 @@ namespace Johnny_Punch
                         {
                             //enemyManager.enemyList[j].pos.X += 2;
                             particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[i].punchBox.X + playerList[i].punchBox.Width, playerList[i].punchBox.Y), Color.Red);
-
+                            if (enemyManager.enemyList[j] is Boss)
+                                enemyManager.enemyList[j].BossHurt();
                             enemyManager.enemyList[j].life -= 1;
                         }
                         break;

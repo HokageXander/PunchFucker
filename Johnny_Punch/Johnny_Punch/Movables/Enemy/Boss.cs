@@ -11,8 +11,10 @@ namespace Johnny_Punch
     class Boss : Enemy
     {
         public static bool bossEngaged, shootLeft, shootRight, dropBomb, died;
-        public bool firstWalk = true;
+        public bool firstWalk = true, dropTalk, shootTalk;
         Rectangle topLeft, bottomLeft, topRight, bottomRight;
+        int dropSound, shootInt;
+        TimeSpan dropTalkTimer, shootTalkTimer;
 
         public Boss(Texture2D tex, Vector2 pos)
             : base(tex, pos)
@@ -35,6 +37,28 @@ namespace Johnny_Punch
             bottomLeft = new Rectangle(LevelManager.levelEndPosX - 1247, 573, 50, 50);
             topRight = new Rectangle(LevelManager.levelEndPosX + 2, 280, 50, 50);
             bottomRight = new Rectangle(LevelManager.levelEndPosX - 10, 573, 50, 50);
+
+
+            if (dropTalk)
+            {
+                if (dropTalkTimer.TotalSeconds > 0)
+                    dropTalkTimer = dropTalkTimer.Subtract(gameTime.ElapsedGameTime);
+                else
+                {
+                    dropTalk = false;
+                }
+
+            }
+            if (shootTalk)
+            {
+                if (shootTalkTimer.TotalSeconds > -2)
+                    shootTalkTimer = shootTalkTimer.Subtract(gameTime.ElapsedGameTime);
+                else
+                {
+                    shootTalk = false;
+                }
+
+            }
 
             if (bossEngaged)
                 BossMovement();
@@ -79,7 +103,7 @@ namespace Johnny_Punch
             //spriteBatch.Draw(tex, bottomLeft, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
             //spriteBatch.Draw(tex, bottomRight, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
 
-            
+
         }
 
         public void BossMovement()
@@ -110,6 +134,7 @@ namespace Johnny_Punch
             #region När han når övre högra hörnet
             if (boundingBox.Intersects(topRight))
             {
+                BossShootSound();
                 direction = new Vector2(bottomRight.X, bottomRight.Y) - pos;
                 direction.Normalize();
 
@@ -123,6 +148,7 @@ namespace Johnny_Punch
             #region När han når nedre högra hörnet
             if (boundingBox.Intersects(bottomRight))
             {
+                BossBombDropSound();
                 direction = new Vector2(topLeft.X + 50, topLeft.Y) - pos;
                 direction.Normalize();
 
@@ -136,6 +162,7 @@ namespace Johnny_Punch
             #region När han når övre vänstra hörnet
             if (boundingBox.Intersects(topLeft))
             {
+                BossShootSound();
                 direction = new Vector2(bottomLeft.X + 50, bottomLeft.Y) - pos;
                 direction.Normalize();
 
@@ -150,6 +177,7 @@ namespace Johnny_Punch
             #region När han når nedre vänstra hörnet
             if (boundingBox.Intersects(bottomLeft))
             {
+                BossBombDropSound();
                 direction = new Vector2(topRight.X, topRight.Y) - pos;
                 direction.Normalize();
 
@@ -162,6 +190,61 @@ namespace Johnny_Punch
             #endregion
         }
 
+        public void BossBombDropSound()
+        {
+            dropSound = Game1.random.Next(1, 8);
 
+            if (!dropTalk)
+            {
+                dropTalk = true;
+                switch (dropSound)
+                {
+                    case 1:
+                        AudioManager.Mingy_BOMBSBOMBSBOMPS.Play();
+                        dropTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Mingy_BOMBSBOMBSBOMPS.Duration.TotalMilliseconds);
+                        break;
+                    case 2:
+                        AudioManager.Mingy_TheresGonnaBeAnExplosion.Play();
+                        dropTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Mingy_TheresGonnaBeAnExplosion.Duration.TotalMilliseconds);
+                        break;
+                        
+                    case 3:
+                        AudioManager.Mingy_IAmAGamechanger.Play();
+                        dropTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Mingy_IAmAGamechanger.Duration.TotalMilliseconds);
+                        break;   
+
+                    case 4:
+                        AudioManager.Mingy_ooohMingyMongoDoId.Play();
+                        dropTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Mingy_ooohMingyMongoDoId.Duration.TotalMilliseconds);
+                        break;   
+                }
+            }
+        }
+
+        public void BossShootSound()
+        {
+            shootInt = Game1.random.Next(1, 7);
+
+            if (!shootTalk)
+            {
+                shootTalk = true;
+                switch (shootInt)
+                {
+                    case 1:
+                        AudioManager.Mingy_respectTheMyngi.Play();
+                        shootTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Mingy_respectTheMyngi.Duration.TotalMilliseconds);
+                        break;
+
+                    case 2:
+                        AudioManager.Mingy_CatchThis.Play();
+                        shootTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Mingy_CatchThis.Duration.TotalMilliseconds);
+                        break;
+                    case 3:
+                        AudioManager.Mingy_Myngux2Moh.Play();
+                        shootTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Mingy_Myngux2Moh.Duration.TotalMilliseconds);
+                        break;
+                }
+            }
+        }
     }
 }

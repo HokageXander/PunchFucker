@@ -12,11 +12,13 @@ namespace Johnny_Punch
 
         protected int aggroRadius;
         protected Vector2 velocity, direction;
-        public int damageToPlayer;
+        public int damageToPlayer, hurtSound;
         protected float enemySpeed, scale;
         public Color color;
         public double bossShootTimer, bossDropBombTimer;
-        bool enraged = false;
+        bool enraged = false, hurtTalk;
+        private TimeSpan hurtTalkTimer;
+
 
         public Enemy(Texture2D tex, Vector2 pos)
             : base(tex, pos)
@@ -27,6 +29,18 @@ namespace Johnny_Punch
 
         public override void Update(GameTime gameTime)
         {
+
+
+            if (hurtTalk)
+            {
+                if (hurtTalkTimer.TotalSeconds > 0)
+                    hurtTalkTimer = hurtTalkTimer.Subtract(gameTime.ElapsedGameTime);
+                else
+                {
+                    hurtTalk = false;
+                }
+
+            }
             if (!dead)
             {
                 //boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, width, height);
@@ -310,12 +324,52 @@ namespace Johnny_Punch
         public void BossDropBomb(List<BossAttacks> bossAttacksList, GameTime gameTime)
         {
             bossDropBombTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
-
+  
             if (bossDropBombTimer >= 700)
             {
+
+                
                 bossDropBombTimer = 0;
                 bossAttacksList.Add(new Bomb(TextureManager.bombTex, new Vector2(pos.X, pos.Y), TextureManager.explosionTex));
             }
+        }
+
+        public void BossHurt()
+        {
+            hurtSound = Game1.random.Next(1, 7);
+
+            if (!hurtTalk)
+            {
+                hurtTalk = true;
+                switch (hurtSound)
+                {
+                    case 1:
+                        AudioManager.Mingy_CutItOute.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Mingy_CutItOute.Duration.TotalMilliseconds);
+                        break;
+                    case 2:
+                        AudioManager.Mingy_keepTryin.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Mingy_keepTryin.Duration.TotalMilliseconds);
+                        break;
+                    case 3:
+                        AudioManager.Mingy_Ouch.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Mingy_Ouch.Duration.TotalMilliseconds);
+                        break;
+                    case 4:
+                        AudioManager.Mingy_niceTry.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Mingy_niceTry.Duration.TotalMilliseconds);
+                        break;
+                    case 5:
+                        AudioManager.Mingy_mjlk.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Mingy_mjlk.Duration.TotalMilliseconds);
+                        break;
+                    case 6:
+                        AudioManager.Mingy_ScrewThis.Play();
+                        hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Mingy_ScrewThis.Duration.TotalMilliseconds);
+                        break;
+                }
+            }
+
         }
     }
 }
