@@ -206,6 +206,7 @@ namespace Johnny_Punch
                 if (enemyList[i] is Boss && Boss.shootRight)
                 {
                     enemyList[i].BossShoot(bossAttackList, gameTime, -1);
+
                 }
                 if (enemyList[i] is Boss && Boss.dropBomb)
                 {
@@ -216,11 +217,11 @@ namespace Johnny_Punch
             #region Remove Boss Attacks
             for (int j = 0; j < bossAttackList.Count; j++)
             {
-                if (bossAttackList[j].bulletTimer >= 3.5f && bossAttackList[j] is Bullet)
+                if (bossAttackList[j].bulletTimer >= 3.5f && bossAttackList[j] is Bullet )
                 {
                     bossAttackList.RemoveAt(j);
                 }
-                if (bossAttackList[j].frame >= 13 && bossAttackList[j] is Bomb)
+                if (bossAttackList[j].frame >= 13 && bossAttackList[j] is Bomb  )
                 {
                     
                     bossAttackList.RemoveAt(j);

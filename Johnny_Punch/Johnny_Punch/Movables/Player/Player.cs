@@ -19,6 +19,7 @@ namespace Johnny_Punch
         public PlayerIndex playerIndex;
         public bool ableToMoveRight = true, hurtTalk, hitTalk;
         TimeSpan hurtTalkTimer, hitTalkTimer;
+        
 
         public Player(Texture2D tex, Vector2 pos, PlayerIndex playerIndex)
             : base(tex, pos)
@@ -267,6 +268,7 @@ namespace Johnny_Punch
                     posJump.Y = pos.Y; //när man hoppar svaras punkten man hoppade från i y-led. Man landar på den punkten i y-led sen
                     speed.Y = -3.2f;
                     onGround = false;
+                    AudioManager.Jump.Play();
                 }
                 #endregion
             }
@@ -275,6 +277,7 @@ namespace Johnny_Punch
 
         public void Fight(GameTime gameTime)
         {
+
             if (fight)
             {
                 fightTime += gameTime.ElapsedGameTime.TotalMilliseconds;
@@ -293,7 +296,6 @@ namespace Johnny_Punch
                 fight = true;
                 punch = true;
                 fightingCooldown = 0;
-
             }
             if (punch)
             {
@@ -306,7 +308,6 @@ namespace Johnny_Punch
                 }
                 else
                     punchBox = new Rectangle((int)pos.X - 40 + (fightFrame * 8), (int)pos.Y - 25, 50, 20);
-
             }
             if (punch && fightFrame >= 3)
             {
@@ -319,7 +320,6 @@ namespace Johnny_Punch
             }
 
             #endregion
-
         }
 
         public void Block(GameTime gameTime)
@@ -344,7 +344,6 @@ namespace Johnny_Punch
                 else
                     blockBox = new Rectangle((int)pos.X, (int)pos.Y - 50, 35, height);
 
-
             }
             if (block && blockTimer >= 500)
             {
@@ -366,7 +365,7 @@ namespace Johnny_Punch
         }
 
         public void PlayerOneHurt()
-        {
+        {   
             hurtSound = Game1.random.Next(1, 6);
 
             if (!hurtTalk)
@@ -393,7 +392,7 @@ namespace Johnny_Punch
                     case 5:
                         AudioManager.Johnny_Wheiiii.Play();
                         hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_Wheiiii.Duration.TotalMilliseconds);
-                        break;
+                        break;         
                 }
             }
         }
@@ -479,8 +478,6 @@ namespace Johnny_Punch
             }
         }
 
-        
-
         public void PlayerTwoKillHit()
         {
             hitSound = Game1.random.Next(1, 6);
@@ -529,6 +526,5 @@ namespace Johnny_Punch
                 return boundingBox;
             }
         }
-
     }
 }

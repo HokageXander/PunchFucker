@@ -14,6 +14,8 @@ namespace Johnny_Punch
 {
     public static class AudioManager
     {
+       
+
         public static Song intro { get; private set; }
 
         #region Johnnys voice
@@ -86,19 +88,30 @@ namespace Johnny_Punch
         
         #endregion
 
-        #region
+        #region EffectSound
         public static SoundEffect Explosion { get; private set; }
         public static SoundEffect Punch1 { get; private set; }
         public static SoundEffect Punch2 { get; private set; }
         public static SoundEffect Punch3 { get; private set; }
         public static SoundEffect Level { get; private set; }
+        public static SoundEffect MenuMusic { get; private set; }
+        public static SoundEffect MenuMove { get; private set; }
+        public static SoundEffect MenuBack { get; private set; }
+        public static SoundEffect Win { get; private set; }
+        public static SoundEffect Eat { get; private set; }
+        public static SoundEffect Bullet { get; private set; }
+        public static SoundEffect Jump { get; private set; }
+
+
+
+
         #endregion
 
 
         public static void LoadContent(ContentManager Content)
         {
             intro = Content.Load<Song>(@"Audio\Intro\INTRO");
-
+            
             #region Johnnys voice
             Johnny_Aouch = Content.Load<SoundEffect>(@"Audio\Johnny\Aouch");
             Johnny_cheater = Content.Load<SoundEffect>(@"Audio\Johnny\cheater");
@@ -168,14 +181,24 @@ namespace Johnny_Punch
             Tommy_YMCA = Content.Load<SoundEffect>(@"Audio\Tommy\YMCA");  
             #endregion
 
-            #region
-            Explosion = Content.Load<SoundEffect>(@"Audio\SoundEffects\Explosion6");
+            #region SoundEffect
+            Explosion = Content.Load<SoundEffect>(@"Audio\SoundEffects\Explosion");
             Punch1 = Content.Load<SoundEffect>(@"Audio\SoundEffects\Punch1");
             Punch2 = Content.Load<SoundEffect>(@"Audio\SoundEffects\Punch2");
             Punch3 = Content.Load<SoundEffect>(@"Audio\SoundEffects\Punch3");
+            Eat = Content.Load<SoundEffect>(@"Audio\SoundEffects\Eat");
+            Level = Content.Load<SoundEffect>(@"Audio\backgroundmusic\level");
+            MenuMusic = Content.Load<SoundEffect>(@"Audio\backgroundmusic\MenuMusic");
+            MenuMove = Content.Load<SoundEffect>(@"Audio\backgroundmusic\MenuMove");
+            MenuBack = Content.Load<SoundEffect>(@"Audio\backgroundmusic\MenuBack");
+            Win = Content.Load<SoundEffect>(@"Audio\backgroundmusic\Win");
+            Bullet = Content.Load<SoundEffect>(@"Audio\SoundEffects\bullet");
+            Jump = Content.Load<SoundEffect>(@"Audio\SoundEffects\Jump");
+
             #endregion
 
-            Level = Content.Load<SoundEffect>(@"Audio\backgroundmusic\level");
+
+
         }
     }
 }

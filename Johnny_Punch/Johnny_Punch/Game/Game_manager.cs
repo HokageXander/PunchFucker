@@ -13,7 +13,7 @@ namespace Johnny_Punch
 {
     class GameManager
     {
-        SoundEffectInstance LevelMusic;
+        SoundEffectInstance LevelMusic, MenuMusic;
         public Menu menu;
         public PlayerManager playerManager;
         EnemyManager enemyManager;
@@ -24,7 +24,7 @@ namespace Johnny_Punch
         public int firstDigitSeconds, secondDigitSeconds, firstDigitMinutes, secondDigitMinutes, firstDigitHours, secondDigitHours;
         public double time, digitSeconds;
         public int intro = 0; // vilket intro det är
-         
+
         public TimeSpan introSwitch;
 
         public enum GameState
@@ -36,15 +36,18 @@ namespace Johnny_Punch
         public void LoadContent(ContentManager Content, GraphicsDevice GraphicsDevice, SpriteBatch spriteBatch)
         {
             AudioManager.LoadContent(Content);
+
             LevelMusic = AudioManager.Level.CreateInstance();
+            MenuMusic = AudioManager.MenuMusic.CreateInstance();
+
             TextureManager.LoadContent(Content);
             menu = new Menu(Content);
             enemyManager = new EnemyManager(GraphicsDevice);
             playerManager = new PlayerManager();
             levelManager = new LevelManager(Content);
             gameState = GameState.Intro;
-            
-            
+
+
         }
 
         public void Update(GameTime gameTime, GraphicsDevice GraphicsDevice, ContentManager Content)
@@ -58,11 +61,13 @@ namespace Johnny_Punch
             switch (gameState)
             {
                 case GameState.Intro:
+                    LevelMusic.IsLooped = true;
 
+                    MenuMusic.IsLooped = true;
                     if (intro == 0)
                         MediaPlayer.Play(AudioManager.intro);
 
-                    if (introSwitch.TotalSeconds > 0) 
+                    if (introSwitch.TotalSeconds > 0)
                         introSwitch = introSwitch.Subtract(gameTime.ElapsedGameTime);
                     else
                     {                                   // sköter om hur många sekunder varje intro ska vara
@@ -78,22 +83,38 @@ namespace Johnny_Punch
                     }
 
                     if (intro == 5)
+                    {
                         gameState = GameState.Menu;
+                    }
+
                     if ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter) ||
                         gamePadState.Buttons.Start == ButtonState.Pressed && oldGamePadState.Buttons.Start == ButtonState.Released))
                     {
-
+                        gameState = GameState.Menu;
                     }
                     break;
 
                 case GameState.Menu:
+
+                    MediaPlayer.Stop();
+
+                    if (!menu.sound)
+                    {
+                        MenuMusic.Volume = musicVolume - 1;
+                        LevelMusic.Volume = musicVolume - 1;
+                    }
+                    else
+                        MenuMusic.Volume = musicVolume;
+                    MenuMusic.Play();
+                    LevelMusic.Stop();
+
                     menu.Update(gameTime);
+
                     if (menu.play == true)
                     {
-                        LevelMusic.IsLooped = true;
-                        LevelMusic.Volume = musicVolume;
+
                         LevelMusic.Play();
-                        
+
                         gameState = GameState.Play;
                         LevelManager.levelNr = 1;
                         enemyManager = new EnemyManager(GraphicsDevice); //allt under resettar och laddar in allt på nytt ifall man valt quit i pausmenyn
@@ -105,6 +126,7 @@ namespace Johnny_Punch
                     break;
 
                 case GameState.Play:
+                    MenuMusic.Stop();
                     if (Game1.ready && (keyBoardState.IsKeyDown(Keys.P) && oldKeyBoardState.IsKeyUp(Keys.P) ||
                         gamePadState.Buttons.Start == ButtonState.Pressed && oldGamePadState.Buttons.Start == ButtonState.Released))
                     {
@@ -139,19 +161,35 @@ namespace Johnny_Punch
                     }
                     else if (keyBoardState.IsKeyDown(Keys.NumPad2))
                     {
-                       musicVolume -= 0.02f;
+                        musicVolume -= 0.02f;
                         if (musicVolume < 0)
                             musicVolume = 0;
                     }
-                    LevelMusic.Volume = musicVolume;
+
+                    if (!menu.sound)
+                    {
+                        LevelMusic.Volume = musicVolume - 1;
+                    }
+                    else
+                        LevelMusic.Volume = musicVolume;
+
+
                     time += gameTime.ElapsedGameTime.TotalSeconds;
 
                     if (LevelManager.end)
                         gameState = GameState.End;
+
                     break;
 
                 case GameState.Pause:
                     menu.Update(gameTime);
+
+                    if (!menu.sound)
+                    {
+                        LevelMusic.Volume = musicVolume - 1;
+                    }
+                    else
+                        LevelMusic.Volume = musicVolume;
 
                     if (menu.play == true)
                         gameState = GameState.Play;
@@ -169,7 +207,7 @@ namespace Johnny_Punch
                 case GameState.End:
 
                     menu.play = false;
-
+                    LevelMusic.Stop();
                     if ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter) ||
                         gamePadState.Buttons.Start == ButtonState.Pressed && oldGamePadState.Buttons.Start == ButtonState.Released))
                     {
@@ -272,8 +310,12 @@ namespace Johnny_Punch
                 case GameState.End:
 
                     if (Boss.died)
+                    {
+
                         spriteBatch.Draw(TextureManager.endScreenTex, Vector2.Zero, Color.White);
+                    }
                     else
+
                         spriteBatch.Draw(TextureManager.gameOverScreenTex, Vector2.Zero, Color.White);
 
                     break;

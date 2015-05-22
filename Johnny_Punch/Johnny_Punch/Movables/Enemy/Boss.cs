@@ -192,7 +192,7 @@ namespace Johnny_Punch
 
         public void BossBombDropSound()
         {
-            dropSound = Game1.random.Next(1, 8);
+            dropSound = Game1.random.Next(1, 5);
 
             if (!dropTalk)
             {
@@ -223,7 +223,7 @@ namespace Johnny_Punch
 
         public void BossShootSound()
         {
-            shootInt = Game1.random.Next(1, 7);
+            shootInt = Game1.random.Next(1, 4);
 
             if (!shootTalk)
             {

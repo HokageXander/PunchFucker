@@ -185,6 +185,8 @@ namespace Johnny_Punch
                         if (playerList[i].life >= 9 && playerList[i].life >= 10)
                             playerList[i].life = 10;
 
+                        AudioManager.Eat.Play();
+                        
                         //particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].feetBox.X, playerList[0].feetBox.Y), Color.Yellow);
                     }
                 }

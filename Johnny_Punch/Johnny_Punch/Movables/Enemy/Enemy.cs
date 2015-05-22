@@ -318,6 +318,7 @@ namespace Johnny_Punch
             {
                 bossShootTimer = 0;
                 bossAttacksList.Add(new Bullet(TextureManager.bulletTex, new Vector2(pos.X, pos.Y), dirNr));
+                AudioManager.Bullet.Play();
             }
         }
 

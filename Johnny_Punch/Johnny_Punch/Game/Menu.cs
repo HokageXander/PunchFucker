@@ -44,6 +44,7 @@ namespace Johnny_Punch
             if ((keyBoardState.IsKeyDown(Keys.Up) && oldKeyBoardState.IsKeyUp(Keys.Up)) ||
                 (gamePadState.DPad.Up == ButtonState.Pressed && oldGamePadState.DPad.Up == ButtonState.Released)) // väljer vilken "knapp" man vill till i menyn
             {
+                AudioManager.MenuMove.Play();
                 menuNumber--;
                 if (menuNumber == 0 && menuState == MenuState.MainMenu || menuNumber == 0 && menuState == MenuState.Pause) // om man trycker upp vid toppen går man till botten
                 {
@@ -63,6 +64,8 @@ namespace Johnny_Punch
             if ((keyBoardState.IsKeyDown(Keys.Down) && oldKeyBoardState.IsKeyUp(Keys.Down)) ||
                 (gamePadState.DPad.Down == ButtonState.Pressed && oldGamePadState.DPad.Down == ButtonState.Released))
             {
+                AudioManager.MenuMove.Play();
+
                 menuNumber++;
                 if (menuNumber == 4 && menuState == MenuState.MainMenu || menuNumber == 4 && menuState == MenuState.Pause)
                 {
@@ -124,6 +127,8 @@ namespace Johnny_Punch
                     if ((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) ||
                         (gamePadState.Buttons.B == ButtonState.Pressed && oldGamePadState.Buttons.B == ButtonState.Released))
                     {
+                        AudioManager.MenuBack.Play();
+
                         menuState = MenuState.MainMenu;
                         menuNumber = 1;
                     }
@@ -149,6 +154,8 @@ namespace Johnny_Punch
                     if ((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) ||
                         (gamePadState.Buttons.B == ButtonState.Pressed && oldGamePadState.Buttons.B == ButtonState.Released))
                     {
+                        AudioManager.MenuBack.Play();
+
                         menuState = MenuState.MainMenu;
                         menuNumber = 1;
                     }
@@ -160,6 +167,8 @@ namespace Johnny_Punch
                     if ((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) ||
                        (gamePadState.Buttons.B == ButtonState.Pressed && oldGamePadState.Buttons.B == ButtonState.Released))
                     {
+                        AudioManager.MenuBack.Play();
+
                         menuState = MenuState.Options;
                         menuNumber = 2;
                     }
@@ -203,6 +212,7 @@ namespace Johnny_Punch
                     if (((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) ||
                         (gamePadState.Buttons.B == ButtonState.Pressed && oldGamePadState.Buttons.B == ButtonState.Released)) && !howTo)
                     {
+                        AudioManager.MenuBack.Play();
                         menuState = MenuState.Pause;
                         menuNumber = 2;
                     }
@@ -215,6 +225,8 @@ namespace Johnny_Punch
                     if (((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) ||
                         (gamePadState.Buttons.B == ButtonState.Pressed && oldGamePadState.Buttons.B == ButtonState.Released)) && howTo)
                     {
+                        AudioManager.MenuBack.Play();
+
                         howTo = false;
                         menuState = MenuState.PauseOptions;
                         menuNumber = 2;
