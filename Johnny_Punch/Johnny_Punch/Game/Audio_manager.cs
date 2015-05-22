@@ -187,10 +187,10 @@ namespace Johnny_Punch
             Punch2 = Content.Load<SoundEffect>(@"Audio\SoundEffects\Punch2");
             Punch3 = Content.Load<SoundEffect>(@"Audio\SoundEffects\Punch3");
             Eat = Content.Load<SoundEffect>(@"Audio\SoundEffects\Eat");
-            Level = Content.Load<SoundEffect>(@"Audio\backgroundmusic\level");
+            Level = Content.Load<SoundEffect>(@"Audio\backgroundmusic\Level1Music1");
             MenuMusic = Content.Load<SoundEffect>(@"Audio\backgroundmusic\MenuMusic");
-            MenuMove = Content.Load<SoundEffect>(@"Audio\backgroundmusic\MenuMove");
-            MenuBack = Content.Load<SoundEffect>(@"Audio\backgroundmusic\MenuBack");
+            MenuMove = Content.Load<SoundEffect>(@"Audio\backgroundmusic\MenuMove1");
+            MenuBack = Content.Load<SoundEffect>(@"Audio\backgroundmusic\MenuBack1");
             Win = Content.Load<SoundEffect>(@"Audio\backgroundmusic\Win");
             Bullet = Content.Load<SoundEffect>(@"Audio\SoundEffects\bullet");
             Jump = Content.Load<SoundEffect>(@"Audio\SoundEffects\Jump");

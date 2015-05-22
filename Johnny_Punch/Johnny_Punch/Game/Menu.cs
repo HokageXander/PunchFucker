@@ -18,7 +18,7 @@ namespace Johnny_Punch
         KeyboardState keyBoardState, oldKeyBoardState;
         GamePadState gamePadState, oldGamePadState;
         public bool play, quit, howTo, sound = true;
-
+        public double spaceTimer;
 
 
         public enum MenuState
@@ -37,6 +37,7 @@ namespace Johnny_Punch
         {
             oldKeyBoardState = keyBoardState;
             keyBoardState = Keyboard.GetState();
+            spaceTimer += gameTime.ElapsedGameTime.Milliseconds;
 
             oldGamePadState = gamePadState;
             gamePadState = GamePad.GetState(PlayerIndex.One);
@@ -88,7 +89,7 @@ namespace Johnny_Punch
             {
                 #region Main Menu
                 case MenuState.MainMenu:
-                    if (menuNumber == 1 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
+                    if (menuNumber == 1 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) && spaceTimer >= 120 ||
                         (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released))) // om man är på 1 som är markerad röd går man dit
                     {
                         menuState = MenuState.NewGame;

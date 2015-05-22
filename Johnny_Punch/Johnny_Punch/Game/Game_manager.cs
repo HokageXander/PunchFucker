@@ -25,6 +25,7 @@ namespace Johnny_Punch
         public double time, digitSeconds;
         public int intro = 0; // vilket intro det är
 
+
         public TimeSpan introSwitch;
 
         public enum GameState
@@ -57,7 +58,6 @@ namespace Johnny_Punch
             oldGamePadState = gamePadState;
             gamePadState = GamePad.GetState(PlayerIndex.One);
             Console.WriteLine(introSwitch);
-
             switch (gameState)
             {
                 case GameState.Intro:
