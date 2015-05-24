@@ -72,8 +72,8 @@ namespace Johnny_Punch
             {
                 if (playerManager.playerList[j].pos.X > 2000 && !spawn1 && LevelManager.levelNr == 1) // när spelaren har nått en punkt så spawnas det fiender, så många som man lägger i if-satsen
                 {
-                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2000, 800)));
-                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2650, 450)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2000, 800)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2650, 450)));
                     spawn1 = true; // måste göra boolen true, så går fienderna till en, och så spawnas det inte mer än vad som står åvan
                     if (PlayerManager.players == 1 && AudioManager.sound)
                         AudioManager.Johnny_screamForMe.Play();
@@ -83,12 +83,12 @@ namespace Johnny_Punch
                 }
                 if (playerManager.playerList[j].pos.X > 3000 && !spawn2 && LevelManager.levelNr == 1)
                 {
-                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3300, 800)));
-                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2400, 450)));
-                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3200, 300)));
-                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3550, 550)));
-                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2800, 800)));
-                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3000, 800)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3300, 800)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2400, 450)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3200, 300)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3550, 550)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2800, 800)));
+                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3000, 800)));
                     spawn2 = true;
                     if (!playerManager.playerList[0].dead && AudioManager.sound)
                         AudioManager.Johnny_OhMommy.Play();

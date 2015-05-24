@@ -162,6 +162,7 @@ namespace Johnny_Punch
                 animationBox.Y = 1020;
                 animationBox.X = 0;
                 animationBox.Width = 125;
+                animationBox.Height = 125;
                 boundingBox = new Rectangle((int)pos.X - width / 2, (int)pos.Y - height / 2, 0, 0);
                 //feetBox = new Rectangle((int)pos.X - (int)49, (int)posJump.Y + (113 - 4) - (int)offset.Y, 0, 0);
                 playerRightBox = new Rectangle((int)pos.X + 5, (int)pos.Y + 35, 0, 0);
