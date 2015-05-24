@@ -14,8 +14,7 @@ namespace Johnny_Punch
 {
     public static class AudioManager
     {
-       
-
+        public static bool sound = true;
         public static Song intro { get; private set; }
 
         #region Johnnys voice

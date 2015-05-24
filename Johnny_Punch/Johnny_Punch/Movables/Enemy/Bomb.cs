@@ -57,7 +57,8 @@ namespace Johnny_Punch
 
             if (!exploded && frame >= 3)
             {
-                AudioManager.Explosion.Play();
+                if (AudioManager.sound)
+                    AudioManager.Explosion.Play();
                 exploded = true;
                 frameTime = 60;
             }

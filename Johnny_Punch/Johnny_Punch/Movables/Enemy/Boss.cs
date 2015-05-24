@@ -24,7 +24,7 @@ namespace Johnny_Punch
             height /= 9;
             aggroRadius = 350;
             damageToPlayer -= 1;
-            life = 12;
+            life = 7;
             enemySpeed = 1.5f;
             scale = 1.2f;
             offset = new Vector2(width / 2, height / 2);
@@ -88,14 +88,20 @@ namespace Johnny_Punch
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(TextureManager.playerShadow, new Vector2(pos.X, pos.Y + (height / 2)), null, new Color(0, 0, 0, 120), 0f, new Vector2(width / 2, height - height / 1.3f), 1, SpriteEffects.None, 0.1f);
+            spriteBatch.Draw(TextureManager.playerShadow, new Vector2(pos.X + 5, pos.Y + ((height / 2) + 8)), null, new Color(0, 0, 0, 120), 0f, new Vector2(width / 2, height - height / 1.3f), 1, SpriteEffects.None, 0.1f);
 
-            if (life <= 3)
+            if (life <= 3 && !dead)
             {
                 spriteBatch.Draw(tex, pos, animationBox, color, 0f, offset, scale, spriteEffect, floatLayerNr);
             }
-            else
+            else if(life > 3 && !dead)
                 spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, offset, scale, spriteEffect, floatLayerNr);
+            else if (whiteNdead && dead) // om han är död blir han vit
+                spriteBatch.Draw(tex, pos, animationBox, new Color(255, 255, 255, 0), 0f, offset, scale, spriteEffect, floatLayerNr);
+            else if (!whiteNdead && dead)
+                spriteBatch.Draw(tex, pos, animationBox, Color.White, 0f, offset, scale, spriteEffect, floatLayerNr);
+            
+
 
             //spriteBatch.Draw(tex, boundingBox, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
             //spriteBatch.Draw(tex, topLeft, null, Color.Blue, 0, Vector2.Zero, SpriteEffects.None, 0.9f);
@@ -194,7 +200,7 @@ namespace Johnny_Punch
         {
             dropSound = Game1.random.Next(1, 5);
 
-            if (!dropTalk)
+            if (!dropTalk && AudioManager.sound)
             {
                 dropTalk = true;
                 switch (dropSound)
@@ -225,7 +231,7 @@ namespace Johnny_Punch
         {
             shootInt = Game1.random.Next(1, 4);
 
-            if (!shootTalk)
+            if (!shootTalk && AudioManager.sound)
             {
                 shootTalk = true;
                 switch (shootInt)

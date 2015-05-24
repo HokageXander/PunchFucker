@@ -44,12 +44,14 @@ namespace Johnny_Punch
             #region Om spelarna dör gör dom ljud
             if (playerList[0].life <= 0 && !deathSound1)
             {
-                AudioManager.Johnny_Oaaooooa.Play();
+                if (AudioManager.sound)
+                    AudioManager.Johnny_Oaaooooa.Play();
                 deathSound1 = true;
             }
             if (players == 2 && playerList[1].life <= 0 && !deathSound2)
             {
-                AudioManager.Tommy_Aoa.Play();
+                if (AudioManager.sound)
+                    AudioManager.Tommy_Aoa.Play();
                 deathSound2 = true;
             }
             //if(players == 2 && playerList[0].life <= 0 && playerList[1].life >= 1)
@@ -152,7 +154,7 @@ namespace Johnny_Punch
                                 enemyManager.enemyList[j].BossHurt();
 
                             particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[i].punchBox.X, playerList[i].punchBox.Y), Color.Red);
-                            
+
                             break;
 
                         }
@@ -182,11 +184,12 @@ namespace Johnny_Punch
                         item.itemList.RemoveAt(j);
                         if (playerList[i].life <= 9)
                             playerList[i].life++;
-                        if (playerList[i].life >= 9 && playerList[i].life >= 10)
+                        if (playerList[i].life >= 9)
                             playerList[i].life = 10;
 
-                        AudioManager.Eat.Play();
-                        
+                        if (AudioManager.sound)
+                            AudioManager.Eat.Play();
+
                         //particleExplosion = new ParticleExplosion(TextureManager.bloodTex, new Vector2(playerList[0].feetBox.X, playerList[0].feetBox.Y), Color.Yellow);
                     }
                 }

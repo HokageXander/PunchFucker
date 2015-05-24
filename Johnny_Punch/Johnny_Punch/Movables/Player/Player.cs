@@ -19,7 +19,7 @@ namespace Johnny_Punch
         public PlayerIndex playerIndex;
         public bool ableToMoveRight = true, hurtTalk, hitTalk;
         TimeSpan hurtTalkTimer, hitTalkTimer;
-        
+
 
         public Player(Texture2D tex, Vector2 pos, PlayerIndex playerIndex)
             : base(tex, pos)
@@ -268,7 +268,8 @@ namespace Johnny_Punch
                     posJump.Y = pos.Y; //när man hoppar svaras punkten man hoppade från i y-led. Man landar på den punkten i y-led sen
                     speed.Y = -3.2f;
                     onGround = false;
-                    AudioManager.Jump.Play();
+                    if (AudioManager.sound)
+                        AudioManager.Jump.Play();
                 }
                 #endregion
             }
@@ -365,10 +366,10 @@ namespace Johnny_Punch
         }
 
         public void PlayerOneHurt()
-        {   
+        {
             hurtSound = Game1.random.Next(1, 6);
 
-            if (!hurtTalk)
+            if (!hurtTalk && AudioManager.sound)
             {
                 hurtTalk = true;
                 switch (hurtSound)
@@ -392,7 +393,7 @@ namespace Johnny_Punch
                     case 5:
                         AudioManager.Johnny_Wheiiii.Play();
                         hurtTalkTimer = TimeSpan.FromMilliseconds(AudioManager.Johnny_Wheiiii.Duration.TotalMilliseconds);
-                        break;         
+                        break;
                 }
             }
         }
@@ -401,7 +402,7 @@ namespace Johnny_Punch
         {
             hurtSound = Game1.random.Next(1, 7);
 
-            if (!hurtTalk)
+            if (!hurtTalk && AudioManager.sound)
             {
                 hurtTalk = true;
                 switch (hurtSound)
@@ -438,18 +439,20 @@ namespace Johnny_Punch
         {
             hitSound = Game1.random.Next(1, 4);
 
-            switch (hitSound)
+            if (AudioManager.sound)
             {
-                case 1:
-                    AudioManager.Punch1.Play();
-
-                    break;
-                case 2:
-                    AudioManager.Punch2.Play();
-                    break;
-                case 3:
-                    AudioManager.Punch3.Play();
-                    break;
+                switch (hitSound)
+                {
+                    case 1:
+                        AudioManager.Punch1.Play();
+                        break;
+                    case 2:
+                        AudioManager.Punch2.Play();
+                        break;
+                    case 3:
+                        AudioManager.Punch3.Play();
+                        break;
+                }
             }
         }
 
@@ -457,7 +460,7 @@ namespace Johnny_Punch
         {
             hitSound = Game1.random.Next(1, 4);
 
-            if (!hitTalk)
+            if (!hitTalk && AudioManager.sound)
             {
                 hitTalk = true;
                 switch (hitSound)
@@ -482,7 +485,7 @@ namespace Johnny_Punch
         {
             hitSound = Game1.random.Next(1, 6);
 
-            if (!hitTalk)
+            if (!hitTalk && AudioManager.sound)
             {
                 hitTalk = true;
                 switch (hitSound)

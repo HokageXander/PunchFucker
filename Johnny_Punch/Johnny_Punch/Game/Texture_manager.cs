@@ -65,7 +65,8 @@ namespace Johnny_Punch
         public static Texture2D startMenuTex { get; private set; }
         public static Texture2D smallPlantTex { get; private set; }
         public static Texture2D jungleEntranceTex { get; private set; }
-        public static Texture2D jungleBackgroundTex { get; private set; }
+        public static Texture2D jungleBackground1Tex { get; private set; }
+        public static Texture2D jungleBackground2Tex { get; private set; }
         public static Texture2D jungleRoadTex { get; private set; }
         public static Texture2D jungleRoadThornTex { get; private set; }
         public static Texture2D templeRoadTex { get; private set; }
@@ -104,9 +105,9 @@ namespace Johnny_Punch
         public static void LoadContent(ContentManager Content)
         {
             #region Intro
-            introScreen1 = Content.Load<Texture2D>(@"images\introScreen1");
-            introScreen2 = Content.Load<Texture2D>(@"images\introScreen2");
-            introScreen3 = Content.Load<Texture2D>(@"images\introScreen3");
+            introScreen1 = Content.Load<Texture2D>(@"images\intro1");
+            introScreen2 = Content.Load<Texture2D>(@"images\intro2");
+            introScreen3 = Content.Load<Texture2D>(@"images\intro3");
             introScreen4 = Content.Load<Texture2D>(@"images\introScreen4");
             #endregion
 
@@ -150,7 +151,8 @@ namespace Johnny_Punch
             startMenuTex = Content.Load<Texture2D>(@"Images\startmenu");
             smallPlantTex = Content.Load<Texture2D>(@"Images\plant");
             jungleEntranceTex = Content.Load<Texture2D>(@"Images\jungleEntrance");
-            jungleBackgroundTex = Content.Load<Texture2D>(@"Images\junglebackground1");
+            jungleBackground1Tex = Content.Load<Texture2D>(@"Images\junglebackground3");
+            jungleBackground2Tex = Content.Load<Texture2D>(@"Images\junglebackground4");
             jungleRoadTex = Content.Load<Texture2D>(@"Images\jungleroad");
             jungleRoadThornTex = Content.Load<Texture2D>(@"Images\jungleroadThorn");
             templeRoadTex = Content.Load<Texture2D>(@"Images\templeroad");

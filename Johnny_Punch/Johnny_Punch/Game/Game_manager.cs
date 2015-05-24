@@ -17,7 +17,7 @@ namespace Johnny_Punch
         public Menu menu;
         public PlayerManager playerManager;
         EnemyManager enemyManager;
-        float musicVolume = 1f;
+        float musicVolume = 0.2f;
         LevelManager levelManager;
         KeyboardState keyBoardState, oldKeyBoardState;
         GamePadState gamePadState, oldGamePadState;
@@ -72,17 +72,17 @@ namespace Johnny_Punch
                     else
                     {                                   // sköter om hur många sekunder varje intro ska vara
                         if (intro == 0)
-                            introSwitch = TimeSpan.FromSeconds(20);
+                            introSwitch = TimeSpan.FromSeconds(15);
                         if (intro == 1)
-                            introSwitch = TimeSpan.FromSeconds(13);
+                            introSwitch = TimeSpan.FromSeconds(21);
                         if (intro == 2)
-                            introSwitch = TimeSpan.FromSeconds(5);
-                        if (intro == 3)
-                            introSwitch = TimeSpan.FromSeconds(14);
+                            introSwitch = TimeSpan.FromSeconds(16);
+                        //if (intro == 3)
+                        //    introSwitch = TimeSpan.FromSeconds(14);
                         intro++;
                     }
 
-                    if (intro == 5)
+                    if (intro == 4)
                     {
                         gameState = GameState.Menu;
                     }
@@ -98,10 +98,10 @@ namespace Johnny_Punch
 
                     MediaPlayer.Stop();
 
-                    if (!menu.sound)
+                    if (!AudioManager.sound)
                     {
-                        MenuMusic.Volume = musicVolume - 1;
-                        LevelMusic.Volume = musicVolume - 1;
+                        MenuMusic.Volume = musicVolume - musicVolume;
+                        LevelMusic.Volume = musicVolume - musicVolume;
                     }
                     else
                         MenuMusic.Volume = musicVolume;
@@ -166,9 +166,9 @@ namespace Johnny_Punch
                             musicVolume = 0;
                     }
 
-                    if (!menu.sound)
+                    if (!AudioManager.sound)
                     {
-                        LevelMusic.Volume = musicVolume - 1;
+                        LevelMusic.Volume = musicVolume - musicVolume;
                     }
                     else
                         LevelMusic.Volume = musicVolume;
@@ -178,15 +178,14 @@ namespace Johnny_Punch
 
                     if (LevelManager.end)
                         gameState = GameState.End;
-
                     break;
 
                 case GameState.Pause:
                     menu.Update(gameTime);
 
-                    if (!menu.sound)
+                    if (!AudioManager.sound)
                     {
-                        LevelMusic.Volume = musicVolume - 1;
+                        LevelMusic.Volume = musicVolume - musicVolume;
                     }
                     else
                         LevelMusic.Volume = musicVolume;
@@ -197,10 +196,7 @@ namespace Johnny_Punch
                     if (menu.menuState == Menu.MenuState.MainMenu)
                     {
                         gameState = GameState.Menu;
-                        Camera.centre = new Vector2(34, 0);
-                        Camera.prevCentre = Camera.centre;
-                        Camera.transform = Matrix.CreateScale(new Vector3(1, 1, 0))
-                * Matrix.CreateTranslation(new Vector3(-Camera.centre.X, -Camera.centre.Y, 0));
+                        RestartCamera();
                     }
                     break;
 
@@ -214,10 +210,7 @@ namespace Johnny_Punch
                         LevelManager.end = false;
                         gameState = GameState.Menu;
                         menu.menuState = Menu.MenuState.MainMenu;
-                        Camera.centre = new Vector2(34, 0);
-                        Camera.prevCentre = Camera.centre;
-                        Camera.transform = Matrix.CreateScale(new Vector3(1, 1, 0))
-                * Matrix.CreateTranslation(new Vector3(-Camera.centre.X, -Camera.centre.Y, 0));
+                        RestartCamera();
                     }
                     break;
             }
@@ -277,11 +270,11 @@ namespace Johnny_Punch
                 case GameState.Intro:
 
                     if (intro == 1)                                                           // vilket intro som ska visas
-                        spriteBatch.Draw(TextureManager.introScreen1, Vector2.Zero, Color.Red);
+                        spriteBatch.Draw(TextureManager.introScreen1, Vector2.Zero, Color.White);
                     if (intro == 2)
-                        spriteBatch.Draw(TextureManager.introScreen2, Vector2.Zero, Color.Blue);
+                        spriteBatch.Draw(TextureManager.introScreen2, Vector2.Zero, Color.White);
                     if (intro == 3)
-                        spriteBatch.Draw(TextureManager.introScreen3, Vector2.Zero, Color.Green);
+                        spriteBatch.Draw(TextureManager.introScreen3, Vector2.Zero, Color.White);
                     if (intro == 4)
                         spriteBatch.Draw(TextureManager.introScreen4, Vector2.Zero, Color.Pink);
 
@@ -370,6 +363,14 @@ namespace Johnny_Punch
             secondDigitHours = 0;
 
             digitSeconds = 0;
+        }
+
+        public void RestartCamera()
+        {
+            Camera.centre = new Vector2(34, 0);
+            Camera.prevCentre = Camera.centre;
+            Camera.transform = Matrix.CreateScale(new Vector3(1, 1, 0))
+    * Matrix.CreateTranslation(new Vector3(-Camera.centre.X, -Camera.centre.Y, 0));
         }
     }
 }

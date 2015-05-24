@@ -17,7 +17,7 @@ namespace Johnny_Punch
         int menuNumber = 1;
         KeyboardState keyBoardState, oldKeyBoardState;
         GamePadState gamePadState, oldGamePadState;
-        public bool play, quit, howTo, sound = true;
+        public bool play, quit, howTo;
         public double spaceTimer;
 
 
@@ -138,14 +138,14 @@ namespace Johnny_Punch
                 #region Options
                 case MenuState.Options:
                     if (menuNumber == 1 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
-                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)) && sound)
+                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)) && AudioManager.sound)
                     {
-                        sound = false;
+                        AudioManager.sound = false;
                     }
                     else if (menuNumber == 1 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
-                        || (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)) && !sound)
+                        || (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)) && !AudioManager.sound)
                     {
-                        sound = true;
+                        AudioManager.sound = true;
                     }
                     if (menuNumber == 2 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter))
                         || (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)))
@@ -200,14 +200,14 @@ namespace Johnny_Punch
                 #region Pause Options
                 case MenuState.PauseOptions:
                     if (menuNumber == 1 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
-                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)) && sound)
+                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)) && AudioManager.sound)
                     {
-                        sound = false;
+                        AudioManager.sound = false;
                     }
                        else if (menuNumber == 1 && ((keyBoardState.IsKeyDown(Keys.Enter) && oldKeyBoardState.IsKeyUp(Keys.Enter)) ||
-                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)) && !sound)
+                        (gamePadState.Buttons.A == ButtonState.Pressed && oldGamePadState.Buttons.A == ButtonState.Released)) && !AudioManager.sound)
                     {
-                        sound = true;
+                        AudioManager.sound = true;
                         menuNumber = 1;
                     }
                     if (((keyBoardState.IsKeyDown(Keys.Back) && oldKeyBoardState.IsKeyUp(Keys.Back)) ||
@@ -322,7 +322,7 @@ namespace Johnny_Punch
                     else
                         spriteBatch.Draw(TextureManager.menuSound, new Vector2(252, 200), Color.Yellow);
 
-                    if (sound)
+                    if (AudioManager.sound)
                     {
                         spriteBatch.Draw(TextureManager.menuSoundOn, new Vector2(1020, 230), Color.Yellow);
                     }
@@ -377,8 +377,8 @@ namespace Johnny_Punch
                     }
                     else
                         spriteBatch.Draw(TextureManager.menuSound, new Vector2(290, 200), Color.Yellow);
-                    
-                    if (sound)
+
+                     if (AudioManager.sound)
                     {
                         spriteBatch.Draw(TextureManager.menuSoundOn, new Vector2(800, 230), Color.Yellow);
                     }

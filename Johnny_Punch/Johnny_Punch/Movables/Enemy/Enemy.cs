@@ -115,7 +115,7 @@ namespace Johnny_Punch
                     i = 1;
             }
             if (PlayerManager.players == 2 && player[0].dead) //om spelare ett dör går han direkt till spelare 2
-                    i = 1;
+                i = 1;
 
 
             Vector2 playerfeetPos = new Vector2(player[i].feetBox.X, player[i].feetBox.Y);
@@ -318,18 +318,19 @@ namespace Johnny_Punch
             {
                 bossShootTimer = 0;
                 bossAttacksList.Add(new Bullet(TextureManager.bulletTex, new Vector2(pos.X, pos.Y), dirNr));
-                AudioManager.Bullet.Play();
+                if (AudioManager.sound)
+                    AudioManager.Bullet.Play();
             }
         }
 
         public void BossDropBomb(List<BossAttacks> bossAttacksList, GameTime gameTime)
         {
             bossDropBombTimer += gameTime.ElapsedGameTime.TotalMilliseconds;
-  
+
             if (bossDropBombTimer >= 700)
             {
 
-                
+
                 bossDropBombTimer = 0;
                 bossAttacksList.Add(new Bomb(TextureManager.bombTex, new Vector2(pos.X, pos.Y), TextureManager.explosionTex));
             }
@@ -339,7 +340,7 @@ namespace Johnny_Punch
         {
             hurtSound = Game1.random.Next(1, 7);
 
-            if (!hurtTalk)
+            if (!hurtTalk && AudioManager.sound)
             {
                 hurtTalk = true;
                 switch (hurtSound)

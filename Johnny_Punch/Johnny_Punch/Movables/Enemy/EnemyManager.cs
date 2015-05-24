@@ -72,33 +72,32 @@ namespace Johnny_Punch
             {
                 if (playerManager.playerList[j].pos.X > 2000 && !spawn1 && LevelManager.levelNr == 1) // när spelaren har nått en punkt så spawnas det fiender, så många som man lägger i if-satsen
                 {
-                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2000, 800)));
-                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2650, 450)));
+                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2000, 800)));
+                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2650, 450)));
                     spawn1 = true; // måste göra boolen true, så går fienderna till en, och så spawnas det inte mer än vad som står åvan
-                    if (PlayerManager.players == 1)
+                    if (PlayerManager.players == 1 && AudioManager.sound)
                         AudioManager.Johnny_screamForMe.Play();
-                    else
+                    else if (PlayerManager.players == 2 && AudioManager.sound)
                         AudioManager.Tommy_LickMyPeePee.Play();
 
                 }
                 if (playerManager.playerList[j].pos.X > 3000 && !spawn2 && LevelManager.levelNr == 1)
                 {
-                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3300, 800)));
-                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2400, 450)));
-                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3200, 300)));
-                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3550, 550)));
-                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2800, 800)));
-                    enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3000, 800)));
+                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3300, 800)));
+                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2400, 450)));
+                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3200, 300)));
+                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3550, 550)));
+                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2800, 800)));
+                    //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(3000, 800)));
                     spawn2 = true;
-                    if(!playerManager.playerList[0].dead)
-                    AudioManager.Johnny_OhMommy.Play();
+                    if (!playerManager.playerList[0].dead && AudioManager.sound)
+                        AudioManager.Johnny_OhMommy.Play();
                 }
                 if (LevelManager.levelNr == 2 && spawn1 && spawn2)
                 {
                     spawn1 = false;
                     spawn2 = false;
                     enemyList.Add(new Boss(TextureManager.standardEnemyTex, new Vector2(2600, 450)));
-
                 }
                 for (int i = 0; i < enemyList.Count; i++) //spawnar fiender under bossfighten
                 {
@@ -110,7 +109,7 @@ namespace Johnny_Punch
                         //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(2600, 800)));
                         //enemyList.Add(new StandardEnemy(TextureManager.standardEnemyTex, new Vector2(1000, 300)));
                         spawn1 = true;
-                        if (PlayerManager.players == 2)
+                        if (PlayerManager.players == 2 && AudioManager.sound)
                             AudioManager.Tommy_YMCA.Play();
                     }
                 }
@@ -217,13 +216,12 @@ namespace Johnny_Punch
             #region Remove Boss Attacks
             for (int j = 0; j < bossAttackList.Count; j++)
             {
-                if (bossAttackList[j].bulletTimer >= 3.5f && bossAttackList[j] is Bullet )
+                if (bossAttackList[j].bulletTimer >= 3.5f && bossAttackList[j] is Bullet)
                 {
                     bossAttackList.RemoveAt(j);
                 }
-                if (bossAttackList[j].frame >= 13 && bossAttackList[j] is Bomb  )
+                if (bossAttackList[j].frame >= 13 && bossAttackList[j] is Bomb && bossAttackList.Count >= 1)
                 {
-                    
                     bossAttackList.RemoveAt(j);
                 }
             }
@@ -325,7 +323,8 @@ namespace Johnny_Punch
                 Camera.smooth = true;
                 if (waveNr == 1)
                 {
-                    AudioManager.Johnny_ICouldDoItAllNight.Play();
+                    if (AudioManager.sound)
+                        AudioManager.Johnny_ICouldDoItAllNight.Play();
                     waveNr++;
                 }
             }
@@ -335,9 +334,9 @@ namespace Johnny_Punch
                 Camera.smooth = true;
                 if (waveNr == 2)
                 {
-                    if (PlayerManager.players == 1)
+                    if (PlayerManager.players == 1 && AudioManager.sound)
                         AudioManager.Johnny_FasterThenTheSpeedOfFight.Play();
-                    else
+                    else if (PlayerManager.players == 2 && AudioManager.sound)
                         AudioManager.Tommy_ImGonnaBeAnAngel.Play();
                     waveNr++;
                 }
@@ -348,9 +347,9 @@ namespace Johnny_Punch
                 Camera.smooth = true;
                 if (waveNr == 3)
                 {
-                    if (PlayerManager.players == 1)
+                    if (PlayerManager.players == 1 && AudioManager.sound)
                         AudioManager.Johnny_NoTimeForButt.Play();
-                    else
+                    else if (PlayerManager.players == 2 && AudioManager.sound)
                         AudioManager.Tommy_Toodiloo.Play();
                     waveNr++;
                 }
