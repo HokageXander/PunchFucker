@@ -220,7 +220,7 @@ namespace Johnny_Punch
                 {
                     bossAttackList.RemoveAt(j);
                 }
-                if (bossAttackList[j].frame >= 13 && bossAttackList[j] is Bomb && bossAttackList.Count >= 1)
+                if (bossAttackList[j] is Bomb && bossAttackList[j].frame >= 13 )
                 {
                     bossAttackList.RemoveAt(j);
                 }
